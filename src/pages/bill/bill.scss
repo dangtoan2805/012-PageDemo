@@ -1,0 +1,110 @@
+page-bill {
+  .header {
+    background-color: white;
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: center;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    .segment .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+      line-height: 8vh !important;
+      color: black !important;
+      border-color: white !important;
+      display: inline-block;
+      min-width: 22vh;
+
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment .segment-button.segment-activated {
+      border-bottom: 0.5vh solid orange !important;
+      background-color: white !important;
+      font-weight: bold;
+      transition: none !important;
+    }
+
+    .icon {
+      position: absolute;
+      font-size: 4vh !important;
+      margin-left: 48vw !important;
+      line-height: 8vh !important;
+    }
+  }
+
+  .content {
+    background-color: #def3c9;
+    border: 1px solid lightblue;
+    height: 100%;
+    .bill {
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .bill-area {
+        width: 55vw;
+        height: 100%;
+      }
+      .bill-details {
+        width: 45vw;
+        height: 100%;
+      }
+    }
+  }
+  .footer {
+    background-color: #35be1b;
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    .segment .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+      line-height: 8vh !important;
+      color: white !important;
+
+      border-color: #35be1b !important;
+      display: inline-block;
+      min-width: 22vh;
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment .segment-button.segment-activated {
+      border-top: 0.5vh solid orange !important;
+      background-color: #35be1b !important;
+      font-weight: bold;
+    }
+    // .segment .segment-button:active:not(.segment-activated) {
+    //   border-top: 0.5vh solid orange !important;
+    //   background-color: #35be1b !important;
+    //   font-weight: bold;
+    // }
+
+    // .segment .segment-button:last-of-type {
+    //   max-width: 22vh !important;
+    // }
+    .segment .segment-button ion-icon {
+      font-size: 5.5vh !important;
+      line-height: 8vh !important;
+    }
+    .icon {
+      position: absolute;
+      font-size: 3vh !important;
+      margin-left: 49vw !important;
+      color: white;
+    }
+  }
+}

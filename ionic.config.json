@@ -1,0 +1,7 @@
+{
+  "name": "SonoffStore",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

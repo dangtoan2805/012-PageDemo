@@ -1,0 +1,124 @@
+page-area {
+  .header {
+    background-color: white;
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    .segment .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+      line-height: 8vh !important;
+      color: black !important;
+      border-color: white !important;
+      display: inline-block;
+      min-width: 22vh;
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment .segment-button.segment-activated {
+      border-bottom: 0.5vh solid orange !important;
+      background-color: white !important;
+      font-weight: bold;
+    }
+    // .segment .segment-button:active:not(.segment-activated) {
+    //   border-bottom: 0.5vh solid orange !important;
+    //   background-color: white !important;
+    //   font-weight: bold;
+    //   -webkit-transition: none !important;
+
+    //   transition: none !important;
+    // }
+    .icon {
+      position: absolute;
+      font-size: 3vh !important;
+      margin-left: 49vw !important;
+    }
+  }
+  .content {
+    height: 100%;
+    background-color: #def3c9;
+    border: 1px solid lightblue;
+
+    // .bill {
+    //   height: 100%;
+    //   flex-direction: column;
+    //   align-items: center;
+    //   justify-content: center;
+    //   .bill-area {
+    //     width: 55vw;
+    //     height: 100%;
+    //   }
+    //   .bill-details {
+    //     width: 45vw;
+    //     height: 100%;
+    //   }
+    .fab ion-icon {
+      font-size: 8.5vh !important;
+    }
+    .fab-md-light {
+      width: 9vh !important;
+      height: 9vh !important;
+    }
+    .fab-ios-light {
+      width: 9vh !important;
+      height: 9vh !important;
+    }
+  }
+  .footer {
+    background-color: #35be1b;
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    .segment .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+      line-height: 8vh !important;
+      color: white !important;
+
+      border-color: #35be1b !important;
+      display: inline-block;
+      min-width: 22vh;
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment .segment-button.segment-activated {
+      border-top: 1vh solid orange !important;
+      background-color: #35be1b !important;
+      font-weight: bold;
+    }
+    // .segment .segment-button:active:not(.segment-activated) {
+    //   border-top: 0.5vh solid orange !important;
+    //   background-color: #35be1b !important;
+    //   font-weight: bold;
+    // }
+
+    // .segment .segment-button:last-of-type {
+    //   max-width: 22vh !important;
+    // }
+    .segment .segment-button ion-icon {
+      font-size: 5.5vh !important;
+      line-height: 8vh !important;
+    }
+    .icon {
+      position: absolute;
+      font-size: 3vh !important;
+      margin-left: 49vw !important;
+      color: white;
+    }
+  }
+}

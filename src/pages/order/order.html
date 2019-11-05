@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar color="light" class="header">
+    <ion-title>Mang Về ></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="content">
+  <ion-row class="bill">
+    <div class="bill-area"></div>
+    <div class="bill-details"></div>
+  </ion-row>
+</ion-content>
+<ion-footer>
+  <ion-segment class="footer">
+    <!-- <ion-segment-button value="0">
+      Hóa Đơn
+    </ion-segment-button> -->
+    <ion-segment-button *ngFor="let item of menu" value="{{ item.id }}">
+      {{ item.name }}
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>

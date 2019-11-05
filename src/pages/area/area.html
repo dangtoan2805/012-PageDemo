@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-segment class="header">
+    <!-- <ion-buttons end class="icon " *ngIf="data > 5 ? true : false">
+      <h2>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </h2>
+    </ion-buttons> -->
+
+    <ion-segment-button *ngFor="let item of tang" value="{{ item.id }}">
+      {{ item.name }}
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding class="content">
+  
+  <ion-fab bottom left>
+    <button ion-fab color="light" (click)="openInfo()">
+      <ion-icon name="add" color="myapp"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-segment
+    class="footer"
+    [(ngModel)]="footer"
+    (ionChange)="segmentChanged()"
+  >
+    <ion-buttons end class="icon " *ngIf="data > 5 ? true : false">
+      <h2>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </h2>
+    </ion-buttons>
+    <ion-segment-button value="bill" (ionSelect)="goToBillPage()">
+      Hóa Đơn
+    </ion-segment-button>
+    <ion-segment-button *ngFor="let item of menu" value="{{ item.id }}">
+      {{ item.name }}
+    </ion-segment-button>
+    <ion-segment-button value="logout">
+      Thoát
+      <ion-icon name="log-out"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>
