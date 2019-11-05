@@ -1,0 +1,60 @@
+menu-food {
+   
+ 
+    .scroll-content{
+        background-color:  #def3c9;
+        padding:0px;
+    }
+    .grid {
+        align-self: center;
+        
+        ion-col {
+          padding: 2px;
+        }
+    
+        ion-card {
+          max-width: 150px;
+          max-height: 150px;
+        }
+      }
+    
+      .card-content {
+        padding: 0 !important;
+      }
+    
+      .fr-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid;
+        border-color: #313130;
+        box-shadow: 2px 4px #e0e0db;
+        height: 90%;
+    
+        // khối bao phần text
+        .content-name {
+          height: 100%;
+          width: 100%;
+          h2 {
+            justify-content: center;
+            word-break: hyphenate;
+            width: 100%;
+            display: inline-flex;
+            text-align: center;
+            font-weight: 500;
+    
+            font-size: 100%;
+          }
+        }
+    
+        // khối chứa ảnh
+        .image {
+          width: 100%;
+          height: 85%;
+          border: 2px soild;
+          border-color: black;
+          padding: 3%;
+        }
+      }
+    
+}

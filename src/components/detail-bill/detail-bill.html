@@ -1,4 +1,99 @@
-<!-- Generated template for the DetailBillComponent component -->
-<div>
-  {{text}}
+<div class="bill-container">
+  <div class="bill-header">
+    <p><b>Tang 1 > Anh Khoa</b></p>
+    <p>Note content</p>
+  </div>
+
+  <div class="bill-content">
+    <ion-scroll>
+      <ion-item class="fr-card">
+        <ion-card class="card" *ngFor="let item of menuFood">
+          <ion-card-content>
+            <ion-row class="card-row">
+              <ion-col col-1 id="col-icon-updown">
+                <div>
+                  <ion-icon
+                    id="btn-up"
+                    ios="ios-arrow-up-outline"
+                    md="md-arrow-dropup"
+                    (click)="up(item)"
+                  ></ion-icon>
+                  <p id="amount">
+                    <b>{{ item.number }}</b>
+                  </p>
+                  <ion-icon
+                    id="btn-down"
+                    ios="ios-arrow-down-outline"
+                    md="md-arrow-dropdown"
+                    name="remove"
+                    (click)="down(item)"
+                  ></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col col-7 class="center-content">
+                <h2>
+                  {{ item.name }}
+                </h2>
+              </ion-col>
+              <ion-col col-3 class="center-content">
+                <h2>
+                  {{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}
+                </h2>
+              </ion-col>
+              <ion-col
+                col-1
+                id="col-icon-exit"
+                (click)="delete(item, item.id)"
+                class="center-content"
+              >
+                <ion-icon style="font-size: 2vh;" name="close"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-scroll>
+  </div>
+
+  <div class="bill-footer">
+    <div class="tinh-bill">
+      <p><b>Tam tinh:</b></p>
+      <p>
+        <b>{{ tamtinh | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
+      </p>
+    </div>
+
+    <div class="tinh-bill">
+      <p><b>Phu phi:</b></p>
+      <p>
+        <b> 0 </b>
+      </p>
+    </div>
+
+    <div class="tinh-bill">
+      <p><b>Thue VAT</b></p>
+      <p>
+        <b>{{ vat | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
+      </p>
+    </div>
+
+    <div class="tong-bill">
+      <p id="text">
+        <b>Tong Cong:</b>
+        <b style="color: red;">{{
+          total | currency: "VND":"symbol-narrow":"1.0-0"
+        }}</b>
+      </p>
+    </div>
+
+    <div class="print">
+      <ion-icon style="color: #408094;" name="print"></ion-icon>
+      <p>In xuong bep</p>
+    </div>
+
+    <div class="btn-submit">
+      <button class="btn-luu">Luu</button>
+      <button class="btn-thanhtoan">Thanh Toan</button>
+    </div>
+  </div>
 </div>

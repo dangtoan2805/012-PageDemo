@@ -36,6 +36,7 @@ export class BillPage {
       name: "Tầng 6"
     }
   ];
+
   menu: Array<any> = [
     {
       id: 1,
@@ -63,8 +64,8 @@ export class BillPage {
     }
   ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad BillPage");
+  
+  gotoHome() {
+    this.navCtrl.pop();
   }
 }

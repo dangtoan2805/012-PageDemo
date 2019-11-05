@@ -1,0 +1,23 @@
+
+  <ion-content class="Mcontainer">
+    <ion-grid class="grid-fr">
+      <ion-row>
+        <ion-col col-4 col-sm-4 col-md-4 col-xl-4 *ngFor="let item of foodRes">
+          <ion-card class="fr-card">
+            <ion-card-content>
+              <div class="image">
+                <img
+                  (error)="item.imageUrl = defaultImage"
+                  [src]="item.imageUrl"
+                />
+              </div>
+              <div class="content-name">
+                <h2>{{ item.name }}</h2>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  

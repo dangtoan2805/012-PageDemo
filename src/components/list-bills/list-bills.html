@@ -1,4 +1,39 @@
-<!-- Generated template for the ListBillsComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-content padding>
+  <ion-card
+    *ngFor="let item of bill"
+    [style.border-left]="
+      item.status == true ? '15px solid green ' : '15px solid orange '
+    "
+    (click)="pushBill(item, item.name)"
+  >
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-6 col-xl-6 class="box1">
+          <ion-row>
+            <ion-col col-2 col-xl-2 class="icon">
+              <ion-icon ios="ios-paper-outline" md="md-paper"></ion-icon>
+            </ion-col>
+            <ion-col col-1 col-xl-1 class="line">
+              <div class="drawline"></div>
+            </ion-col>
+            <ion-col col-9 col-xl-9 class="name">
+              <h2>
+                <b>{{ item.name }}</b>
+              </h2>
+              <p>{{ item.date }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col col-6 col-xl-6 class="box2">
+          <h2>
+            <b>Tổng Cộng</b> :
+            <b style="color: red;">
+              {{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}</b
+            >
+          </h2>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

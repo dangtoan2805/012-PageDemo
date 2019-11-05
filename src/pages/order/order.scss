@@ -13,7 +13,7 @@ page-order {
     }
   }
 
-  .content {
+  .contentB {
     background-color: #def3c9;
     height: 100%;
     overflow-y: hidden !important;
@@ -25,10 +25,11 @@ page-order {
     .bill {
       height: 100%;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: flex;
       justify-content: space-between;
+
       .bill-area {
-        width: 55vw;
+        width: 55%;
         height: 100%;
         border: 1px solid gray;
       }

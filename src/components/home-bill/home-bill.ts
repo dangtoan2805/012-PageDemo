@@ -14,6 +14,16 @@ export class HomeBillComponent {
 
   text: string;
 
+  data: Array<any> = [
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 }
+  ];
+
   constructor() {
     console.log('Hello HomeBillComponent Component');
     this.text = 'Hello World';

@@ -12,11 +12,8 @@ import { Component } from '@angular/core';
 })
 export class DetailBillComponent {
 
-  text: string;
-
   constructor() {
-    console.log('Hello DetailBillComponent Component');
-    this.text = 'Hello World';
+  
   }
 
 }

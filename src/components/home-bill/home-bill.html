@@ -1,4 +1,22 @@
-<!-- Generated template for the HomeBillComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-content padding>
+  <ion-row>
+    <ion-col col-4 *ngFor="let item of data">
+      <div class="boxt">
+        <div class="box0">
+          <ion-icon name="person"> KH : {{ item.name }} </ion-icon>
+        </div>
+        <div class="box1">
+          <ion-row>
+            <h1>{{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}</h1>
+          </ion-row>
+        </div>
+        <div class="box2">
+          <button ion-button outline color="danger" (click)="gotoBill()">
+            Hoa Don
+          </button>
+          <button ion-button outline color="secondary">Thanh Toan</button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-content>

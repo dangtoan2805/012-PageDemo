@@ -1,7 +1,7 @@
 <ion-header>
   <ion-segment class="header">
     <ion-buttons end class="icon">
-      <a>
+      <a (click)="gotoHome()">
         <ion-icon name="close"></ion-icon>
       </a>
     </ion-buttons>
@@ -13,18 +13,13 @@
 
 <ion-content padding class="content">
   <ion-row class="bill">
-    <div class="bill-area"></div>
+    <div class="bill-area">
+     <list-bills></list-bills>
+    </div>
 
-    <div class="bill-details"></div>
+    <div class="bill-details">
+     <detail-bill></detail-bill>
+    </div>
   </ion-row>
 </ion-content>
-<!-- <ion-footer>
-  <ion-segment class="footer">
-    <ion-segment-button value="0">
-      Hóa Đơn
-    </ion-segment-button>
-    <ion-segment-button *ngFor="let item of menu" value="{{ item.id }}">
-      {{ item.name }}
-    </ion-segment-button>
-  </ion-segment>
-</ion-footer> -->
+

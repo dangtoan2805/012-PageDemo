@@ -1,3 +1,4 @@
+import { HomeBillComponent } from './../components/home-bill/home-bill';
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
@@ -10,14 +11,15 @@ import { MyApp } from "./app.component";
 import { OrderPage } from "../pages/order/order";
 import { AreaPage } from "../pages/area/area";
 import { BillPage } from "../pages/bill/bill";
+import {HomeInfoPage} from "../pages/popups/home-info/home-info"
 /// component===============
 import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
-  declarations: [MyApp, AreaPage, BillPage, OrderPage],
-  imports: [BrowserModule, ComponentsModule, IonicModule.forRoot(MyApp)],
+  declarations: [MyApp, AreaPage, BillPage, OrderPage,HomeInfoPage],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp),ComponentsModule],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, OrderPage, AreaPage, BillPage],
+  entryComponents: [MyApp, OrderPage, AreaPage, BillPage,HomeInfoPage],
   providers: [
     StatusBar,
     SplashScreen,
