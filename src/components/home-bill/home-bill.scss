@@ -1,54 +1,56 @@
 home-bill {
-    .boxt {
-        height: 35vh;
-        width: 25vw;
-        .box0 {
-          height: 25%;
-          width: 100%;
-          background-color: green;
-          display: flex;
-    
-          align-items: center;
-          ion-icon {
-            position: absolute;
-            color: white;
-            font-size: 3vh;
-          }
-        }
-        .box1 {
-          height: 40%;
-          width: 100%;
-          border-left: 1px solid gray;
-          border-right: 1px solid gray;
-    
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          h1 {
-            color: red;
-            margin-top: 35%;
-            font-size: 4vh;
-          }
-        }
-        .box2 {
-          height: 35%;
-          width: 100%;
-          border-left: 1px solid gray;
-          border-right: 1px solid gray;
-          border-bottom: 1px solid gray;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          button {
-            text-transform: capitalize !important;
-            margin: 2.5%;
-            width: 42%;
-            height: 42%;
-            font-weight: bold;
-            font-size: 1.4vw;
-          }
-        }
+  .boxt {
+    height: 26vh;
+    width: 20vw;
+
+    .box0 {
+      height: 25%;
+      width: 100%;
+      background-color: green;
+      display: flex;
+
+      align-items: center;
+      ion-icon {
+        position: absolute;
+        color: white;
+        font-size: 3vh;
+        margin-left: 15px;
       }
+    }
+    .box1 {
+      height: 40%;
+      width: 100%;
+      border-left: 1px solid gray;
+      border-right: 1px solid gray;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      h1 {
+        color: red;
+        margin-top: 35%;
+        font-size: 4vh;
+      }
+    }
+    .box2 {
+      height: 35%;
+      width: 100%;
+      border-left: 1px solid gray;
+      border-right: 1px solid gray;
+      border-bottom: 1px solid gray;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      button {
+        text-transform: capitalize !important;
+        margin: 2.5%;
+        width: 42%;
+        height: 42%;
+        font-weight: bold;
+        font-size: 1.2vw;
+      }
+    }
+  }
 }

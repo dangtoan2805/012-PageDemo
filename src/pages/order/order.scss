@@ -11,6 +11,15 @@ page-order {
     .toolbar-title-ios {
       font-size: 3vh !important;
     }
+    .bar-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      ion-icon {
+        text-align: center !important;
+        font-size: 4vh !important;
+      }
+    }
   }
 
   .contentB {
@@ -56,17 +65,20 @@ page-order {
     .segment .segment-button {
       font-size: 3vh !important;
       height: 8vh !important;
-      line-height: 8vh !important;
+
       color: white !important;
 
       border-color: #35be1b !important;
-      display: inline-block;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      display: inline-flex;
       min-width: 22vh;
       width: auto;
       text-transform: capitalize !important;
     }
     .segment .segment-button.segment-activated {
-      border-top: 0.5vh solid orange !important;
+      border-top: 1vh solid orange !important;
       background-color: #35be1b !important;
       font-weight: bold;
     }

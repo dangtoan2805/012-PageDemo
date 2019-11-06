@@ -1,19 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
-/**
- * Generated class for the DetailBillComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
-  selector: 'detail-bill',
-  templateUrl: 'detail-bill.html'
+  selector: "detail-bill",
+  templateUrl: "detail-bill.html"
 })
 export class DetailBillComponent {
-
-  constructor() {
-  
+  @Input("note") note: any;
+  @Input("name") name: any;
+  constructor() {}
+  ionViewDidLoad() {
+    console.log(this.note);
   }
-
 }

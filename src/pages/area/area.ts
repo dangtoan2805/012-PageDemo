@@ -1,16 +1,22 @@
-import { BillPage } from './../bill/bill';
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams ,ModalController} from "ionic-angular";
-import {HomeInfoPage} from "../popups/home-info/home-info"
+import {
+  NavController,
+  NavParams,
+  ModalController,
+  AlertController
+} from "ionic-angular";
+import { HomeInfoPage } from "../popups/home-info/home-info";
+import { BillPage } from "./../bill/bill";
+import { OrderPage } from "./../order/order";
 
 @Component({
   selector: "page-area",
   templateUrl: "area.html"
 })
-
 export class AreaPage {
   id: any;
-  footer: any = 1;
+  footer: string;
+  header: string;
   items: Array<any>;
   bill: Array<any> = [];
   bills: any = "";
@@ -77,21 +83,67 @@ export class AreaPage {
       name: "Menu 6"
     }
   ];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController,) {}
+  //====================== Life Cycle ==========
+  // constructor --> ionViewDidLoad --> ionViewWillEnter -->
+  // ionViewDidEnter --> ionViewWillLeave --> ionViewDidLeave --> ionViewWillUnload
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private modalCtrl: ModalController,
+    public alertCtrl: AlertController
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad AreaPage");
   }
-
-  openInfo() {
-    let modal = this.modalCtrl.create(HomeInfoPage);
-    modal.present();
+  ionViewWillEnter() {
+    console.log("ionViewWillEnter AreaPage");
+    this.header = "Mang Về";
+    this.footer = "";
   }
 
-  gotobill(){
+  // openInfo() {
+  //   let modal = this.modalCtrl.create(HomeInfoPage);
+  //   modal.present();
+  // }
+  openInfo() {
+    let alert = this.alertCtrl.create({});
+    alert.setTitle("Mang Về");
+
+    alert.addInput({
+      type: "input",
+      placeholder: "Tên Khách",
+      name: "name"
+    });
+
+    alert.addInput({
+      type: "textarea",
+      placeholder: "Ghi Chú",
+      name: "note"
+    });
+
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: data => {
+        console.log("Checkbox data:", data);
+        this.navCtrl.push(
+          OrderPage,
+          {
+            data: data
+          },
+          { animate: false }
+        );
+      }
+    });
+
+    alert.present();
+  }
+
+  goToBill() {
     console.log("aaaaa");
-    this.navCtrl.push(BillPage);
+
+    this.navCtrl.push(BillPage, {}, { animate: false });
   }
 
   // segmentChanged() {
@@ -103,5 +155,4 @@ export class AreaPage {
   gotomenu(event) {
     // console.log(event.value);
   }
-
 }

@@ -1,11 +1,16 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
+import { BillPage } from "./../bill/bill";
 
 @Component({
   selector: "page-order",
   templateUrl: "order.html"
 })
 export class OrderPage {
+  name: any;
+  note: any;
+  data: any;
+  footer: string;
   menu: Array<any> = [
     {
       id: 1,
@@ -35,6 +40,22 @@ export class OrderPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad OrderPage");
+    this.getNote();
+  }
+  ionViewWillEnter() {
+    this.footer = "Menu 1";
+  }
+  getNote() {
+    this.data = this.navParams.get("data");
+    this.name = this.data.name;
+    this.note = this.data.note;
+  }
+  goToBill() {
+    console.log("aaaaa");
+
+    this.navCtrl.push(BillPage, {}, { animate: false });
+  }
+  goBack() {
+    this.navCtrl.pop({ animate: false });
   }
 }

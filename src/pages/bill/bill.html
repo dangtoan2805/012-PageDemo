@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-segment class="header">
+  <ion-segment class="header" [(ngModel)]="header">
     <ion-buttons end class="icon">
       <a (click)="gotoHome()">
-        <ion-icon name="close"></ion-icon>
+        <ion-icon name="close" color="myapp"></ion-icon>
       </a>
     </ion-buttons>
-    <ion-segment-button *ngFor="let item of tang" value="{{ item.id }}">
+    <ion-segment-button *ngFor="let item of tang" value="{{ item.name }}">
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>
@@ -14,12 +14,11 @@
 <ion-content padding class="content">
   <ion-row class="bill">
     <div class="bill-area">
-     <list-bills></list-bills>
+      <list-bills></list-bills>
     </div>
 
     <div class="bill-details">
-     <detail-bill></detail-bill>
+      <detail-bill></detail-bill>
     </div>
   </ion-row>
 </ion-content>
-

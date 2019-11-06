@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 /**
  * Generated class for the HomeBillComponent component.
@@ -7,14 +7,18 @@ import { Component } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'home-bill',
-  templateUrl: 'home-bill.html'
+  selector: "home-bill",
+  templateUrl: "home-bill.html"
 })
 export class HomeBillComponent {
-
   text: string;
 
   data: Array<any> = [
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
+    { id: 0, name: "Anh Hai", price: 5000000 },
     { id: 0, name: "Anh Hai", price: 5000000 },
     { id: 0, name: "Anh Hai", price: 5000000 },
     { id: 0, name: "Anh Hai", price: 5000000 },
@@ -25,8 +29,7 @@ export class HomeBillComponent {
   ];
 
   constructor() {
-    console.log('Hello HomeBillComponent Component');
-    this.text = 'Hello World';
+    console.log("Hello HomeBillComponent Component");
+    this.text = "Hello World";
   }
-
 }

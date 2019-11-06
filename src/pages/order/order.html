@@ -1,6 +1,11 @@
 <ion-header>
-  <ion-navbar color="light" class="header">
-    <ion-title>Mang Về ></ion-title>
+  <ion-navbar [hideBackButton]="true" color="light" class="header">
+    <ion-title>Mang Về > </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="close" color="myapp"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -10,16 +15,16 @@
       <menu-food></menu-food>
     </div>
     <div class="bill-details">
-      <detail-bill></detail-bill>
+      <detail-bill [note]="note" [name]="name"></detail-bill>
     </div>
   </ion-row>
 </ion-content>
 <ion-footer>
-  <ion-segment class="footer">
-    <ion-segment-button value="0">
+  <ion-segment class="footer" [(ngModel)]="footer">
+    <ion-segment-button value="bill" (ionSelect)="goToBill()">
       Hóa Đơn
-    </ion-segment-button> 
-    <ion-segment-button *ngFor="let item of menu" value="{{ item.id }}">
+    </ion-segment-button>
+    <ion-segment-button *ngFor="let item of menu" value="{{ item.name }}">
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>

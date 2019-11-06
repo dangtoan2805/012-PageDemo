@@ -15,10 +15,13 @@ page-area {
     .segment .segment-button {
       font-size: 3vh !important;
       height: 8vh !important;
-      line-height: 8vh !important;
+
       color: black !important;
       border-color: white !important;
-      display: inline-block;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      display: inline-flex;
       min-width: 22vh;
       width: auto;
       text-transform: capitalize !important;
@@ -44,8 +47,13 @@ page-area {
   }
   .content {
     height: 100%;
+    width: 100%;
     background-color: #def3c9;
-    border: 1px solid lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // border: 1px solid lightblue;
 
     // .bill {
     //   height: 100%;
@@ -87,11 +95,15 @@ page-area {
     .segment .segment-button {
       font-size: 3vh !important;
       height: 8vh !important;
-      line-height: 8vh !important;
+      // line-height: 6vh !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      display: inline-flex;
       color: white !important;
 
       border-color: #35be1b !important;
-      display: inline-block;
+
       min-width: 22vh;
       width: auto;
       text-transform: capitalize !important;
@@ -101,24 +113,19 @@ page-area {
       background-color: #35be1b !important;
       font-weight: bold;
     }
-    // .segment .segment-button:active:not(.segment-activated) {
-    //   border-top: 0.5vh solid orange !important;
-    //   background-color: #35be1b !important;
-    //   font-weight: bold;
-    // }
 
-    // .segment .segment-button:last-of-type {
-    //   max-width: 22vh !important;
-    // }
     .segment .segment-button ion-icon {
       font-size: 5.5vh !important;
       line-height: 8vh !important;
     }
+
     .icon {
       position: absolute;
-      font-size: 3vh !important;
-      margin-left: 49vw !important;
+      font-size: 5vh !important;
+      margin-left: 48vw !important;
+
       color: white;
+      border-left: 1px solid gray;
     }
   }
 }

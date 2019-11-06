@@ -6,6 +6,7 @@ import { NavController, NavParams } from "ionic-angular";
   templateUrl: "bill.html"
 })
 export class BillPage {
+  header: any;
   tang: Array<any> = [
     {
       id: 0,
@@ -64,8 +65,12 @@ export class BillPage {
     }
   ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-  
+  ionViewWillEnter() {
+    console.log("ionViewWillEnter AreaPage");
+
+    this.header = "Mang Về";
+  }
   gotoHome() {
-    this.navCtrl.pop();
+    this.navCtrl.pop({ animate: false });
   }
 }
