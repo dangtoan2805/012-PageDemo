@@ -14,7 +14,7 @@ export class MenuFoodComponent {
 
   defaultImage = "../../assets/imgs/default-img.JPG";
   // array test
-  foodRes= [
+  foodRes = [
    {
      id: 0,
      price: 120000,

@@ -1,3 +1,4 @@
+import { ToGoPage } from './../to-go/to-go';
 import { Component } from "@angular/core";
 import {
   NavController,
@@ -23,10 +24,6 @@ export class AreaPage {
   data: any;
 
   tang: Array<any> = [
-    {
-      id: 0,
-      name: "Mang Về"
-    },
     {
       id: 1,
       name: "Tầng 1"
@@ -54,10 +51,6 @@ export class AreaPage {
   ];
 
   menu: Array<any> = [
-    // {
-    //   id: 0,
-    //   name: "Hóa Đơn"
-    // },
     {
       id: 1,
       name: "Menu 1"
@@ -141,18 +134,15 @@ export class AreaPage {
   }
 
   goToBill() {
-    console.log("aaaaa");
-
     this.navCtrl.push(BillPage, {}, { animate: false });
   }
 
-  // segmentChanged() {
-  //   if (this.footer == "logout") {
-  //     this.logout();
-  //   }
-  // }
-
   gotomenu(event) {
     // console.log(event.value);
+  }
+
+  goToGoPage(id){
+    this.navCtrl.push(ToGoPage, {item:id} ,{ animate: false });
+    console.log(id);
   }
 }

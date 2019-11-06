@@ -6,6 +6,7 @@ import { ListBillsComponent } from "./list-bills/list-bills";
 import { HomeBillComponent } from "./home-bill/home-bill";
 import { ListTablesComponent } from "./list-tables/list-tables";
 import { MenuFoodComponent } from "./menu-food/menu-food";
+import { ListTableComponent } from './list-table/list-table';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { MenuFoodComponent } from "./menu-food/menu-food";
     ListBillsComponent,
     HomeBillComponent,
     ListTablesComponent,
-    MenuFoodComponent
+    MenuFoodComponent,
+    ListTableComponent
   ],
   imports: [IonicModule],
   exports: [
@@ -21,7 +23,8 @@ import { MenuFoodComponent } from "./menu-food/menu-food";
     ListBillsComponent,
     HomeBillComponent,
     ListTablesComponent,
-    MenuFoodComponent
+    MenuFoodComponent,
+    ListTableComponent
   ]
 })
 export class ComponentsModule {}

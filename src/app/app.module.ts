@@ -12,18 +12,19 @@ import { OrderPage } from "../pages/order/order";
 import { AreaPage } from "../pages/area/area";
 import { BillPage } from "../pages/bill/bill";
 import { HomeInfoPage } from "../pages/popups/home-info/home-info";
+import {ToGoPage} from "../pages/to-go/to-go"
 /// component===============
 import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
-  declarations: [MyApp, AreaPage, BillPage, OrderPage, HomeInfoPage],
+  declarations: [MyApp, AreaPage, BillPage, OrderPage, HomeInfoPage,ToGoPage],
   imports: [
     BrowserModule,
     ComponentsModule,
     IonicModule.forRoot(MyApp, { animate: false })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, OrderPage, AreaPage, BillPage, HomeInfoPage],
+  entryComponents: [MyApp, OrderPage, AreaPage, BillPage, HomeInfoPage,ToGoPage],
   providers: [
     StatusBar,
     SplashScreen,

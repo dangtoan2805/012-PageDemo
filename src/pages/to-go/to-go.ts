@@ -1,18 +1,16 @@
 import { AreaPage } from './../area/area';
-import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { BillPage } from './../bill/bill';
+import { Component, Input } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: "page-bill",
-  templateUrl: "bill.html"
+  selector: 'page-to-go',
+  templateUrl: 'to-go.html',
 })
-export class BillPage {
-  header: any;
+export class ToGoPage {
+  idTang;
+
   tang: Array<any> = [
-    {
-      id: 0,
-      name: "Mang Về"
-    },
     {
       id: 1,
       name: "Tầng 1"
@@ -65,13 +63,27 @@ export class BillPage {
       name: "Menu 6"
     }
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-  ionViewWillEnter() {
-    console.log("ionViewWillEnter AreaPage");
 
-    this.header = "Mang Về";
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.idTang=navParams.get('item');
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ToGoPage');
+  }
+
   gotoHome() {
     this.navCtrl.push(AreaPage, {}, { animate: false });
+  }
+
+  goToBill() {
+    this.navCtrl.push(BillPage, {}, { animate: false });
+  }
+
+  // khi click vao 1 tang no se set lai gia tri o day de get data, thay the gia tri nay bang 1 array cua list table
+  setTangHienTai(value){
+    this.idTang = value;
+    console.log(this.idTang);
   }
 }

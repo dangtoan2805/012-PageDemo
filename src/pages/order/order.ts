@@ -42,19 +42,23 @@ export class OrderPage {
   ionViewDidLoad() {
     this.getNote();
   }
+  
   ionViewWillEnter() {
     this.footer = "Menu 1";
   }
+
   getNote() {
     this.data = this.navParams.get("data");
     this.name = this.data.name;
     this.note = this.data.note;
   }
+
   goToBill() {
     console.log("aaaaa");
 
     this.navCtrl.push(BillPage, {}, { animate: false });
   }
+
   goBack() {
     this.navCtrl.pop({ animate: false });
   }
