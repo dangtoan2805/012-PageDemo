@@ -1,4 +1,4 @@
-import { ToGoPage } from './../to-go/to-go';
+import { ToGoPage } from "./../to-go/to-go";
 import { Component } from "@angular/core";
 import {
   NavController,
@@ -141,8 +141,8 @@ export class AreaPage {
     // console.log(event.value);
   }
 
-  goToGoPage(id){
-    this.navCtrl.push(ToGoPage, {item:id} ,{ animate: false });
+  goToGoPage(id) {
+    this.navCtrl.push(ToGoPage, { item: id }, { animate: false });
     console.log(id);
   }
 }

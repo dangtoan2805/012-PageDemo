@@ -6,9 +6,13 @@
       </a>
     </ion-buttons>
     <ion-segment-button (ionSelect)="gotoHome()">
-        Mang Về
-      </ion-segment-button>
-    <ion-segment-button *ngFor="let item of tang" value="{{ item.name }}" (click) = "setTangHienTai(item.id)">
+      Mang Về
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let item of tang"
+      value="{{ item.name }}"
+      (click)="setTangHienTai(item.id)"
+    >
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>
@@ -16,25 +20,24 @@
 
 <ion-content padding class="content">
   <div>
-      <list-table [tang] = "idTang" ></list-table>
+    <list-table [tang]="idTang"></list-table>
   </div>
-     
 </ion-content>
 <ion-footer>
-    <ion-segment class="footer" [(ngModel)]="footer">
-      <ion-segment-button value="bill" (ionSelect)="goToBill()">
-        Hóa Đơn
-      </ion-segment-button>
-      <ion-segment-button
-        *ngFor="let item of menu"
-        value="{{ item.id }}"
-        (ionSelect)="gotomenu($event)"
-      >
-        {{ item.name }}
-      </ion-segment-button>
-      <ion-segment-button value="logout">
-        Thoát
-        <ion-icon name="log-out"></ion-icon>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-footer>
+  <ion-segment class="footer" [(ngModel)]="footer">
+    <ion-segment-button value="bill" (ionSelect)="goToBill()">
+      Hóa Đơn
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let item of menu"
+      value="{{ item.id }}"
+      (ionSelect)="gotomenu($event)"
+    >
+      {{ item.name }}
+    </ion-segment-button>
+    <ion-segment-button value="logout">
+      Thoát
+      <ion-icon name="log-out"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>

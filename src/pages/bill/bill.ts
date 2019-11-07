@@ -1,4 +1,4 @@
-import { AreaPage } from './../area/area';
+import { AreaPage } from "./../area/area";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 
@@ -72,6 +72,6 @@ export class BillPage {
     this.header = "Mang Về";
   }
   gotoHome() {
-    this.navCtrl.push(AreaPage, {}, { animate: false });
+    this.navCtrl.pop({ animate: false });
   }
 }

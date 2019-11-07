@@ -1,9 +1,13 @@
 <ion-header>
   <ion-segment class="header" [(ngModel)]="header">
-      <ion-segment-button>
-          Mang Về
-        </ion-segment-button>
-    <ion-segment-button *ngFor="let item of tang" (click) = "goToGoPage(item.id)" >
+    <ion-segment-button value="Mang Về">
+      Mang Về
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let item of tang"
+      value="{{ item.id }}"
+      (click)="goToGoPage(item.id)"
+    >
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>

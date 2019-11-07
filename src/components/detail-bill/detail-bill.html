@@ -12,7 +12,7 @@
         <ion-card class="card" *ngFor="let item of menuFood">
           <ion-card-content>
             <ion-row class="card-row">
-              <ion-col col-1 id="col-icon-updown">
+              <ion-col col-2 id="col-icon-updown">
                 <div>
                   <ion-icon
                     id="btn-up"
@@ -32,10 +32,11 @@
                   ></ion-icon>
                 </div>
               </ion-col>
-              <ion-col col-7 class="center-content">
+              <ion-col col-6 class="center-content" (click)="updateMenu(item)">
                 <h2>
                   {{ item.name }}
                 </h2>
+                <p>{{ item.note }}</p>
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
@@ -79,9 +80,11 @@
       </p>
     </div>
 
-    <div class="tong-bill">
-      <p id="text">
+    <div class="tinh-bill">
+      <p>
         <b>Tong Cong:</b>
+      </p>
+      <p>
         <b style="color: red;">{{
           total | currency: "VND":"symbol-narrow":"1.0-0"
         }}</b>

@@ -11,11 +11,31 @@
 
 <ion-content padding class="contentB">
   <ion-row class="bill">
+    <!-- <div class="bill-area" [ngSwitch]="footer">
+      <div *ngFor="let item of menu">
+        <div *ngSwitchCase="item.id">
+          <h1>{{ item.menuFood }}</h1>
+          <menu-food [menu]="item.menuFood"></menu-food>
+        </div>
+      </div>
+    </div> -->
     <div class="bill-area">
-      <menu-food ></menu-food>
+      <menu-food
+        [menu]="menuId"
+        (food)="getMenufood($event)"
+        (note)="getMenuNote($event)"
+      ></menu-food>
     </div>
+
     <div class="bill-details">
-      <detail-bill [note]="note" [name]="name"></detail-bill>
+      <detail-bill
+        [note]="note"
+        [name]="name"
+        [menu]="menuFood"
+        [tamtinh]="tamtinh"
+        [vat]="vat"
+        [total]="total"
+      ></detail-bill>
     </div>
   </ion-row>
 </ion-content>
@@ -24,7 +44,11 @@
     <ion-segment-button value="bill" (ionSelect)="goToBill()">
       Hóa Đơn
     </ion-segment-button>
-    <ion-segment-button *ngFor="let item of menu" value="{{ item.name }}">
+    <ion-segment-button
+      *ngFor="let item of menu"
+      (ionSelect)="changeMenu(item.menuFood, item.id)"
+      [value]="item.id"
+    >
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>

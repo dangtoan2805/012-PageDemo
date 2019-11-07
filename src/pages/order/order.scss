@@ -26,7 +26,7 @@ page-order {
     background-color: #def3c9;
     height: 100%;
     overflow-y: hidden !important;
-    padding: 0 !important;
+
     // .scroll-content {
     //   padding: 0;
     //   overflow-y: hidden;
@@ -41,6 +41,10 @@ page-order {
         width: 55%;
         height: 100%;
         border: 1px solid gray;
+        // div {
+        //   height: 100%;
+        //   // overflow: scroll;
+        // }
       }
 
       .bill-details {
