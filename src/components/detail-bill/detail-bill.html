@@ -40,7 +40,7 @@
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
-                  {{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}
+                  {{ item.price * item.number | currency: "VND":"symbol-narrow":"1.0-0" }}
                 </h2>
               </ion-col>
               <ion-col

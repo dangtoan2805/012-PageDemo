@@ -13,8 +13,7 @@
   <ion-row class="bill">
     <div class="bill-area">
       <menu-food 
-      [menu]="getMenu()"
-      (food)="getMenuFood($event)"
+      [menu]="item"
       ></menu-food>
     </div>
 
@@ -22,8 +21,6 @@
       <detail-bill 
           [name] = "name"
           [note] = "note"
-          [arrFood] = "arrFood"
-          [tamTinh] = "tamTinh"
       ></detail-bill>
     </div>
   </ion-row>

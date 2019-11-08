@@ -1,7 +1,12 @@
 home-bill {
+
+  .containerH{
+    display: flex;
+    justify-content: center;
   .boxt {
     height: 26vh;
     width: 20vw;
+ 
 
     .box0 {
       height: 25%;
@@ -30,7 +35,7 @@ home-bill {
       h1 {
         color: red;
         margin-top: 35%;
-        font-size: 4vh;
+        font-size: 3.5vh;
       }
     }
     .box2 {
@@ -53,4 +58,4 @@ home-bill {
       }
     }
   }
-}
+}}

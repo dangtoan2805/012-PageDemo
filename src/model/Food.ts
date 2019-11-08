@@ -5,5 +5,5 @@ export class Food{
     description:string;
     size:string;
     price:number;
-    amount:number;
+    number:number;
 }
