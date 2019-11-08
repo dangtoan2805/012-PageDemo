@@ -4,6 +4,12 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { AreaPage } from "../pages/area/area";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
+
+//// firebase
+import { environment } from "../environment/environment";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 @Component({
   selector: "app",
   templateUrl: "app.html"
@@ -24,5 +30,6 @@ export class MyApp {
       statusBar.hide();
       splashScreen.hide();
     });
+    firebase.initializeApp(environment.firebase);
   }
 }

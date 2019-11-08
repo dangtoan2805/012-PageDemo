@@ -14,7 +14,12 @@
 </ion-header>
 
 <ion-content padding class="content">
-  <home-bill></home-bill>
+  <!-- <home-bill></home-bill> -->
+  <div *ngFor="let item of data">
+    <h1>{{ item.data().name }}</h1>
+    <h2>{{ item.id }}</h2>
+    <h2> id : {{ item.data().id }}</h2>
+  </div>
   <ion-fab bottom left>
     <button ion-fab color="light" (click)="openInfo()">
       <ion-icon name="add" color="myapp"></ion-icon>
@@ -27,11 +32,11 @@
       Hóa Đơn
     </ion-segment-button>
     <ion-segment-button
-      *ngFor="let item of menu"
+      *ngFor="let item of data"
       value="{{ item.id }}"
       (ionSelect)="gotomenu($event)"
     >
-      {{ item.name }}
+      {{ item.data().name }}
     </ion-segment-button>
     <ion-segment-button value="logout">
       Thoát

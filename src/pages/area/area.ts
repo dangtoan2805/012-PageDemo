@@ -9,7 +9,7 @@ import {
 import { HomeInfoPage } from "../popups/home-info/home-info";
 import { BillPage } from "./../bill/bill";
 import { OrderPage } from "./../order/order";
-
+import { GetMenuService } from "../services/getmenu.service";
 @Component({
   selector: "page-area",
   templateUrl: "area.html"
@@ -18,7 +18,7 @@ export class AreaPage {
   id: any;
   footer: string;
   header: string;
-
+  data: Array<any>;
   tang: Array<any> = [
     {
       id: 1,
@@ -79,11 +79,19 @@ export class AreaPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private getMenuService: GetMenuService
   ) {}
 
+  getMenu() {
+    this.getMenuService.getMenu("menu").then(snapshot => {
+      console.log(snapshot.docs);
+      this.data = snapshot.docs;
+    });
+  }
   ionViewDidLoad() {
     console.log("ionViewDidLoad AreaPage");
+    this.getMenu();
   }
   ionViewWillEnter() {
     console.log("ionViewWillEnter AreaPage");
