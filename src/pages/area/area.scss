@@ -31,16 +31,8 @@ page-area {
       background-color: white !important;
       font-weight: bold;
     }
-    // .segment .segment-button:active:not(.segment-activated) {
-    //   border-bottom: 0.5vh solid orange !important;
-    //   background-color: white !important;
-    //   font-weight: bold;
-    //   -webkit-transition: none !important;
-
-    //   transition: none !important;
-    // }
+ 
     .icon {
-      position: absolute;
       font-size: 3vh !important;
       margin-left: 48vw !important;
 
@@ -54,21 +46,6 @@ page-area {
     align-items: center;
     justify-content: center;
 
-    // border: 1px solid lightblue;
-
-    // .bill {
-    //   height: 100%;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   justify-content: center;
-    //   .bill-area {
-    //     width: 55vw;
-    //     height: 100%;
-    //   }
-    //   .bill-details {
-    //     width: 45vw;
-    //     height: 100%;
-    //   }
     .fab ion-icon {
       font-size: 8.5vh !important;
     }
@@ -83,22 +60,23 @@ page-area {
   }
   .footer {
     background-color: #35be1b;
-    display: block;
+    display: inline-flex;
     white-space: nowrap;
     font-size: 0;
-    overflow: auto;
+    overflow: hidden;
 
     &::-webkit-scrollbar {
       width: 0;
       height: 0;
       display: none;
     }
+
     .segment .segment-button {
       font-size: 3vh !important;
       height: 8vh !important;
-      // line-height: 6vh !important;
+      padding-left: 3vh;
       align-items: center !important;
-      justify-content: center !important;
+      justify-content: left !important;
       text-align: center !important;
       display: inline-flex;
       color: white !important;
@@ -121,11 +99,10 @@ page-area {
     }
 
     .icon {
-      position: absolute;
       font-size: 5vh !important;
-      margin-left: 48vw !important;
-      line-height: 150%;
+      align-items: center;
       color: white;
+      padding-right: 1vh;
     }
   }
 }

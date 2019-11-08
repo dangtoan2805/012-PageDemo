@@ -1,9 +1,26 @@
 list-table {
     height: 100%;
     width: 100%;
-    p{
-        height: 100%;
-        width: 100%;
-        font-size: 50px;
+    .box-container{
+        position: relative;
+        text-align: center;
+        display: flex;
+        margin: 3vh;
+        img{
+            padding: 0;
+            width: auto;
+            height: auto;
+            text-align: center;
+        }
+
+        p{
+            position: absolute;
+            top: 40%;
+            font-size: 2.0em;
+            width: 100%;
+            align-self: center;
+            justify-self: center;
+            margin: 0;
+        }
     }
 }
