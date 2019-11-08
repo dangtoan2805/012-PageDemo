@@ -1,15 +1,15 @@
 <div class="bill-container">
   <div class="bill-header">
     <p>
-      <b>Tang 1 > {{ name }}</b>
+      <b>Tang 1 > {{name}}</b>
     </p>
-    <p>{{ note }}</p>
+    <p>{{note}}</p>
   </div>
 
   <div class="bill-content">
     <ion-scroll>
       <ion-item class="fr-card">
-        <ion-card class="card" *ngFor="let item of menuFood">
+        <ion-card class="card" *ngFor="let item of arrFood">
           <ion-card-content>
             <ion-row class="card-row">
               <ion-col col-2 id="col-icon-updown">
@@ -36,7 +36,7 @@
                 <h2>
                   {{ item.name }}
                 </h2>
-                <p>{{ item.note }}</p>
+                <p>{{ item.description }}</p>
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
@@ -62,14 +62,14 @@
     <div class="tinh-bill">
       <p><b>Tam tinh:</b></p>
       <p>
-        <b>{{ tamtinh | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
+        <b>{{ tamTinh | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
       </p>
     </div>
 
     <div class="tinh-bill">
       <p><b>Phu phi:</b></p>
       <p>
-        <b> 0 </b>
+        <b>{{phuPhi}}</b>
       </p>
     </div>
 

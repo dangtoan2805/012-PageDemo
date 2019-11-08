@@ -1,10 +1,9 @@
 export class Food{
     id:number;
     name:string;
-    imageUri:string;
+    imageUrl:string;
     description:string;
     size:string;
-    menuID:number;
-    paymentID:number;
-    priceDefault:number
+    price:number;
+    amount:number;
 }

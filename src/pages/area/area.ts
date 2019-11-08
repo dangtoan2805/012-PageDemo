@@ -18,10 +18,6 @@ export class AreaPage {
   id: any;
   footer: string;
   header: string;
-  items: Array<any>;
-  bill: Array<any> = [];
-  bills: any = "";
-  data: any;
 
   tang: Array<any> = [
     {
@@ -99,6 +95,7 @@ export class AreaPage {
   //   let modal = this.modalCtrl.create(HomeInfoPage);
   //   modal.present();
   // }
+
   openInfo() {
     let alert = this.alertCtrl.create({});
     alert.setTitle("Mang Về");
@@ -129,7 +126,6 @@ export class AreaPage {
         );
       }
     });
-
     alert.present();
   }
 
