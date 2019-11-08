@@ -6,7 +6,6 @@ import {
   ModalController,
   AlertController
 } from "ionic-angular";
-import { HomeInfoPage } from "../popups/home-info/home-info";
 import { BillPage } from "./../bill/bill";
 import { OrderPage } from "./../order/order";
 import { GetMenuService } from "../services/getmenu.service";
@@ -85,8 +84,11 @@ export class AreaPage {
 
   getMenu() {
     this.getMenuService.getMenu("menu").then(snapshot => {
-      console.log(snapshot.docs);
+      //console.log(snapshot.docs);
       this.data = snapshot.docs;
+      // for(let i=0;i< this.data.length;i++)
+      //   console.log(this.data[i].data());
+    
     });
   }
   ionViewDidLoad() {

@@ -6,132 +6,102 @@ import {
   ModalController,
   AlertController
 } from "ionic-angular";
+
+import { Events } from 'ionic-angular';
 @Component({
   selector: "detail-bill",
   templateUrl: "detail-bill.html"
 })
 export class DetailBillComponent {
-  @Input() name:string;
-  @Input() note:string;
-  @Input() arrFood: Array<Food>; // mảng info các món ăn dc thêm vào bill
+  @Input() name: string;
+  @Input() note: string;
 
-  //data:any;
-  @Input() tamTinh:number = 0;
-  @Input() phuPhi:number = 0;
-  @Input() vat:number = 0;
-  @Input() total:number = 0;
+  arrFood: Array<Food> = [];
+  tamTinh: number = 0;
+  phuPhi: number = 0;
+  vat: number = 0;
+  total: number = 0;
 
 
   constructor(
-    public alertCtrl: AlertController,
-    public navCtrl: NavController,
-    public navParams: NavParams
-  ) {
-    //this.data = this.navParams.get("data");
-    //console.log(this.data);
-    console.log(this.arrFood)
-   
+    public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+    events.subscribe('infoAFood', food => { this.addToBill(food) });
   }
 
-  // ionViewDidLoad() {
-  //   this.sum();
-  // }
+  addToBill(food) {
+    // Tạo 1 bản sao để khi thay đổi giá trị food không thay đổi
+    let item = Object.assign({}, food);
 
-  // sum() {
-  //   if ((this.tamTinh = this.arrFood.reduce((a, b) => a + b.price, 0))) {
-  //     this.vat = 0.1 * this.tamTinh;
-  //     this.total = this.tamTinh + this.vat;
-  //   }
-  //   console.log(this.tamTinh);
-  // }
+    let index = this.arrFood.findIndex(arrFood => arrFood.id == item.id)
 
-  // sub() {
-  //   if ((this.tamTinh = this.arrFood.reduce((a, b) => a - b.price * -1, 0))) {
-  //     this.vat = 0.1 * this.tamTinh;
-  //     this.total = this.tamTinh + this.vat;
-  //   }
-  //   //console.log(this.tamtinh);
-  // }
+    if (index != -1) {
+      this.arrFood[index].number = this.arrFood[index].number + item.number;
+    }
+    else {
+      this.arrFood.push(item);
+    }
+    this.updatePrice();
+  }
 
-  // down(item) {
-  //   if (item.number > 1) {
-  //     item.number--;
-  //     item.price = item.number * item.priceDefault;
-  //     this.sub();
+  updatePrice() {
+    this.tamTinh = 0;
+    for (let item in this.arrFood) {
+      this.tamTinh += this.arrFood[item].price * this.arrFood[item].number;
+    }
+    this.total = this.tamTinh + this.vat + this.phuPhi;
+  }
 
-  //     // this.tamtinh = this.menuFood.reduceRight((a, b) => b - a.price, 0);
-  //     // this.vat = 0.1 * this.tamtinh;
-  //     // this.total = this.tamtinh + this.vat;
-  //   }
-  // }
+  delete(item) {
+    const index = this.arrFood.findIndex(menuFood => menuFood.id == item.id);
+    this.arrFood.splice(index, 1);
+    this.updatePrice();
+  }
 
-  // up(item) {
-  //   item.amount++;
-  //   item.price = item.amount * item.priceDefault;
-  //   this.sum();
+  up(item) {
+    item.number++;
+    this.updatePrice();
+  }
 
-  //   this.tamTinh = this.arrFood.reduceRight((a, b) => a + b.priceDefault, 0);
-  //   this.vat = 0.1 * this.tamTinh;
-  //   this.total = this.tamTinh + this.vat;
-  // }
+  down(item) {
+    if (item.number > 1) {
+      item.number--;
+      this.updatePrice();
+    }
+  }
 
-  // delete(item) {
-  //   const index = this.arrFood.findIndex(menuFood => menuFood.id == item.id);
-  //   if (this.arrFood.splice(index, 1)) {
-  //     item.price = item.default;
-  //     item.amount = 1;
+  updateMenu(item) {
+    console.log(item);
+    let alert = this.alertCtrl.create({});
+    alert.setTitle(`Chỉnh sữa`);
 
-  //     this.sub();
-  //   }
+    alert.setSubTitle(item.name);
 
-  //   if (this.arrFood.length == 0) {
-  //     this.tamTinh = 0;
-  //     this.vat = 0;
-  //     this.total = 0;
-  //   }
+    alert.addInput({
+      type: "number",
+      value: item.number,
+      name: "number"
+    });
 
-  //   this.sub();
-  //   console.log(this.arrFood);
+    alert.addInput({
+      type: "textarea",
+      value: item.description,
+      name: "description"
+    });
 
-  //   this.tamTinh = this.arrFood.reduceRight((a, b) => a - b.priceDefault, 0);
-  //   this.vat = 0.1 * this.tamTinh;
-  //   this.total = this.tamTinh + this.vat;
-  // }
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: data => {
+        console.log("Checkbox data:", data);
+        console.log(item);
+        item.description = data.description;
+        item.number = parseInt(data.number);
+        this.arrFood.push(item);
+        this.arrFood = Array.from(new Set(this.arrFood));
+        this.updatePrice();
+      }
+    });
 
-  // updateMenu(item) {
-  //   console.log(item);
-  //   let alert = this.alertCtrl.create({});
-  //   alert.setTitle(`Chỉnh sữa`);
-
-  //   alert.setSubTitle(item.name);
-
-  //   alert.addInput({
-  //     type: "number",
-  //     value: item.number,
-  //     name: "number"
-  //   });
-
-  //   alert.addInput({
-  //     type: "textarea",
-  //     value: item.description,
-  //     name: "description"
-  //   });
-
-  //   alert.addButton("Hủy");
-  //   alert.addButton({
-  //     text: "Ok",
-  //     handler: data => {
-  //       console.log("Checkbox data:", data);
-  //       console.log(item);
-
-  //       item.description = data.description;
-  //       item.amount = data.amount;
-  //       item.price = data.amount * item.priceDefault;
-  //       this.arrFood.push(item);
-  //       this.arrFood = Array.from(new Set(this.arrFood));
-  //     }
-  //   });
-
-  //   alert.present();
-  // }
+    alert.present();
+  }
 }

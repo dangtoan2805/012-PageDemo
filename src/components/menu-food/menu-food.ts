@@ -6,6 +6,7 @@ import {
   ModalController,
   AlertController
 } from "ionic-angular";
+import { Events } from 'ionic-angular';
 @Component({
   selector: "menu-food",
   templateUrl: "menu-food.html"
@@ -21,7 +22,8 @@ export class MenuFoodComponent {
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public events: Events
   ) {
 
   }
@@ -52,13 +54,13 @@ export class MenuFoodComponent {
     alert.addButton({
       text: "Ok",
       handler: data => {
-        console.log("Checkbox data:", data);
-        console.log(item);
+        
         item.description = data.note;
-        let num:number = data.amount;
-        item.amount = data.amount;
-        item.price = data.number * item.price;
-        this.food.emit(item);
+        item.number = parseInt(data.number);
+        /*
+          - create event, send data(a Food) to bill-detail 
+        */
+       this.events.publish('infoAFood', item);
       }
     });
 

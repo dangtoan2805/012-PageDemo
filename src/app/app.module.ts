@@ -11,14 +11,13 @@ import { MyApp } from "./app.component";
 import { OrderPage } from "../pages/order/order";
 import { AreaPage } from "../pages/area/area";
 import { BillPage } from "../pages/bill/bill";
-import { HomeInfoPage } from "../pages/popups/home-info/home-info";
 import { ToGoPage } from "../pages/to-go/to-go";
 /// component===============
 import { ComponentsModule } from "../components/components.module";
 /// service
 import { GetMenuService } from "./../pages/services/getmenu.service";
 @NgModule({
-  declarations: [MyApp, AreaPage, BillPage, OrderPage, HomeInfoPage, ToGoPage],
+  declarations: [MyApp, AreaPage, BillPage, OrderPage, ToGoPage],
   imports: [
     BrowserModule,
     ComponentsModule,
@@ -30,7 +29,6 @@ import { GetMenuService } from "./../pages/services/getmenu.service";
     OrderPage,
     AreaPage,
     BillPage,
-    HomeInfoPage,
     ToGoPage
   ],
   providers: [
