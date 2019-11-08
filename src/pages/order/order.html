@@ -26,12 +26,12 @@
   </ion-row>
 </ion-content>
 <ion-footer>
-  <ion-segment class="footer">
+  <ion-segment class="footer" [(ngModel)] = "menuName">
     <ion-segment-button (ionSelect)="goToBill()">
       Hóa Đơn
     </ion-segment-button>
     <ion-segment-button
-      *ngFor="let item of menu" (ionSelect) = "setIndexMenu(item.id)">
+      *ngFor="let item of menuFirebase" (ionSelect) = "setIndexMenu(item.id)" [value] ="item.name">
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>

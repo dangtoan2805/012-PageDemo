@@ -49,55 +49,50 @@ page-to-go {
     }
 
     .footer {
-        background-color: #35be1b;
-        display: block;
-        white-space: nowrap;
-        font-size: 0;
-        overflow: auto;
-    
-        &::-webkit-scrollbar {
-          width: 0;
-          height: 0;
-          display: none;
-        }
-        .segment .segment-button {
-          font-size: 3vh !important;
-          height: 8vh !important;
-    
-          color: white !important;
-    
-          border-color: #35be1b !important;
-          align-items: center !important;
-          justify-content: center !important;
-          text-align: center !important;
-          display: inline-flex;
-          min-width: 22vh;
-          width: auto;
-          text-transform: capitalize !important;
-        }
-        .segment .segment-button.segment-activated {
-          border-top: 0.5vh solid orange !important;
-          background-color: #35be1b !important;
-          font-weight: bold;
-        }
-        // .segment .segment-button:active:not(.segment-activated) {
-        //   border-top: 0.5vh solid orange !important;
-        //   background-color: #35be1b !important;
-        //   font-weight: bold;
-        // }
-    
-        // .segment .segment-button:last-of-type {
-        //   max-width: 22vh !important;
-        // }
-        .segment .segment-button ion-icon {
-          font-size: 5.5vh !important;
-          line-height: 8vh !important;
-        }
-        .icon {
-          position: absolute;
-          font-size: 3vh !important;
-          margin-left: 49vw !important;
-          color: white;
-        }
+      background-color: #35be1b;
+      display: inline-flex;
+      white-space: nowrap;
+      font-size: 0;
+      overflow: hidden;
+  
+      &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+      }
+  
+      .segment .segment-button {
+        font-size: 3vh !important;
+        height: 8vh !important;
+        padding-left: 3vh;
+        align-items: center !important;
+        justify-content: left !important;
+        text-align: center !important;
+        display: inline-flex;
+        color: white !important;
+  
+        border-color: #35be1b !important;
+  
+        min-width: 22vh;
+        width: auto;
+        text-transform: capitalize !important;
+      }
+      .segment .segment-button.segment-activated {
+        border-top: 1vh solid orange !important;
+        background-color: #35be1b !important;
+        font-weight: bold;
+      }
+  
+      .segment .segment-button ion-icon {
+        font-size: 5.5vh !important;
+        line-height: 8vh !important;
+      }
+  
+      .icon {
+        font-size: 5vh !important;
+        align-items: center;
+        color: white;
+        padding-right: 1vh;
+      }
     }
 }

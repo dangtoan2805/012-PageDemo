@@ -28,12 +28,12 @@ export class ListTableComponent {
   
     data: Array<any> = [
       {id:0 , name: '001', status: true, type: 1},
-      {id:1 , name: '002', status: true, type: 1},
+      {id:1 , name: '002', status: true, type: 2},
       {id:2 , name: '003', status: false, type: 1},
-      {id:3 , name: '004', status: true, type: 1},
-      {id:4 , name: '005', status: true, type: 1},
-      {id:5 , name: '006', status: true, type: 1},
-      {id:6 , name: '007', status: true, type: 1},
+      {id:3 , name: '004', status: true, type: 2},
+      {id:4 , name: '005', status: false, type: 1},
+      {id:5 , name: '006', status: true, type: 2},
+      {id:6 , name: '007', status: false, type: 2},
     ];
   
 

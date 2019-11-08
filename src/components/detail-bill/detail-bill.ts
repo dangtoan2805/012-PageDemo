@@ -1,3 +1,4 @@
+import { AreaPage } from './../../pages/area/area';
 import { Food } from './../../model/Food';
 import { Component, Input } from "@angular/core";
 import {
@@ -103,5 +104,11 @@ export class DetailBillComponent {
     });
 
     alert.present();
+  }
+
+  addToListBill(){
+    let data = {id:0,name:this.name,price:this.total};
+    this.events.publish('infoABill', data);
+    this.navCtrl.pop({ animate: false });
   }
 }

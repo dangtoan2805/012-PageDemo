@@ -21,6 +21,7 @@ export class OrderPage {
 
   data:Array<any>;
   item;
+  menuName:string;
 
   arrFood:Array<Food> = []; // array info food add to bill
 
@@ -223,18 +224,18 @@ export class OrderPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private getMenuService: GetMenuService) {
     this.getData();
+    
   }
 
   getData(){
     this.getMenuService.getMenu("menu").then(snapshot => {
       console.log(snapshot.docs);
       this.data = snapshot.docs;
-      for(let i = 0;i<this.data.length;i++){
+      for(let i = this.data.length -1 ;i>=0;i--){
         this.menuFirebase.push(this.data[i].data());
       }
-      console.log(this.menuFirebase);
       this.item = this.menuFirebase[this.index].menufood;
-    
+      this.menuName = this.menuFirebase[0].name;
     });
   }
 
@@ -267,7 +268,7 @@ export class OrderPage {
     if ( this.index != id-1) {
       this.index = id-1;
       this.item = this.menuFirebase[this.index].menufood;
-      
+      this.menuName = this.menuFirebase[this.index].name;
     }
   } 
 }
