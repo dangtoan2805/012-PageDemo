@@ -1,8 +1,8 @@
-import { MenuFirebase } from './../../model/MenuFirebase';
-import { GetMenuService } from './../services/getmenu.service';
-import { Food } from './../../model/Food';
+import { MenuFirebase } from "./../../model/MenuFirebase";
+import { GetMenuService } from "./../services/getmenu.service";
+import { Food } from "./../../model/Food";
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, AlertController } from "ionic-angular";
 import { BillPage } from "./../bill/bill";
 
 @Component({
@@ -10,19 +10,18 @@ import { BillPage } from "./../bill/bill";
   templateUrl: "order.html"
 })
 export class OrderPage {
-
   name: string; // ten người đặt
   note: string; // ghi chú
   index: number = 0; // default menu 1
-  tamTinh:number = 0;
-  phuPhi:number = 0;
-  vat:number = 0;
-  total:number = 0;
+  tamTinh: number = 0;
+  phuPhi: number = 0;
+  vat: number = 0;
+  total: number = 0;
 
-  data:Array<any>;
-  item;
+  data: Array<any>;
+  item: any;
 
-  arrFood:Array<Food> = []; // array info food add to bill
+  arrFood: Array<Food> = []; // array info food add to bill
 
   menu: Array<any> = [
     {
@@ -36,7 +35,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 2,
@@ -45,7 +44,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 3,
@@ -54,8 +53,9 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
-        }]
+          number: 1
+        }
+      ]
     },
     {
       id: 2,
@@ -68,7 +68,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 5,
@@ -77,7 +77,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
+          number: 1
         },
         {
           id: 6,
@@ -86,8 +86,9 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
-        }]
+          number: 1
+        }
+      ]
     },
     {
       id: 3,
@@ -100,7 +101,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
+          number: 1
         },
         {
           id: 8,
@@ -109,7 +110,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
+          number: 1
         },
         {
           id: 9,
@@ -118,8 +119,9 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
-        }]
+          number: 1
+        }
+      ]
     },
     {
       id: 4,
@@ -132,7 +134,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
+          number: 1
         },
         {
           id: 11,
@@ -141,7 +143,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1
+          number: 1
         },
         {
           id: 12,
@@ -150,8 +152,9 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
-        }]
+          number: 1
+        }
+      ]
     },
     {
       id: 5,
@@ -164,7 +167,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 14,
@@ -173,7 +176,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 15,
@@ -182,8 +185,9 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
-        }]
+          number: 1
+        }
+      ]
     },
     {
       id: 6,
@@ -196,7 +200,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 17,
@@ -205,7 +209,7 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
+          number: 1
         },
         {
           id: 18,
@@ -214,27 +218,32 @@ export class OrderPage {
           description: "",
           size: "L",
           priceDefault: 12000,
-          number:1,
-        }]
-    },
-  ]
+          number: 1
+        }
+      ]
+    }
+  ];
 
-  menuFirebase:Array<MenuFirebase> = [];
+  menuFirebase: Array<MenuFirebase> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private getMenuService: GetMenuService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private getMenuService: GetMenuService,
+    public alertCtrl: AlertController
+  ) {
     this.getData();
   }
 
-  getData(){
+  getData() {
     this.getMenuService.getMenu("menu").then(snapshot => {
       console.log(snapshot.docs);
       this.data = snapshot.docs;
-      for(let i = 0;i<this.data.length;i++){
+      for (let i = 0; i < this.data.length; i++) {
         this.menuFirebase.push(this.data[i].data());
       }
       console.log(this.menuFirebase);
       this.item = this.menuFirebase[this.index].menufood;
-    
     });
   }
 
@@ -243,10 +252,23 @@ export class OrderPage {
   }
 
   goBack() {
-    this.navCtrl.pop({ animate: false });
+    let alert = this.alertCtrl.create({});
+    alert.setTitle(`Hủy Thực Đơn !!!`);
+
+    alert.setSubTitle(this.name);
+
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: () => {
+        this.navCtrl.pop({ animate: false });
+      }
+    });
+
+    alert.present();
   }
 
-  ionViewWillEnter() { }
+  ionViewWillEnter() {}
 
   // nhận info từ alert gửi sang: tên khách hàng, ghi chú
   getNote() {
@@ -264,10 +286,9 @@ export class OrderPage {
   */
   setIndexMenu(id) {
     console.log(id);
-    if ( this.index != id-1) {
-      this.index = id-1;
+    if (this.index != id - 1) {
+      this.index = id - 1;
       this.item = this.menuFirebase[this.index].menufood;
-      
     }
-  } 
+  }
 }

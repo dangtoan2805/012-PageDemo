@@ -1,4 +1,4 @@
-import { Food } from './../../model/Food';
+import { Food } from "./../../model/Food";
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import {
   NavController,
@@ -6,7 +6,7 @@ import {
   ModalController,
   AlertController
 } from "ionic-angular";
-import { Events } from 'ionic-angular';
+import { Events } from "ionic-angular";
 @Component({
   selector: "menu-food",
   templateUrl: "menu-food.html"
@@ -14,19 +14,17 @@ import { Events } from 'ionic-angular';
 export class MenuFoodComponent {
   @Input() menu: Array<Food>; // menu được nhận vào
 
-  @Output() food = new EventEmitter<Food>();// info a food
+  @Output() food = new EventEmitter<Food>(); // info a food
   @Output() note = new EventEmitter<any>(); // 2 biến number of food and note
 
   defaultImage = "../../assets/imgs/default-img.JPG";
- 
+
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events
-  ) {
-
-  }
+  ) {}
 
   ionViewWillEnter() {}
 
@@ -54,13 +52,12 @@ export class MenuFoodComponent {
     alert.addButton({
       text: "Ok",
       handler: data => {
-        
         item.description = data.note;
         item.number = parseInt(data.number);
         /*
           - create event, send data(a Food) to bill-detail 
         */
-       this.events.publish('infoAFood', item);
+        this.events.publish("infoAFood", item);
       }
     });
 

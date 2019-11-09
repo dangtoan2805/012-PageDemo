@@ -1,9 +1,9 @@
 <div class="bill-container">
   <div class="bill-header">
     <p>
-      <b>Tang 1 > {{name}}</b>
+      <b>Tang 1 > {{ name }}</b>
     </p>
-    <p>{{note}}</p>
+    <p>{{ note }}</p>
   </div>
 
   <div class="bill-content">
@@ -40,7 +40,10 @@
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
-                  {{ item.price * item.number | currency: "VND":"symbol-narrow":"1.0-0" }}
+                  {{
+                    item.price * item.number
+                      | currency: "VND":"symbol-narrow":"1.0-0"
+                  }}
                 </h2>
               </ion-col>
               <ion-col
@@ -69,7 +72,7 @@
     <div class="tinh-bill">
       <p><b>Phu phi:</b></p>
       <p>
-        <b>{{phuPhi}}</b>
+        <b>{{ phuPhi }}</b>
       </p>
     </div>
 
@@ -97,7 +100,7 @@
     </div>
 
     <div class="btn-submit">
-      <button class="btn-luu">Luu</button>
+      <button class="btn-luu" (click)="saveBill()">Luu</button>
       <button class="btn-thanhtoan">Thanh Toan</button>
     </div>
   </div>
