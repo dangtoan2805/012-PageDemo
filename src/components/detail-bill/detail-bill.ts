@@ -77,9 +77,14 @@ export class DetailBillComponent {
         );
         this.arrFood.splice(index, 1);
         this.updatePrice();
+        if(this.arrFood.length < 1){
+          this.btnHidden = true;
+          console.log(this.arrFood.length);
+        }
       }
     });
 
+    
     alert.present();
   }
 
