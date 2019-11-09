@@ -1,13 +1,6 @@
 import { Component } from "@angular/core";
-import {
-  NavController,
-  NavParams,
-  ModalController,
-  AlertController
-} from "ionic-angular";
 import { Events } from "ionic-angular";
-import { OrderPage } from "../../pages/order/order";
-import { AreaPage } from "../../pages/area/area";
+
 @Component({
   selector: "home-bill",
   templateUrl: "home-bill.html"
@@ -15,29 +8,20 @@ import { AreaPage } from "../../pages/area/area";
 export class HomeBillComponent {
   data: Array<any> = [
     { id: 0, name: "Anh Hai", price: 5000000 },
-    { id: 1, name: "Anh Hai", price: 5000000 },
-    { id: 2, name: "Anh Hai", price: 5000000 },
-    { id: 3, name: "Anh Hai", price: 5000000 },
-    { id: 4, name: "Anh Hai", price: 5000000 },
-    { id: 5, name: "Anh Hai", price: 5000000 }
+    { id: 1, name: "Anh C", price: 300000 },
+    { id: 2, name: "Anh B", price: 400000 },
+    { id: 3, name: "Anh A", price: 3000000 },
+    { id: 4, name: "Chi M", price: 980000 },
+    { id: 5, name: "Anh K", price: 1230000 }
   ];
 
-  constructor(
-    public alertCtrl: AlertController,
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public events: Events
-  ) {
-    events.subscribe("save", menu => {
-      console.log(menu);
-      this.data.push(menu);
+  constructor(public events: Events) {
+    events.subscribe("infoABill", bill => {
+      this.addToListBill(bill);
     });
   }
-  gotoBill(item) {
-    console.log(item);
-  }
-  updateBill(item) {
-    this.events.publish("updateBill", item);
-    this.navCtrl.push(OrderPage);
+
+  addToListBill(bill) {
+    this.data.push(bill);
   }
 }

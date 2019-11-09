@@ -39,39 +39,14 @@ export class BillPage {
     }
   ];
 
-  menu: Array<any> = [
-    {
-      id: 1,
-      name: "Menu 1"
-    },
-    {
-      id: 2,
-      name: "Menu 2"
-    },
-    {
-      id: 3,
-      name: "Menu 3"
-    },
-    {
-      id: 4,
-      name: "Menu 4"
-    },
-    {
-      id: 5,
-      name: "Menu 5"
-    },
-    {
-      id: 6,
-      name: "Menu 6"
-    }
-  ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewWillEnter() {
     console.log("ionViewWillEnter AreaPage");
 
     this.header = "Mang Về";
   }
+
   gotoHome() {
-    this.navCtrl.pop({ animate: false });
+    this.navCtrl.push(AreaPage, {}, { animate: false });
   }
 }

@@ -1,7 +1,8 @@
 page-bill {
   .header {
     background-color: white;
-    display: block;
+    display: inline-flex;
+    justify-content: flex-start;
     white-space: nowrap;
     font-size: 0;
     overflow-x: auto;
@@ -36,21 +37,24 @@ page-bill {
 
     .icon {
       position: absolute;
-      font-size: 4vh !important;
-      margin-left: 49vw !important;
-      line-height: 180% !important;
+      right: 0.5vh;
+      top: 0.8vh;
+      font-size: 3vh !important;      
+      color: #35be1b;
     }
   }
 
   .content {
     background-color: #def3c9;
-    border: 1px solid lightblue;
     height: 100%;
+
     .bill {
       height: 100%;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow-y: hidden;
+      padding: 1vh;
       .bill-area {
         width: 55vw;
         height: 100%;
@@ -58,6 +62,7 @@ page-bill {
       .bill-details {
         width: 40vw;
         height: 100%;
+        border:2px solid gray;
       }
     }
   }

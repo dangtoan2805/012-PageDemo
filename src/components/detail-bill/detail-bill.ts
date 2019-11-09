@@ -1,3 +1,4 @@
+import { AreaPage } from "./../../pages/area/area";
 import { Food } from "./../../model/Food";
 import { Component, Input } from "@angular/core";
 import {
@@ -8,7 +9,7 @@ import {
 } from "ionic-angular";
 
 import { Events } from "ionic-angular";
-import { AreaPage } from "../../pages/area/area";
+
 @Component({
   selector: "detail-bill",
   templateUrl: "detail-bill.html"
@@ -127,14 +128,10 @@ export class DetailBillComponent {
 
     alert.present();
   }
-  saveBill() {
-    let data = {
-      name: this.name,
-      note: this.note,
-      price: this.total,
-      menu: this.arrFood
-    };
-    this.events.publish("save", data);
-    this.navCtrl.pop();
+
+  addToListBill() {
+    let data = { id: 0, name: this.name, price: this.total };
+    this.events.publish("infoABill", data);
+    this.navCtrl.pop({ animate: false });
   }
 }

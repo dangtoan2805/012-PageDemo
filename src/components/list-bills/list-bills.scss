@@ -1,60 +1,67 @@
 list-bills {
-    ion-card {
-        width: 100vw;
-        height: 12vh;
-    
-        .box1 {
-          display: flex;
-          align-items: center;
-    
-          justify-items: center;
-          .icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            ion-icon {
-              font-size: 6vh !important;
-            }
-          }
-          .line {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            .drawline {
-              height: 5.5vh;
-              width: 1px !important;
-              background-color: slategrey;
-            }
-          }
-          .name {
-            h2 {
-              font-size: 2.2vh;
-              width: 15vw;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              overflow: hidden;
-            }
-            p {
-              font-size: 2vh;
-            }
-          }
-        }
-    
-        .box2 {
-          display: flex;
-    
-          flex-direction: row;
-          justify-content: flex-start;
-          justify-items: flex-start;
-          align-items: center;
-    
-          h2 {
-            font-size: 2.1vh;
-            width: 110%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-          }
+  .scroll-content {
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+  }
+  .card {
+    margin-left: 0px;
+  }
+  ion-card {
+    width: 100vw;
+    height: 12vh;
+    margin-left: 0px;
+
+    .box1 {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        ion-icon {
+          font-size: 6vh !important;
         }
       }
+      .line {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .drawline {
+          height: 5.5vh;
+          width: 1px !important;
+          background-color: slategrey;
+        }
+      }
+      .name {
+        h2 {
+          font-size: 2.2vh;
+          width: 15vw;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        p {
+          font-size: 2vh;
+        }
+      }
+    }
+
+    .box2 {
+      display: flex;
+
+      flex-direction: row;
+      justify-content: flex-start;
+      justify-items: flex-start;
+      align-items: center;
+
+      h2 {
+        font-size: 2.1vh;
+        width: 110%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
 }

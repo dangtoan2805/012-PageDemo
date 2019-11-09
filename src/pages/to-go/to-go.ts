@@ -8,7 +8,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'to-go.html',
 })
 export class ToGoPage {
-  idTang;
+  idTang:number;
+  header:string;
 
   tang: Array<any> = [
     {
@@ -37,36 +38,9 @@ export class ToGoPage {
     }
   ];
 
-  menu: Array<any> = [
-    {
-      id: 1,
-      name: "Menu 1"
-    },
-    {
-      id: 2,
-      name: "Menu 2"
-    },
-    {
-      id: 3,
-      name: "Menu 3"
-    },
-    {
-      id: 4,
-      name: "Menu 4"
-    },
-    {
-      id: 5,
-      name: "Menu 5"
-    },
-    {
-      id: 6,
-      name: "Menu 6"
-    }
-  ];
-
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-
     this.idTang=navParams.get('item');
+    this.header = this.tang[this.tang.findIndex(tang=>tang.id == this.idTang)].name;
   }
 
   ionViewDidLoad() {
