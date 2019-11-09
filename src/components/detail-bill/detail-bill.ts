@@ -22,6 +22,7 @@ export class DetailBillComponent {
   phuPhi: number = 0;
   vat: number = 0;
   total: number = 0;
+  btnHidden:boolean = true;
 
 
   constructor(
@@ -42,6 +43,7 @@ export class DetailBillComponent {
       this.arrFood.push(item);
     }
     this.updatePrice();
+    this.btnHidden = false;
   }
 
   updatePrice() {
@@ -96,6 +98,9 @@ export class DetailBillComponent {
         console.log("Checkbox data:", data);
         console.log(item);
         item.description = data.description;
+        if(parseInt(data.number)<1){
+          data.number = 1;
+        }
         item.number = parseInt(data.number);
         this.arrFood.push(item);
         this.arrFood = Array.from(new Set(this.arrFood));
@@ -110,5 +115,6 @@ export class DetailBillComponent {
     let data = {id:0,name:this.name,price:this.total};
     this.events.publish('infoABill', data);
     this.navCtrl.pop({ animate: false });
+    this.btnHidden = true;
   }
 }

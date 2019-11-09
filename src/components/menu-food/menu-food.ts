@@ -56,6 +56,9 @@ export class MenuFoodComponent {
       handler: data => {
         
         item.description = data.note;
+        if(parseInt(data.number)<1){
+          data.number = 1;
+        }
         item.number = parseInt(data.number);
         /*
           - create event, send data(a Food) to bill-detail 
