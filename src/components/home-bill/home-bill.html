@@ -1,6 +1,6 @@
 <ion-content padding>
   <ion-row>
-    <ion-col class = "containerH" col-3 *ngFor="let item of data">
+    <ion-col class="containerH" col-3 *ngFor="let item of data">
       <div class="boxt">
         <div class="box0">
           <ion-icon name="person"> KH : {{ item.name }} </ion-icon>
@@ -11,10 +11,17 @@
           </ion-row>
         </div>
         <div class="box2">
-          <button ion-button outline color="danger" (click)="gotoBill()">
+          <button ion-button outline color="danger" (click)="gotoBill(item)">
             Hoa Don
           </button>
-          <button ion-button outline color="secondary">Thanh Toan</button>
+          <button
+            ion-button
+            outline
+            color="secondary"
+            (click)="updateBill(item)"
+          >
+            Chinh Sua
+          </button>
         </div>
       </div>
     </ion-col>

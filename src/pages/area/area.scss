@@ -26,6 +26,26 @@ page-area {
       width: auto;
       text-transform: capitalize !important;
     }
+    .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+
+      color: black !important;
+      border-color: white !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      display: inline-flex;
+      min-width: 22vh;
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment-button .segment-button.segment-activated {
+      border-bottom: 0.5vh solid orange !important;
+      background-color: white !important;
+      font-weight: bold;
+    }
+
     .segment .segment-button.segment-activated {
       border-bottom: 0.5vh solid orange !important;
       background-color: white !important;

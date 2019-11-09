@@ -88,7 +88,6 @@ export class AreaPage {
       this.data = snapshot.docs;
       // for(let i=0;i< this.data.length;i++)
       //   console.log(this.data[i].data());
-    
     });
   }
   ionViewDidLoad() {
@@ -108,7 +107,7 @@ export class AreaPage {
 
   openInfo() {
     let alert = this.alertCtrl.create({});
-    alert.setTitle("Mang Về");
+    alert.setTitle(this.header);
 
     alert.addInput({
       type: "input",

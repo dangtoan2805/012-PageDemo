@@ -1,5 +1,5 @@
-import { AreaPage } from './../../pages/area/area';
-import { Food } from './../../model/Food';
+import { AreaPage } from "./../../pages/area/area";
+import { Food } from "./../../model/Food";
 import { Component, Input } from "@angular/core";
 import {
   NavController,
@@ -8,7 +8,8 @@ import {
   AlertController
 } from "ionic-angular";
 
-import { Events } from 'ionic-angular';
+import { Events } from "ionic-angular";
+
 @Component({
   selector: "detail-bill",
   templateUrl: "detail-bill.html"
@@ -24,22 +25,30 @@ export class DetailBillComponent {
   total: number = 0;
   btnHidden:boolean = true;
 
-
   constructor(
-    public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public events: Events) {
-    events.subscribe('infoAFood', food => { this.addToBill(food) });
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public events: Events
+  ) {
+    events.subscribe("infoAFood", food => {
+      this.addToBill(food);
+    });
+    events.subscribe("updateBill", update => {
+      console.log(update);
+      (this.name = update.name),
+        (this.note = update.note),
+        (this.arrFood = update.arrFood);
+    });
   }
 
   addToBill(food) {
     // Tạo 1 bản sao để khi thay đổi giá trị food không thay đổi
     let item = Object.assign({}, food);
-
-    let index = this.arrFood.findIndex(arrFood => arrFood.id == item.id)
-
+    let index = this.arrFood.findIndex(arrFood => arrFood.id == item.id);
     if (index != -1) {
       this.arrFood[index].number = this.arrFood[index].number + item.number;
-    }
-    else {
+    } else {
       this.arrFood.push(item);
     }
     this.updatePrice();
@@ -55,9 +64,23 @@ export class DetailBillComponent {
   }
 
   delete(item) {
-    const index = this.arrFood.findIndex(menuFood => menuFood.id == item.id);
-    this.arrFood.splice(index, 1);
-    this.updatePrice();
+    let alert = this.alertCtrl.create({});
+    alert.setTitle(`Xóa Thực Đơn !!!`);
+    alert.setSubTitle(item.name);
+
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: () => {
+        const index = this.arrFood.findIndex(
+          menuFood => menuFood.id == item.id
+        );
+        this.arrFood.splice(index, 1);
+        this.updatePrice();
+      }
+    });
+
+    alert.present();
   }
 
   up(item) {
@@ -111,9 +134,9 @@ export class DetailBillComponent {
     alert.present();
   }
 
-  addToListBill(){
-    let data = {id:0,name:this.name,price:this.total};
-    this.events.publish('infoABill', data);
+  addToListBill() {
+    let data = { id: 0, name: this.name, price: this.total };
+    this.events.publish("infoABill", data);
     this.navCtrl.pop({ animate: false });
     this.btnHidden = true;
   }

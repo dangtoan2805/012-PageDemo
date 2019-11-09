@@ -5,10 +5,7 @@
         <ion-card class="fr-card" (click)="openInfo(item)">
           <ion-card-content>
             <div class="image">
-              <img
-                (error)="item.img = defaultImage"
-                [src]="item.img"
-              />
+              <img (error)="item.img = defaultImage" [src]="item.img" />
             </div>
             <div class="content-name">
               <h2>{{ item.name }}</h2>
