@@ -1,5 +1,13 @@
+import { OrderPage } from './../../pages/order/order';
+import { Table } from './../../model/Table';
 import { Component, Input } from '@angular/core';
-
+import { Events } from "ionic-angular";
+import {
+  NavController,
+  NavParams,
+  ModalController,
+  AlertController
+} from "ionic-angular";
 /**
  * Generated class for the ListTableComponent component.
  *
@@ -11,11 +19,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'list-table.html'
 })
 export class ListTableComponent {
-  // get data list table
-  @Input() tang;
 
  /**
-   * idStable: string, the number of each table
+   * idStable: string, the number of each table 
    * status: boolean, flase -> red, true -> green
    * type: 1-> cirle, 2->square
    */
@@ -26,18 +32,19 @@ export class ListTableComponent {
     {url: "../../assets/imgs/square-red.png", color: "#EC1B23"},
     ];
   
-    data: Array<any> = [
-      {id:0 , name: '001', status: true, type: 1},
-      {id:1 , name: '002', status: true, type: 2},
-      {id:2 , name: '003', status: false, type: 1},
-      {id:3 , name: '004', status: true, type: 2},
-      {id:4 , name: '005', status: false, type: 1},
-      {id:5 , name: '006', status: true, type: 2},
-      {id:6 , name: '007', status: false, type: 2},
-    ];
-  
+  arrTable: Array<Table> = [];
 
-  constructor() {
+  constructor( public navParams: NavParams,
+    public navCtrl: NavController,
+    private modalCtrl: ModalController,
+    public alertCtrl: AlertController,public events: Events) {
+    events.subscribe("listTable", ref => {
+      this.arrTable = ref;
+      console.log("revice list table: success!",this.arrTable);
+    });
+  }
+
+  getData(){
   }
 
   changeImgSrc(status: boolean, type:number){
@@ -50,4 +57,25 @@ export class ListTableComponent {
     if(status === false && type === 2)
       return this.imgUrl[3];
   }
+
+   // Vừa thêm
+   openInfo(name) {
+    let data = {floor: this.arrTable[0].name, name: name};
+    console.log(data);
+    this.navCtrl.push(
+      OrderPage,
+      {
+        data: data,
+        title: this.arrTable,
+      },
+      { animate: false }
+    );
+  }
+
+   // Thay đổi trạng thái sau khi lưu bill-detail
+   changeStatusTable(bill)
+   {
+     for(var i = 0; i < this.arrTable.length; i++)
+       this.arrTable[i].status = this.arrTable[i].name == bill.name ? !this.arrTable[i].status : this.arrTable[i].status;
+   }
 }

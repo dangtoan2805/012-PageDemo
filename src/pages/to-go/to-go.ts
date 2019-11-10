@@ -1,50 +1,43 @@
+import { GetMenuService } from './../services/getmenu.service';
+import { Area } from './../../model/Area';
 import { AreaPage } from './../area/area';
 import { BillPage } from './../bill/bill';
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Table } from '../../model/Table';
+import { Events } from "ionic-angular";
 
 @Component({
   selector: 'page-to-go',
   templateUrl: 'to-go.html',
 })
 export class ToGoPage {
-  idTang:number;
+  idFloor:string;
   header:string;
 
-  tang: Array<any> = [
-    {
-      id: 1,
-      name: "Tầng 1"
-    },
-    {
-      id: 2,
-      name: "Tầng 2"
-    },
-    {
-      id: 3,
-      name: "Tầng 3"
-    },
-    {
-      id: 4,
-      name: "Tầng 4"
-    },
-    {
-      id: 5,
-      name: "Tầng 5"
-    },
-    {
-      id: 6,
-      name: "Tầng 6"
-    }
-  ];
+  areaName:Array<Area> = [];
+  listTable:Array<Table> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.idTang=navParams.get('item');
-    this.header = this.tang[this.tang.findIndex(tang=>tang.id == this.idTang)].name;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private getMenuService: GetMenuService, public events: Events) {
+    this.areaName = navParams.get('data');
+    this.idFloor = navParams.get('item');
+    console.log(this.areaName,this.idFloor);
+    // set Segment header
+    this.header = this.areaName[this.areaName.findIndex(areaName=>areaName.id == this.idFloor)].name;
+    // get list table
+    this.getData();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ToGoPage');
+  getData(){
+    this.getMenuService.getCollection("table").then(snapshot => {
+      let data = snapshot.docs;
+      for (let i = 0; i < data.length; i++) {
+        this.listTable.push(data[i].data());
+        this.listTable[i].id = data[i].id;
+      }
+      console.log("Get Table: Success !");
+      this.events.publish("listTable",this.listTable.filter(arrListFood => arrListFood.id_area == this.idFloor)); 
+    });
   }
 
   gotoHome() {
@@ -57,7 +50,7 @@ export class ToGoPage {
 
   // khi click vao 1 tang no se set lai gia tri o day de get data, thay the gia tri nay bang 1 array cua list table
   setTangHienTai(value){
-    this.idTang = value;
-    console.log(this.idTang);
+    this.idFloor = value;
+    this.events.publish("listTable",this.listTable.filter(listTable => listTable.id_area == value)); 
   }
 }

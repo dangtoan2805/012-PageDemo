@@ -4,10 +4,9 @@
       Mang Về
     </ion-segment-button>
     <ion-segment-button
-      *ngFor="let item of tang"
+      *ngFor="let item of areaName"
       value="{{ item.id }}"
-      (click)="goToGoPage(item.id)"
-    >
+      (click)="goToGoPage(item.id)">
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>

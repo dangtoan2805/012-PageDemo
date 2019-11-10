@@ -1,3 +1,4 @@
+import { Area } from './../../model/Area';
 import { AreaPage } from "./../area/area";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
@@ -38,6 +39,8 @@ export class BillPage {
       name: "Tầng 6"
     }
   ];
+
+  areaName:Array<Area>=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewWillEnter() {

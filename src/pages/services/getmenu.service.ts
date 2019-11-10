@@ -12,11 +12,55 @@ export class GetMenuService {
   constructor() {
     this._DB = firebase.firestore();
   }
-  getMenu(menu) {
+
+  getCollection(menu) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
         .collection(menu)
         .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  getListFood(){
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+      .collection("food")
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  getMenuFood(idMenu){
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+      .collection("food").where("id_menu", "==", idMenu)
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  writeDataToFirebase(array,collectionName){
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection(collectionName)
+        .doc()
+        .set(array)
         .then(snapshot => {
           resolve(snapshot);
         })

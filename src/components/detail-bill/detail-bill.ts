@@ -84,7 +84,6 @@ export class DetailBillComponent {
       }
     });
 
-    
     alert.present();
   }
 
