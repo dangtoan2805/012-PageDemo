@@ -74,10 +74,10 @@ export class ListTableComponent {
       alert.present();
     } else {
       let data = {
-        //floor: this.arrTable[0].name,
         id: item.id,
         name: item.name,
-        nameFloor: this.nameFloor
+        nameFloor: this.nameFloor,
+        id_area: item.id_area
       };
 
       console.log(data);
@@ -91,20 +91,6 @@ export class ListTableComponent {
       );
     }
   }
-
-  // Vừa thêm
-  // openInfo(name) {
-  //   let data = { floor: this.arrTable[0].name, name: name };
-  //   console.log(data);
-  //   this.navCtrl.push(
-  //     OrderPage,
-  //     {
-  //       data: data,
-  //       title: this.arrTable
-  //     },
-  //     { animate: false }
-  //   );
-  // }
 
   // Thay đổi trạng thái sau khi lưu bill-detail
   changeStatusTable(bill) {

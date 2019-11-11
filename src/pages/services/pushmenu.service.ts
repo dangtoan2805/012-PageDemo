@@ -12,34 +12,35 @@ export class PushMenuService {
   constructor() {
     this._DB = firebase.firestore();
   }
-  pushDetailBill(bill) {
+  pushDetailBill(data) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
         .collection("bill_detail")
         .add({
-          // id: bill.id,
-          // name: bill.name,
-          // price: bill.price,
-          dataFoods: bill.dataFoods
+          dataFoods: data.dataFoods,
+          id_table:data.id_table,
+          note:data.note
         })
         .then((obj: any) => {
-          resolve(obj);
+          resolve(obj.id);
         })
         .catch((error: any) => {
           reject(error);
         });
     });
   }
-  pushListBill(bill) {
+
+  pushListBill(data) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
         .collection("bill")
         .add({
-          id: bill.id,
-          name: bill.name,
-          price: bill.price,
-
-          date: bill.date
+          id_area: data.id_area,
+          name: data.name,
+          total: data.total,
+          id_bill_detail: data.id_bill_detail,
+          status:data.status,
+          date: data.date
         })
         .then((obj: any) => {
           resolve(obj);
