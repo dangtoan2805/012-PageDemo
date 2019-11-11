@@ -54,11 +54,7 @@ export class AreaPage {
     });
   }
 
-//  Test merge ------------------
-//------------------------------------
-//-----------------------------------------
-=======
-/// test merger nghia
+
 
   openInfo() {
     let alert = this.alertCtrl.create({});
