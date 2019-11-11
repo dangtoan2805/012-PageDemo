@@ -53,9 +53,13 @@ export class AreaPage {
       console.log("Get Area: Success !");
     });
   }
+
 //  Test merge ------------------
 //------------------------------------
 //-----------------------------------------
+=======
+/// test merger nghia
+
   openInfo() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(this.header);
