@@ -13,7 +13,6 @@ import { Events } from "ionic-angular";
 })
 export class MenuFoodComponent {
   @Input() menu: Array<Food>; // menu được nhận vào
-
   @Output() food = new EventEmitter<Food>(); // info a food
   @Output() note = new EventEmitter<any>(); // 2 biến number of food and note
 
@@ -24,7 +23,11 @@ export class MenuFoodComponent {
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events
-  ) {}
+  ) {
+    events.subscribe("listFoodAMenu", ref => {
+      this.menu = ref;
+    });
+  }
 
   ionViewWillEnter() {}
 
@@ -53,6 +56,9 @@ export class MenuFoodComponent {
       text: "Ok",
       handler: data => {
         item.description = data.note;
+        if(parseInt(data.number)<1){
+          data.number = 1;
+        }
         item.number = parseInt(data.number);
         /*
           - create event, send data(a Food) to bill-detail 

@@ -1,3 +1,4 @@
+import { Area } from "./../../model/Area";
 import { AreaPage } from "./../area/area";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
@@ -39,6 +40,8 @@ export class BillPage {
     }
   ];
 
+  areaName: Array<Area> = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewWillEnter() {
     console.log("ionViewWillEnter AreaPage");
@@ -47,6 +50,6 @@ export class BillPage {
   }
 
   gotoHome() {
-    this.navCtrl.push(AreaPage, {}, { animate: false });
+    this.navCtrl.pop({ animate: false });
   }
 }

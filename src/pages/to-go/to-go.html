@@ -9,7 +9,7 @@
       Mang Về
     </ion-segment-button>
     <ion-segment-button
-      *ngFor="let item of tang"
+      *ngFor="let item of areaName"
       value="{{ item.name }}"
       (click)="setTangHienTai(item.id)"
     >
@@ -20,7 +20,7 @@
 
 <ion-content padding class="content">
   <div>
-    <list-table [tang]="idTang"></list-table>
+    <list-table></list-table>
   </div>
 </ion-content>
 <ion-footer>

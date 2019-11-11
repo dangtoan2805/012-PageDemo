@@ -6,36 +6,43 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
 @Injectable()
-export class GetMenuService {
+export class PushMenuService {
   private snapshotChangesSubscription: any;
   private _DB: any;
   constructor() {
     this._DB = firebase.firestore();
   }
-
-  getCollection(name) {
-    // name : ten collection
+  pushDetailBill(bill) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
-        .collection(name)
-        .get()
-        .then(snapshot => {
-          resolve(snapshot);
+        .collection("bill_detail")
+        .add({
+          // id: bill.id,
+          // name: bill.name,
+          // price: bill.price,
+          dataFoods: bill.dataFoods
+        })
+        .then((obj: any) => {
+          resolve(obj);
         })
         .catch((error: any) => {
           reject(error);
         });
     });
   }
-
-  writeDataToFirebase(array, collectionName) {
+  pushListBill(bill) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
-        .collection(collectionName)
-        .doc()
-        .set(array)
-        .then(snapshot => {
-          resolve(snapshot);
+        .collection("bill")
+        .add({
+          id: bill.id,
+          name: bill.name,
+          price: bill.price,
+
+          date: bill.date
+        })
+        .then((obj: any) => {
+          resolve(obj);
         })
         .catch((error: any) => {
           reject(error);

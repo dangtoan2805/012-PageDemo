@@ -1,7 +1,7 @@
 <div class="bill-container">
   <div class="bill-header">
     <p>
-      <b>Tang 1 > {{ name }}</b>
+      <b> {{ nameArea }} {{ nameHome }}> {{ name }}</b>
     </p>
     <p>{{ note }}</p>
   </div>
@@ -100,7 +100,9 @@
     </div>
 
     <div class="btn-submit">
-      <button class="btn-luu" (click)="addToListBill()">Luu</button>
+      <button class="btn-luu" [disabled]="btnHidden" (click)="saveBill()">
+        Luu
+      </button>
       <button class="btn-thanhtoan">Thanh Toan</button>
     </div>
   </div>

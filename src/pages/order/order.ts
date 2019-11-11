@@ -1,250 +1,64 @@
-import { MenuFirebase } from "./../../model/MenuFirebase";
 import { GetMenuService } from "./../services/getmenu.service";
 import { Food } from "./../../model/Food";
 import { Component } from "@angular/core";
 import { NavController, NavParams, AlertController } from "ionic-angular";
 import { BillPage } from "./../bill/bill";
+import { MenuName } from "../../model/MenuName";
+import { Events } from "ionic-angular";
 
 @Component({
   selector: "page-order",
   templateUrl: "order.html"
 })
 export class OrderPage {
-  name: string; // ten người đặt
+  name: string; // customer name
   note: string; // ghi chú
-  index: number = 0; // default menu 1
-  tamTinh: number = 0;
-  phuPhi: number = 0;
-  vat: number = 0;
-  total: number = 0;
-
-  data: Array<any>;
-  item;
-  menuName: string;
-
+  nameFloor: string; // ten tang
+  nameOrder: string; // mang ve
+  menuNameSegment: string; // NgModelSegment
+  data: Array<any>; // luu obj từ firebase
   arrFood: Array<Food> = []; // array info food add to bill
-
-  menu: Array<any> = [
-    {
-      id: 1,
-      name: "Menu 1",
-      menuFood: [
-        {
-          id: 1,
-          name: "Gà1",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 2,
-          name: "Gà1",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 3,
-          name: "Gà1",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Menu 2",
-      menuFood: [
-        {
-          id: 4,
-          name: "Ech Cafe",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 5,
-          name: "Gà2",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 6,
-          name: "Gà2",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Menu 3",
-      menuFood: [
-        {
-          id: 7,
-          name: "Cafe",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 8,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 9,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh3.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    },
-    {
-      id: 4,
-      name: "Menu 4",
-      menuFood: [
-        {
-          id: 10,
-          name: "Gà ",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 11,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 12,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    },
-    {
-      id: 5,
-      name: "Menu 5",
-      menuFood: [
-        {
-          id: 13,
-          name: "Gà Tôm Cá Cua Heo Bo Ech Cafe",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 14,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 15,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    },
-    {
-      id: 6,
-      name: "Menu 6",
-      menuFood: [
-        {
-          id: 16,
-          name: "Gà Tôm Cá Cua Heo Bo Ech Cafe",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 17,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        },
-        {
-          id: 18,
-          name: "Gà",
-          imageUrl: "../../assets/imgs/anh2.jpg",
-          description: "",
-          size: "L",
-          priceDefault: 12000,
-          number: 1
-        }
-      ]
-    }
-  ];
-
-  menuFirebase: Array<MenuFirebase> = [];
+  menuName: Array<MenuName> = [];
+  arrListFood: Array<Food> = []; // mảng lưu các món ăn có trong menu
+  arrListFoodDefault: Array<Food> = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private getMenuService: GetMenuService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public events: Events
   ) {
     this.getData();
+    this.arrListFoodDefault = this.arrListFood.filter(
+      arrListFood => arrListFood.id_menu == this.menuName[0].id
+    );
   }
 
   getData() {
-    this.getMenuService.getMenu("menu").then(snapshot => {
-      console.log(snapshot.docs);
+    /*
+      - get list name menu
+    */
+    this.getMenuService.getCollection("menu").then(snapshot => {
       this.data = snapshot.docs;
-      for (let i = this.data.length - 1; i >= 0; i--) {
-        this.menuFirebase.push(this.data[i].data());
+      for (let i = 0; i < this.data.length; i++) {
+        this.menuName.push(this.data[i].data());
+        this.menuName[i].id = this.data[i].id;
       }
-      this.item = this.menuFirebase[this.index].menufood;
-      this.menuName = this.menuFirebase[0].name;
+      this.menuNameSegment = this.menuName[0].id;
+    });
+    /*
+      - get list menu
+    */
+    this.getMenuService.getCollection("food").then(snapshot => {
+      this.data = snapshot.docs;
+      for (let i = 0; i < this.data.length; i++) {
+        this.arrListFood.push(this.data[i].data());
+        this.arrListFood[i].id = this.data[i].id;
+      }
+      this.arrListFoodDefault = this.arrListFood.filter(
+        arrListFood => arrListFood.id_menu == this.menuName[0].id
+      );
     });
   }
 
@@ -274,8 +88,14 @@ export class OrderPage {
   // nhận info từ alert gửi sang: tên khách hàng, ghi chú
   getNote() {
     let data = this.navParams.get("data");
+    this.events.publish("data", data);
+    let name = this.navParams.get("name");
+    this.events.publish("name", name);
+    console.log(data);
     this.name = data.name;
     this.note = data.note;
+    this.nameFloor = data.nameFloor;
+    this.nameOrder = name;
   }
 
   goToBill() {
@@ -285,12 +105,12 @@ export class OrderPage {
   /* 
     - Set giá trị menu
   */
-  setIndexMenu(id) {
-    console.log(id);
-    if (this.index != id - 1) {
-      this.index = id - 1;
-      this.item = this.menuFirebase[this.index].menufood;
-      this.menuName = this.menuFirebase[this.index].name;
-    }
+  setMenuFood(id) {
+    this.events.publish(
+      "listFoodAMenu",
+      this.arrListFood.filter(arrListFood => arrListFood.id_menu == id)
+    );
+    this.menuNameSegment = id;
+    // }
   }
 }

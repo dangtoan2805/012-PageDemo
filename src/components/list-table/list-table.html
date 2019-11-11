@@ -1,10 +1,9 @@
 <div>
   <ion-row>
-    <ion-col col-3 *ngFor="let item of data">
-      <div class="box-container" (click)="gotoOrder(item)">
+    <ion-col col-3 *ngFor="let item of arrTable" (click)="gotoOrder(item)">
+      <div class="box-container">
         <img
           [src]="changeImgSrc(item.status, item.type).url"
-          [alt]=""
           style="width:100%;"
         />
         <p [style.color]="changeImgSrc(item.status, item.type).color">

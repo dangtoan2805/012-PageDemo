@@ -16,6 +16,7 @@ import { ToGoPage } from "../pages/to-go/to-go";
 import { ComponentsModule } from "../components/components.module";
 /// service
 import { GetMenuService } from "./../pages/services/getmenu.service";
+import { PushMenuService } from "./../pages/services/pushmenu.service";
 @NgModule({
   declarations: [MyApp, AreaPage, BillPage, OrderPage, ToGoPage],
   imports: [
@@ -24,18 +25,13 @@ import { GetMenuService } from "./../pages/services/getmenu.service";
     IonicModule.forRoot(MyApp, { animate: false })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    OrderPage,
-    AreaPage,
-    BillPage,
-    ToGoPage
-  ],
+  entryComponents: [MyApp, OrderPage, AreaPage, BillPage, ToGoPage],
   providers: [
     StatusBar,
     SplashScreen,
     ScreenOrientation,
     GetMenuService,
+    PushMenuService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

@@ -1,9 +1,11 @@
 export class Food {
-  id: number;
+  id: string;
   name: string;
-  imageUrl: string;
+  img: string;
   description: string;
-  size: string;
+  size = [];
   price: number;
   number: number;
+  id_menu:string;
+  id_discount:string;
 }

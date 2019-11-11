@@ -5,14 +5,17 @@ menu-food {
     background-color: #def3c9;
     .grid {
       align-self: center;
-
+      width: 100%;
+      height: 100%;
       ion-col {
         padding: 2px;
       }
 
       ion-card {
-        max-width: 150px;
-        max-height: 150px;
+        max-width: 14vw !important;
+        max-height: 18vh !important;
+        min-width: 14vw !important;
+        min-height: 18vh !important;
       }
 
       .fr-card {

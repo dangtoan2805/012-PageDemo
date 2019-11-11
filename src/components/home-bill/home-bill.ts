@@ -1,6 +1,13 @@
 import { Component } from "@angular/core";
-import { Events } from "ionic-angular";
+import {
+  Events,
+  NavController,
+  NavParams,
+  ModalController,
+  AlertController
+} from "ionic-angular";
 
+import { OrderPage } from "../../pages/order/order";
 @Component({
   selector: "home-bill",
   templateUrl: "home-bill.html"
@@ -15,7 +22,12 @@ export class HomeBillComponent {
     { id: 5, name: "Anh K", price: 1230000 }
   ];
 
-  constructor(public events: Events) {
+  constructor(
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public events: Events
+  ) {
     events.subscribe("infoABill", bill => {
       this.addToListBill(bill);
     });
@@ -23,5 +35,10 @@ export class HomeBillComponent {
 
   addToListBill(bill) {
     this.data.push(bill);
+  }
+  updateBill(item) {
+    console.log(item);
+    this.events.publish("updateBill", item);
+    this.navCtrl.push(OrderPage);
   }
 }
