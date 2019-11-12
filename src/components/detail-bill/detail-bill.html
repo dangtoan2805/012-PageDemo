@@ -68,17 +68,17 @@
       </p>
     </div>
 
-    <div class="tinh-bill" (click) = "editPhuPhi()">
+    <div class="tinh-bill" (click)="editPhuPhi()">
       <p><b>Phu phi:</b></p>
       <p>
-        <b>{{ phuPhi | currency: "VND":"symbol-narrow":"1.0-0"}}</b>
+        <b>{{ phuPhi | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
       </p>
     </div>
 
-    <div class="tinh-bill" (click) = "editVAT()">
+    <div class="tinh-bill" (click)="editVAT()">
       <p><b>Thue VAT</b></p>
       <p>
-        <b>{{ vat*100 }}%</b>
+        <b>{{ vat * 100 }}%</b>
       </p>
     </div>
 
