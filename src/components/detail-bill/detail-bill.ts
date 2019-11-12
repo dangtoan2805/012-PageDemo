@@ -62,11 +62,25 @@ export class DetailBillComponent {
       this.arrFood = update.arrFood;
     });
 
-    this.events.subscribe("sendDetailBill", data => {
-      for(let i=0;i<data.lenght;i++){
-       // this.arrFood[i] = data.dataFoods[i].;
+    this.events.subscribe("sendDetailBill", ref => {
+      let temp = ref.dataFoods;
+      console.log("sendDetailBill");
+      for(let index in temp){
+        this.getmenuservice.getCollectionById("food",temp[index].id_food).then(res =>{
+           console.log("food",res.data());
+           let data = {
+            id: res.id,
+            name: res.data().name,
+            img:res.data().img ,
+            description: res.data().description,
+            price: res.data().price,
+            number: temp[index].number,
+            id_menu:res.data().id_menu,
+            id_discount:res.data().id_discount,
+           }
+           this.addToBill(data);
+         })
       }
-
     });
   }
 
@@ -138,7 +152,7 @@ export class DetailBillComponent {
 
   updateMenu(item) {
     let alert = this.alertCtrl.create({});
-    alert.setTitle(`Chỉnh sữa`);
+    alert.setTitle(`Chỉnh sửa`);
 
     alert.setSubTitle(item.name);
 
@@ -168,15 +182,18 @@ export class DetailBillComponent {
         if (parseInt(data.number) < 1) {
           data.number = 1;
         }
-
-        item.priceTotal = parseInt(data.price);
+        if(item.priceTotal == parseInt(data.price)){
+          item.priceTotal = data.number * item.price;
+        }
+        else{
+          item.priceTotal = parseInt(data.price);
+        }
         item.number = parseInt(data.number);
         this.arrFood.push(item);
         this.arrFood = Array.from(new Set(this.arrFood));
         this.updatePrice();
       }
     });
-
     alert.present();
   }
 
@@ -207,7 +224,6 @@ export class DetailBillComponent {
       title: "VAT",
       inputs: [
         {
-
           name: 'vat',
           type: 'radio',
           label: '0%',

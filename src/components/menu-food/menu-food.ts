@@ -26,6 +26,7 @@ export class MenuFoodComponent {
   ) {
     events.subscribe("listFoodAMenu", ref => {
       this.menu = ref;
+
     });
   }
 

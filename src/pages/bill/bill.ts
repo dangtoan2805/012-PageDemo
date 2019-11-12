@@ -32,13 +32,9 @@ export class BillPage {
     this.getListBill();    
     // Nhan id bill tu component list-bills
     this.events.subscribe('viewDetailBill', (id_bill_detail, name) => {
-      this.getMenuService.getBillDetailById('bill_detail',id_bill_detail).then(res => { 
-        let billDetail = res.data();
-        console.log(name + " and " + this.idFloor);
-        this.events.publish(
-          'sendDetailBill',
-          billDetail,
-        );
+      this.getMenuService.getCollectionById('bill_detail',id_bill_detail).then(res => { 
+        res.data();
+        this.events.publish('sendDetailBill',res.data());
       });
     });
   }

@@ -58,7 +58,7 @@ export class GetMenuService {
     });
   }
 
-  getBillDetailById(name,id) {
+  getCollectionById(name,id) {
     // name : ten collection
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
@@ -72,6 +72,8 @@ export class GetMenuService {
         });
     });
   }
+
+
 
   writeDataToFirebase(array, collectionName) {
     return new Promise<any>((resolve, reject) => {
