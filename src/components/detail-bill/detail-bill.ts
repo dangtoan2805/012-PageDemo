@@ -40,7 +40,6 @@ export class DetailBillComponent {
     private pushmenuservice: PushMenuService
   ) {
     this.getEventData();
-
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
@@ -64,6 +63,8 @@ export class DetailBillComponent {
       this.note = update.note,
       this.arrFood = update.arrFood;
     });
+
+    
   }
 
   addToBill(food) {
