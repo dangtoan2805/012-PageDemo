@@ -199,17 +199,25 @@ export class DetailBillComponent {
       title: "VAT",
       inputs: [
         {
-          name: "vat",
-          type: "radio",
-          label: "5%",
-          value: "0.05",
-          checked: true
+
+          name: 'vat',
+          type: 'radio',
+          label: '0%',
+          value: '0'
         },
         {
-          name: "vat",
-          type: "radio",
-          label: "10%",
-          value: "0.1"
+          name: 'vat',
+          type: 'radio',
+          label: '5%',
+          value: '0.05'
+        },
+        {
+          name: 'vat',
+          type: 'radio',
+          label: '10%',
+          value: '0.1',
+          checked: true
+
         }
       ]
     });
