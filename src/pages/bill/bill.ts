@@ -16,57 +16,35 @@ import { Table } from "../../model/Table";
 export class BillPage {
   idFloor: string;
   header: string;
-
   areaName: Array<Area> = [];
   listTable: Array<Table> = [];
-  tang: Array<any> = [
-    {
-      id: 0,
-      name: "Mang Về"
-    },
-    {
-      id: 1,
-      name: "Tầng 1"
-    },
-    {
-      id: 2,
-      name: "Tầng 2"
-    },
-    {
-      id: 3,
-      name: "Tầng 3"
-    },
-    {
-      id: 4,
-      name: "Tầng 4"
-    },
-    {
-      id: 5,
-      name: "Tầng 5"
-    },
-    {
-      id: 6,
-      name: "Tầng 6"
-    }
-  ];
-
-
   listBill: Array<ListBill> = [];
-  detailBill: Array<any> = [];
   idListBill: any;
   data: Array<any>; // luu obj từ firebase
+  defaultListBill:Array<ListBill> = [];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private getMenuService: GetMenuService,
     private events: Events
   ) {
-    this.getListBill();
+    this.getListBill();    
+    // Nhan id bill tu component list-bills
+    this.events.subscribe('viewDetailBill', (id_bill_detail, name) => {
+      this.getMenuService.getBillDetailById('bill_detail',id_bill_detail).then(res => { 
+        let billDetail = res.data();
+        console.log(name + " and " + this.idFloor);
+        this.events.publish(
+          'sendDetailBill',
+          billDetail,
+        );
+      });
+    });
   }
-  ionViewDidLoad() {}
-  ionViewWillEnter() {
 
-    this.header = "Mang Về";
+  ionViewWillEnter() {
+    
   }
   getListBill() {
     // get listbill
@@ -76,8 +54,11 @@ export class BillPage {
         this.listBill.push(data[i].data());
         this.listBill[i].id = data[i].id;
       }
+      this.defaultListBill = this.listBill.filter(
+        listBill => listBill.id_area == this.navParams.get("id")
+      );
+      console.log("default:", this.defaultListBill);
     });
-
     this.getNameFloor();
   }
 
@@ -88,21 +69,19 @@ export class BillPage {
         this.areaName.push(data[i].data());
         this.areaName[i].id = data[i].id;
       }
-      this.header = this.areaName[0].id;
-
-      console.log("Get Area: Success !");
+      this.header = this.navParams.get("id");
     });
   }
 
   gotoHome() {
     this.navCtrl.pop({ animate: false });
   }
+
   setTangHienTai(value) {
     this.header = value;
-    console.log(this.header);
-    this.detailBill = this.listBill.filter(
+    let detailBill = this.listBill.filter(
       listBill => listBill.id_area == value
     );
-    console.log(this.detailBill);
+    this.events.publish("ListBill",detailBill)
   }
 }

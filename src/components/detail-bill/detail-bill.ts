@@ -43,8 +43,7 @@ export class DetailBillComponent {
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
-      console.log(dataTable);
-      this.idTable = dataTable.id;
+      this.idTable = dataTable.id != null ? dataTable.id:"";
       this.nameArea = dataTable.nameFloor;
       this.idArea = dataTable.id_area;
     });
@@ -59,15 +58,16 @@ export class DetailBillComponent {
     });
 
     this.events.subscribe("updateBill", update => {
-
-
       this.name = update.name,
       this.note = update.note,
       this.arrFood = update.arrFood;
-
     });
 
-    
+    this.events.subscribe("sendDetailBill", data => {
+      for(let i=0;i<data.lenght;i++){
+       // this.arrFood[i] = data.dataFoods[i].;
+      }
+    });
   }
 
   addToBill(food) {
@@ -84,7 +84,8 @@ export class DetailBillComponent {
       
     } else {
       this.arrFood.push(item);
-      this.arrFood[this.arrFood.length - 1].priceTotal = item.price
+      this.arrFood[this.arrFood.length - 1].priceTotal = item.price*item.number;
+      console.log("Gia total",this.arrFood[this.arrFood.length - 1].priceTotal);
     }
     this.updatePrice();
     this.btnHidden = false;

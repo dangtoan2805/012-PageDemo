@@ -1,4 +1,3 @@
-
 export class ListBill {
   id: string;
   id_bill_detail: string;

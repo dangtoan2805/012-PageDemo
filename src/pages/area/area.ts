@@ -1,3 +1,4 @@
+import { ListBill } from './../../model/ListBill';
 import { Area } from "./../../model/Area";
 import { ToGoPage } from "./../to-go/to-go";
 import { Component } from "@angular/core";
@@ -23,6 +24,7 @@ export class AreaPage {
   data: Array<any> = [];
 
   areaName: Array<any> = [];
+  arrBill: Array<ListBill> = [];
 
   //====================== Life Cycle ==========
   // constructor --> ionViewDidLoad --> ionViewWillEnter -->
@@ -35,25 +37,38 @@ export class AreaPage {
     private getMenuService: GetMenuService,
     public events: Events
   ) {
-    this.getData();
-    console.log("hello 1")
+
   }
 
-  getData(){
+  ionViewWillEnter() {
+    this.getData();
+  }
 
+  getData() {
     this.getMenuService.getCollection("area").then(snapshot => {
       let data = snapshot.docs;
+      this.areaName = new Array();
       for (let i = 0; i < data.length; i++) {
         this.areaName.push(data[i].data());
         this.areaName[i].id = data[i].id;
       }
     });
+
+    this.getMenuService.getListBillGoHome("bill", "id_gohome").then(snapshot => {
+      let data = snapshot.docs;
+      this.arrBill = new Array();
+      for (let i = 0; i < data.length; i++) {
+        this.arrBill.push(data[i].data());
+        this.arrBill[i].id = data[i].id;
+      }
+      this.events.publish("ListBillGoHome", this.arrBill);
+    })
   }
 
   ionViewDidLoad() {
     this.header = "Mang Về";
   }
- 
+
   openInfo() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(this.header);
@@ -74,12 +89,17 @@ export class AreaPage {
     alert.addButton({
       text: "Ok",
       handler: data => {
-        console.log("Checkbox data:", data);
+        let info = {
+          id: "",
+          name: data.name,
+          nameFloor: this.header,
+          id_area: "id_gohome"
+        };
         this.navCtrl.push(
           OrderPage,
           {
-            data: data,
-            name: this.header
+            data: info,
+            name: this.header,
           },
           { animate: false }
         );
@@ -89,7 +109,7 @@ export class AreaPage {
   }
 
   goToBill() {
-    this.navCtrl.push(BillPage, {}, { animate: false });
+    this.navCtrl.push(BillPage, { id: "id_gohome" }, { animate: false });
   }
 
   goToGoPage(id) {
