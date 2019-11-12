@@ -2,6 +2,7 @@ import { Area } from "./../../model/Area";
 import { AreaPage } from "./../area/area";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
+import { Bill } from "../../model/ListBill";
 
 @Component({
   selector: "page-bill",
@@ -41,11 +42,11 @@ export class BillPage {
   ];
 
   areaName: Array<Area> = [];
+  listBill:Array<Bill> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewWillEnter() {
     console.log("ionViewWillEnter AreaPage");
-
     this.header = "Mang Về";
   }
 

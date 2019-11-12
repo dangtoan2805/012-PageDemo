@@ -31,6 +31,10 @@ export class HomeBillComponent {
     events.subscribe("infoABill", bill => {
       this.addToListBill(bill);
     });
+    
+    this.events.subscribe("data", (area) => {
+      console.log("Area: ",area);
+    });
   }
 
   addToListBill(bill) {

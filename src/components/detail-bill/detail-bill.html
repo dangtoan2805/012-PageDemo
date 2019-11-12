@@ -41,8 +41,7 @@
               <ion-col col-3 class="center-content">
                 <h2>
                   {{
-                    item.price * item.number
-                      | currency: "VND":"symbol-narrow":"1.0-0"
+                    item.priceTotal | currency: "VND":"symbol-narrow":"1.0-0"
                   }}
                 </h2>
               </ion-col>
@@ -69,17 +68,17 @@
       </p>
     </div>
 
-    <div class="tinh-bill">
+    <div class="tinh-bill" (click) = "editPhuPhi()">
       <p><b>Phu phi:</b></p>
       <p>
-        <b>{{ phuPhi }}</b>
+        <b>{{ phuPhi | currency: "VND":"symbol-narrow":"1.0-0"}}</b>
       </p>
     </div>
 
-    <div class="tinh-bill">
+    <div class="tinh-bill" (click) = "editVAT()">
       <p><b>Thue VAT</b></p>
       <p>
-        <b>{{ vat | currency: "VND":"symbol-narrow":"1.0-0" }}</b>
+        <b>{{ vat*100 }}%</b>
       </p>
     </div>
 

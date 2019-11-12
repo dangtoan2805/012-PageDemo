@@ -10,6 +10,8 @@ import {
 import { BillPage } from "./../bill/bill";
 import { OrderPage } from "./../order/order";
 import { GetMenuService } from "../services/getmenu.service";
+import { Events } from 'ionic-angular';
+
 @Component({
   selector: "page-area",
   templateUrl: "area.html"
@@ -20,7 +22,7 @@ export class AreaPage {
   header: string;
   data: Array<any> = [];
 
-  areaName: Array<Area> = [];
+  areaName: Array<any> = [];
 
   //====================== Life Cycle ==========
   // constructor --> ionViewDidLoad --> ionViewWillEnter -->
@@ -30,30 +32,26 @@ export class AreaPage {
     public navParams: NavParams,
     private modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    private getMenuService: GetMenuService
+    private getMenuService: GetMenuService,
+    public events: Events
   ) {
     this.getData();
   }
 
-  ionViewDidLoad() {
-    this.header = "Mang Về";
-    //this.getMenu();
-    //this.addData(this.arrListTable,"table");
-  }
-  getData() {
-    /*
-      - get list name area
-    */
+  getData(){
     this.getMenuService.getCollection("area").then(snapshot => {
-      this.data = snapshot.docs;
-      for (let i = 0; i < this.data.length; i++) {
-        this.areaName.push(this.data[i].data());
-        this.areaName[i].id = this.data[i].id;
+      let data = snapshot.docs;
+      for (let i = 0; i < data.length; i++) {
+        this.areaName.push(data[i].data());
+        this.areaName[i].id = data[i].id;
       }
-      console.log("Get Area: Success !");
     });
   }
 
+  ionViewDidLoad() {
+    this.header = "Mang Về";
+  }
+ 
   openInfo() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(this.header);
@@ -105,21 +103,6 @@ export class AreaPage {
     - array test firebase add to firebase
   */
   arrMenuDrink = [
-    {
-      description: "",
-      id_discount: "",
-      id_menu: "LZleYHRHqvR30NjMAowg",
-      img: "https://thucthan.com/media/2018/06/tra-dao/cach-lam-tra-dao.jpg",
-      name: "Trà Đào",
-      price: 30000,
-      size: [
-        {
-          l: 0,
-          s: 0,
-          m: 0
-        }
-      ]
-    },
     {
       description: "",
       id_discount: "",

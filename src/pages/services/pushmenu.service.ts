@@ -40,7 +40,9 @@ export class PushMenuService {
           total: data.total,
           id_bill_detail: data.id_bill_detail,
           status:data.status,
-          date: data.date
+          date: data.date,
+          phu_phi:data.phu_phi,
+          vat:data.vat
         })
         .then((obj: any) => {
           resolve(obj);
