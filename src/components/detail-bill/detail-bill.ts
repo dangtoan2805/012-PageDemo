@@ -15,19 +15,21 @@ import { PushMenuService } from "../../pages/services/pushmenu.service";
   selector: "detail-bill",
   templateUrl: "detail-bill.html"
 })
+
 export class DetailBillComponent {
+
   @Input() name: string;
   @Input() note: string;
   idTable: string;
   nameArea: string;
   nameHome: string;
-  arrFood: Array<Food> = [];
+  arrFood: Array<FoodTemp> = [];
   tamTinh: number = 0;
   phuPhi: number = 0;
   vat: number = 0;
   total: number = 0;
   btnHidden: boolean = true;
-  idArea:string;
+  idArea: string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -38,7 +40,7 @@ export class DetailBillComponent {
     private pushmenuservice: PushMenuService
   ) {
     this.getEventData();
- 
+
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
@@ -47,17 +49,20 @@ export class DetailBillComponent {
       this.nameArea = dataTable.nameFloor;
       this.idArea = dataTable.id_area;
     });
+
     this.events.subscribe("name", name => {
       console.log(name);
       this.nameHome = name;
     });
+
     this.events.subscribe("infoAFood", food => {
       this.addToBill(food);
     });
+
     this.events.subscribe("updateBill", update => {
       this.name = update.name,
-        this.note = update.note,
-        this.arrFood = update.arrFood;
+      this.note = update.note,
+      this.arrFood = update.arrFood;
     });
   }
 
@@ -70,8 +75,12 @@ export class DetailBillComponent {
 
     if (index != -1) {
       this.arrFood[index].number = this.arrFood[index].number + item.number;
+      this.arrFood[index].priceTotal += item.number * item.price;
+      this.arrFood[index].description += " +" + item.description;
+      
     } else {
       this.arrFood.push(item);
+      this.arrFood[this.arrFood.length - 1].priceTotal = item.price
     }
     this.updatePrice();
     this.btnHidden = false;
@@ -80,9 +89,10 @@ export class DetailBillComponent {
   updatePrice() {
     this.tamTinh = 0;
     for (let item in this.arrFood) {
-      this.tamTinh += this.arrFood[item].price * this.arrFood[item].number;
+      this.tamTinh += this.arrFood[item].priceTotal;
     }
-    this.total = this.tamTinh + this.vat + this.phuPhi;
+    console.log(this.total * this.vat);
+    this.total = this.tamTinh + this.total * this.vat + this.phuPhi;
   }
 
   delete(item) {
@@ -110,12 +120,14 @@ export class DetailBillComponent {
 
   up(item) {
     item.number++;
+    item.priceTotal += item.price;
     this.updatePrice();
   }
 
   down(item) {
     if (item.number > 1) {
       item.number--;
+      item.priceTotal -= item.price;
       this.updatePrice();
     }
   }
@@ -133,6 +145,12 @@ export class DetailBillComponent {
     });
 
     alert.addInput({
+      type: "number",
+      value: item.priceTotal,
+      name: "price"
+    })
+
+    alert.addInput({
       type: "textarea",
       value: item.description,
       name: "description"
@@ -146,6 +164,8 @@ export class DetailBillComponent {
         if (parseInt(data.number) < 1) {
           data.number = 1;
         }
+
+        item.priceTotal = parseInt(data.price);
         item.number = parseInt(data.number);
         this.arrFood.push(item);
         this.arrFood = Array.from(new Set(this.arrFood));
@@ -156,14 +176,72 @@ export class DetailBillComponent {
     alert.present();
   }
 
+  editPhuPhi(){
+    let alert = this.alertCtrl.create({});
+    alert.setTitle(`Phụ phí`);
+
+    alert.addInput({
+      type: "number",
+      value: ""+ this.phuPhi,
+      name:"phuPhi"
+    })
+
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: data => {
+        this.phuPhi =parseInt(data.phuPhi);
+        this.updatePrice();
+      }
+    });
+
+    alert.present();
+  }
+
+  editVAT(){
+    let alert = this.alertCtrl.create({
+      title: 'VAT',
+      inputs: [
+        {
+          name: 'vat',
+          type: 'radio',
+          label: '5%',
+          value: '0.05',
+          checked: true
+        },
+        {
+          name: 'vat',
+          type: 'radio',
+          label: '10%',
+          value: '0.1'
+        }
+       ]
+      });
+    alert.setTitle(`Phụ phí`);
+
+    alert.addButton("Hủy");
+    alert.addButton({
+      text: "Ok",
+      handler: data => {
+        console.log("data: ",data);
+        this.vat = parseFloat(data);
+        console.log(this.vat);
+        this.updatePrice();
+      }
+    });
+
+    alert.present();
+  }
+
   saveBill() {
-  
+
     let report: Array<any> = [];
     for (let i = 0; i < this.arrFood.length; i++) {
       let data = {
         id_food: this.arrFood[i].id,
         number: this.arrFood[i].number,
-        price: this.arrFood[i].price * this.arrFood[i].number
+        price: this.arrFood[i].priceTotal,
+        note: this.arrFood[i].description
       };
       report.push(data);
     }
@@ -171,7 +249,7 @@ export class DetailBillComponent {
     let data = {
       dataFoods: report,
       id_table: this.idTable,
-      note:this.note ? this.note : ""
+      note: this.note ? this.note : ""
     };
 
     this.btnHidden = true;
@@ -179,20 +257,22 @@ export class DetailBillComponent {
       this.pushToBill(res);
       this.navCtrl.pop({ animate: false });
     });
-    
+
   }
 
-  pushToBill(id_bill_detail){
+  pushToBill(id_bill_detail) {
     let date = new Date();
     let data = {
       id_area: this.idArea,
       name: this.name,
       total: this.total,
       id_bill_detail: id_bill_detail,
+      phu_phi:this.phuPhi,
+      vat:this.vat,
       date: date,
-      status:false
+      status: false
     };
     this.events.publish("infoABill", data);
-    this.pushmenuservice.pushListBill(data).then(res => {});
+    this.pushmenuservice.pushListBill(data).then(res => { });
   }
 }

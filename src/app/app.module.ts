@@ -1,4 +1,4 @@
-import { HomeBillComponent } from "./../components/home-bill/home-bill";
+
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
@@ -17,6 +17,7 @@ import { ComponentsModule } from "../components/components.module";
 /// service
 import { GetMenuService } from "./../pages/services/getmenu.service";
 import { PushMenuService } from "./../pages/services/pushmenu.service";
+
 @NgModule({
   declarations: [MyApp, AreaPage, BillPage, OrderPage, ToGoPage],
   imports: [

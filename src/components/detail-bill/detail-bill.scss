@@ -87,7 +87,11 @@ detail-bill {
                     p {
                       text-overflow: ellipsis;
                       white-space: nowrap;
+                      overflow: hidden;
                       width: 100%;
+                      color: gray;
+                      font-size: 2vh;
+                      font-weight: 800;
                     }
                   }
                 }

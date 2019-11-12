@@ -26,7 +26,6 @@ export class ToGoPage {
   ) {
     this.areaName = navParams.get("data");
     this.idFloor = navParams.get("item");
-    console.log(this.areaName, this.idFloor);
     // set Segment header
     this.header = this.areaName[
       this.areaName.findIndex(areaName => areaName.id == this.idFloor)
@@ -42,6 +41,7 @@ export class ToGoPage {
         this.listTable.push(data[i].data());
         this.listTable[i].id = data[i].id;
       }
+
       console.log("Get Table: Success !");
       this.events.publish(
         "listTable",
