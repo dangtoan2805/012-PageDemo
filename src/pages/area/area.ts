@@ -54,8 +54,6 @@ export class AreaPage {
     });
   }
 
-
-
   openInfo() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(this.header);

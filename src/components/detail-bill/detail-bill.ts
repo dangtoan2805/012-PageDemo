@@ -27,6 +27,7 @@ export class DetailBillComponent {
   vat: number = 0;
   total: number = 0;
   btnHidden: boolean = true;
+  idArea:string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -37,37 +38,14 @@ export class DetailBillComponent {
     private pushmenuservice: PushMenuService
   ) {
     this.getEventData();
-    // events.subscribe("data", dataTable => {
-    //   console.log(dataTable);
-    //   this.idTable = dataTable.id;
-    //   this.nameArea = dataTable.nameFloor;
-    // });
-    // events.subscribe("name", name => {
-    //   console.log(name);
-    //   this.nameArea = name;
-    // });
-    // events.subscribe("infoAFood", food => {
-    //   this.addToBill(food);
-    // });
-    // events.subscribe("updateBill", update => {
-    //   console.log(update);
-    //   (this.name = update.name),
-    //     (this.note = update.note),
-    //     (this.arrFood = update.arrFood);
-    // });
+ 
   }
   getEventData() {
-    // this.getmenuservice.getListFood().then(snapshot => {
-    //   let data = snapshot.docs;
-    //   for (let i = 0; i < data.length; i++) {
-    //     this.idFood.push(data[i].id);
-    //     console.log(this.idFood);
-    //   }
-    // });
     this.events.subscribe("data", dataTable => {
       console.log(dataTable);
       this.idTable = dataTable.id;
       this.nameArea = dataTable.nameFloor;
+      this.idArea = dataTable.id_area;
     });
     this.events.subscribe("name", name => {
       console.log(name);
@@ -77,10 +55,9 @@ export class DetailBillComponent {
       this.addToBill(food);
     });
     this.events.subscribe("updateBill", update => {
-      console.log(update);
-      (this.name = update.name),
-        (this.note = update.note),
-        (this.arrFood = update.arrFood);
+      this.name = update.name,
+        this.note = update.note,
+        this.arrFood = update.arrFood;
     });
   }
 
@@ -124,7 +101,6 @@ export class DetailBillComponent {
         this.updatePrice();
         if (this.arrFood.length < 1) {
           this.btnHidden = true;
-          console.log(this.arrFood.length);
         }
       }
     });
@@ -145,7 +121,6 @@ export class DetailBillComponent {
   }
 
   updateMenu(item) {
-    console.log(item);
     let alert = this.alertCtrl.create({});
     alert.setTitle(`Chỉnh sữa`);
 
@@ -167,8 +142,6 @@ export class DetailBillComponent {
     alert.addButton({
       text: "Ok",
       handler: data => {
-        console.log("Checkbox data:", data);
-        console.log(item);
         item.description = data.description;
         if (parseInt(data.number) < 1) {
           data.number = 1;
@@ -184,14 +157,7 @@ export class DetailBillComponent {
   }
 
   saveBill() {
-    let date = new Date();
-    let data = {
-      id: this.idTable,
-      name: this.name,
-      price: this.total,
-
-      date: date
-    };
+  
     let report: Array<any> = [];
     for (let i = 0; i < this.arrFood.length; i++) {
       let data = {
@@ -199,19 +165,34 @@ export class DetailBillComponent {
         number: this.arrFood[i].number,
         price: this.arrFood[i].price * this.arrFood[i].number
       };
-
       report.push(data);
     }
-    let detailBill = {
-      dataFoods: report
+
+    let data = {
+      dataFoods: report,
+      id_table: this.idTable,
+      note:this.note ? this.note : ""
     };
 
-    this.events.publish("infoABill", data);
-
     this.btnHidden = true;
-    this.pushmenuservice.pushDetailBill(detailBill).then(res => {
+    this.pushmenuservice.pushDetailBill(data).then(res => {
+      this.pushToBill(res);
       this.navCtrl.pop({ animate: false });
     });
+    
+  }
+
+  pushToBill(id_bill_detail){
+    let date = new Date();
+    let data = {
+      id_area: this.idArea,
+      name: this.name,
+      total: this.total,
+      id_bill_detail: id_bill_detail,
+      date: date,
+      status:false
+    };
+    this.events.publish("infoABill", data);
     this.pushmenuservice.pushListBill(data).then(res => {});
   }
 }
