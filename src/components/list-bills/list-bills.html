@@ -1,10 +1,10 @@
 <ion-content padding style="padding-top:0px !important">
   <ion-card
-    *ngFor="let item of bill"
+    *ngFor="let item of listBill"
     [style.border-left]="
       item.status == true ? '15px solid green ' : '15px solid orange '
     "
-    (click)="pushBill(item, item.name)"
+    (click)="ViewDetailBill(item, item.name)"
   >
     <ion-card-content>
       <ion-row>
@@ -20,7 +20,7 @@
               <h2>
                 <b>{{ item.name }}</b>
               </h2>
-              <p>{{ item.date }}</p>
+              <p>{{ item.date.toDate() | date: "dd/MM/y - hh:mm a" }}</p>
             </ion-col>
           </ion-row>
         </ion-col>
@@ -29,7 +29,7 @@
           <h2>
             <b>Tổng Cộng</b> :
             <b style="color: red;">
-              {{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}</b
+              {{ item.total | currency: "VND":"symbol-narrow":"1.0-0" }}</b
             >
           </h2>
         </ion-col>

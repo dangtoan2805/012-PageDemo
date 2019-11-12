@@ -27,7 +27,7 @@ export class DetailBillComponent {
   vat: number = 0;
   total: number = 0;
   btnHidden: boolean = true;
-  idArea:string;
+  idArea: string;
 
   constructor(
     public alertCtrl: AlertController,
@@ -38,7 +38,6 @@ export class DetailBillComponent {
     private pushmenuservice: PushMenuService
   ) {
     this.getEventData();
- 
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
@@ -55,9 +54,9 @@ export class DetailBillComponent {
       this.addToBill(food);
     });
     this.events.subscribe("updateBill", update => {
-      this.name = update.name,
-        this.note = update.note,
-        this.arrFood = update.arrFood;
+      (this.name = update.name),
+        (this.note = update.note),
+        (this.arrFood = update.arrFood);
     });
   }
 
@@ -157,7 +156,6 @@ export class DetailBillComponent {
   }
 
   saveBill() {
-  
     let report: Array<any> = [];
     for (let i = 0; i < this.arrFood.length; i++) {
       let data = {
@@ -171,18 +169,18 @@ export class DetailBillComponent {
     let data = {
       dataFoods: report,
       id_table: this.idTable,
-      note:this.note ? this.note : ""
+      note: this.note ? this.note : ""
     };
 
     this.btnHidden = true;
     this.pushmenuservice.pushDetailBill(data).then(res => {
-      this.pushToBill(res);
+      console.log(res.id);
+      this.pushToBill(res.id);
       this.navCtrl.pop({ animate: false });
     });
-    
   }
 
-  pushToBill(id_bill_detail){
+  pushToBill(id_bill_detail) {
     let date = new Date();
     let data = {
       id_area: this.idArea,
@@ -190,7 +188,7 @@ export class DetailBillComponent {
       total: this.total,
       id_bill_detail: id_bill_detail,
       date: date,
-      status:false
+      status: false
     };
     this.events.publish("infoABill", data);
     this.pushmenuservice.pushListBill(data).then(res => {});

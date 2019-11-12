@@ -33,12 +33,18 @@ export class AreaPage {
     private getMenuService: GetMenuService
   ) {
     this.getData();
+    console.log("hello 1")
   }
 
   ionViewDidLoad() {
     this.header = "Mang Về";
+    console.log("hello 2")
+    
     //this.getMenu();
     //this.addData(this.arrListTable,"table");
+  }
+  ionViewWillEnter(){
+    console.log("hello 3")
   }
   getData() {
     /*

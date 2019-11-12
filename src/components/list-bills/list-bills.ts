@@ -1,19 +1,12 @@
-import { Component } from '@angular/core';
-
-/**
- * Generated class for the ListBillsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Component, Input } from "@angular/core";
+import { GetMenuService } from "../../pages/services/getmenu.service";
+import { ListBill } from "../../model/ListBill";
 @Component({
-  selector: 'list-bills',
-  templateUrl: 'list-bills.html'
+  selector: "list-bills",
+  templateUrl: "list-bills.html"
 })
 export class ListBillsComponent {
-
-  text: string;
- 
+  @Input() listBill: Array<ListBill>;
   bill: Array<any> = [
     {
       id: 0,
@@ -79,10 +72,8 @@ export class ListBillsComponent {
       status: true
     }
   ];
-  
-  constructor() {
-    console.log('Hello ListBillsComponent Component');
-    this.text = 'Hello World';
-  }
 
+  ViewDetailBill(item) {
+    console.log(item);
+  }
 }
