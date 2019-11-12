@@ -109,21 +109,6 @@ export class AreaPage {
       description: "",
       id_discount: "",
       id_menu: "LZleYHRHqvR30NjMAowg",
-      img: "https://thucthan.com/media/2018/06/tra-dao/cach-lam-tra-dao.jpg",
-      name: "Trà Đào",
-      price: 30000,
-      size: [
-        {
-          l: 0,
-          s: 0,
-          m: 0
-        }
-      ]
-    },
-    {
-      description: "",
-      id_discount: "",
-      id_menu: "LZleYHRHqvR30NjMAowg",
       img: "https://vnn-imgs-f.vgcloud.vn/2019/10/06/08/tra-sua.jpg",
       name: "Trà Sữa",
       price: 50000,
