@@ -88,7 +88,6 @@ export class OrderPage {
   // nhận info từ alert gửi sang: tên khách hàng, ghi chú
   getNote() {
     let data = this.navParams.get("data");
-    console.log("data order: ",data);
     this.events.publish("data", data);
     let name = this.navParams.get("name");
     console.log(data);

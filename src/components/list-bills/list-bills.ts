@@ -14,7 +14,6 @@ export class ListBillsComponent {
   constructor(private events:Events){
     this.events.subscribe("ListBill", data => {
       this.listBill = data;
-      console.log("list bill ",data);
     })
   }
 
@@ -22,7 +21,7 @@ export class ListBillsComponent {
     this.events.publish(
       'viewDetailBill',
       item.id_bill_detail,
-      item.name,
+      item.name
     );
   }
 }

@@ -4,7 +4,7 @@
     [style.border-left]="
       item.status == true ? '15px solid green ' : '15px solid orange '
     "
-    (click)="ViewDetailBill(item, item.name)"
+    (click)="ViewDetailBill(item)"
   >
     <ion-card-content>
       <ion-row>
@@ -20,7 +20,7 @@
               <h2>
                 <b>{{ item.name }}</b>
               </h2>
-              <p>{{ item.date.toDate() | date: "dd/MM/y - hh:mm a" }}</p>
+              <p>{{ item.date.toDate() | date: "dd/MM/y" }}</p>
             </ion-col>
           </ion-row>
         </ion-col>
