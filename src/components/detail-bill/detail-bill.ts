@@ -208,15 +208,21 @@ export class DetailBillComponent {
         {
           name: 'vat',
           type: 'radio',
+          label: '0%',
+          value: '0'
+        },
+        {
+          name: 'vat',
+          type: 'radio',
           label: '5%',
-          value: '0.05',
-          checked: true
+          value: '0.05'
         },
         {
           name: 'vat',
           type: 'radio',
           label: '10%',
-          value: '0.1'
+          value: '0.1',
+          checked: true
         }
        ]
       });
