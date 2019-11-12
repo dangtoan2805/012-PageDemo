@@ -1,13 +1,12 @@
 page-bill {
   .header {
     background-color: white;
-    display: inline-flex;
-    justify-content: flex-start;
+    display: block;
     white-space: nowrap;
     font-size: 0;
     overflow-x: auto;
     overflow-y: hidden;
-    align-items: center;
+
     &::-webkit-scrollbar {
       width: 0;
       height: 0;
@@ -24,23 +23,40 @@ page-bill {
       text-align: center !important;
       display: inline-flex;
       min-width: 22vh;
-
       width: auto;
       text-transform: capitalize !important;
     }
+    .segment-button {
+      font-size: 3vh !important;
+      height: 8vh !important;
+
+      color: black !important;
+      border-color: white !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      display: inline-flex;
+      min-width: 22vh;
+      width: auto;
+      text-transform: capitalize !important;
+    }
+    .segment-button .segment-button.segment-activated {
+      border-bottom: 0.5vh solid orange !important;
+      background-color: white !important;
+      font-weight: bold;
+    }
+
     .segment .segment-button.segment-activated {
       border-bottom: 0.5vh solid orange !important;
       background-color: white !important;
       font-weight: bold;
-      transition: none !important;
     }
 
     .icon {
       position: absolute;
-      right: 0.5vh;
-      top: 0.8vh;
-      font-size: 3vh !important;      
-      color: #35be1b;
+      font-size: 4vh !important;
+      margin-left: 49vw !important;
+      line-height: 180% !important;
     }
   }
 
@@ -62,7 +78,7 @@ page-bill {
       .bill-details {
         width: 40vw;
         height: 100%;
-        border:2px solid gray;
+        border: 2px solid gray;
       }
     }
   }

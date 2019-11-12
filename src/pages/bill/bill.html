@@ -5,7 +5,14 @@
         <ion-icon name="close" color="myapp"></ion-icon>
       </a>
     </ion-buttons>
-    <ion-segment-button *ngFor="let item of tang" value="{{ item.name }}">
+    <ion-segment-button value="Mang Về">
+      Mang Về
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let item of areaName"
+      value="{{ item.id }}"
+      (click)="setTangHienTai(item.id)"
+    >
       {{ item.name }}
     </ion-segment-button>
   </ion-segment>
@@ -14,7 +21,7 @@
 <ion-content padding class="content">
   <ion-row class="bill">
     <div class="bill-area">
-      <list-bills></list-bills>
+      <list-bills [listBill]="detailBill"></list-bills>
     </div>
     <div class="bill-details">
       <detail-bill></detail-bill>

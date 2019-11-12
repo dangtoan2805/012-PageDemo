@@ -60,9 +60,12 @@ export class DetailBillComponent {
     });
 
     this.events.subscribe("updateBill", update => {
+
+
       this.name = update.name,
       this.note = update.note,
       this.arrFood = update.arrFood;
+
     });
   }
 
@@ -254,7 +257,8 @@ export class DetailBillComponent {
 
     this.btnHidden = true;
     this.pushmenuservice.pushDetailBill(data).then(res => {
-      this.pushToBill(res);
+      console.log(res.id);
+      this.pushToBill(res.id);
       this.navCtrl.pop({ animate: false });
     });
 

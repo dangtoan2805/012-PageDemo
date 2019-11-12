@@ -18,11 +18,12 @@ export class PushMenuService {
         .collection("bill_detail")
         .add({
           dataFoods: data.dataFoods,
-          id_table:data.id_table,
-          note:data.note
+          id_table: data.id_table,
+          note: data.note
         })
         .then((obj: any) => {
-          resolve(obj.id);
+          //resolve(obj.id);
+          resolve(obj);
         })
         .catch((error: any) => {
           reject(error);
@@ -39,10 +40,12 @@ export class PushMenuService {
           name: data.name,
           total: data.total,
           id_bill_detail: data.id_bill_detail,
+
           status:data.status,
           date: data.date,
           phu_phi:data.phu_phi,
           vat:data.vat
+
         })
         .then((obj: any) => {
           resolve(obj);

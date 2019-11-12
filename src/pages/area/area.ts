@@ -36,9 +36,11 @@ export class AreaPage {
     public events: Events
   ) {
     this.getData();
+    console.log("hello 1")
   }
 
   getData(){
+
     this.getMenuService.getCollection("area").then(snapshot => {
       let data = snapshot.docs;
       for (let i = 0; i < data.length; i++) {
