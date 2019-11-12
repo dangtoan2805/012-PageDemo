@@ -1,11 +1,13 @@
 import { Area } from "./../../model/Area";
 import { AreaPage } from "./../area/area";
 import { Component } from "@angular/core";
+
 import { NavController, NavParams, Events } from "ionic-angular";
 import { GetMenuService } from "./../services/getmenu.service";
 import { ListBill } from "../../model/ListBill";
 import { BillDetail } from "../../model/BillDetails";
 import { Table } from "../../model/Table";
+
 
 @Component({
   selector: "page-bill",
@@ -48,6 +50,7 @@ export class BillPage {
     }
   ];
 
+
   listBill: Array<ListBill> = [];
   detailBill: Array<any> = [];
   idListBill: any;
@@ -62,6 +65,7 @@ export class BillPage {
   }
   ionViewDidLoad() {}
   ionViewWillEnter() {
+
     this.header = "Mang Về";
   }
   getListBill() {

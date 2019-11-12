@@ -1,3 +1,4 @@
+
 export class ListBill {
   id: string;
   id_bill_detail: string;
@@ -8,3 +9,4 @@ export class ListBill {
   total: number;
   name: string;
 }
+

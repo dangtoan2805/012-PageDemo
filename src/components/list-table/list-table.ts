@@ -59,17 +59,12 @@ export class ListTableComponent {
     if (status === false && type === 2) return this.imgUrl[3];
   }
   gotoOrder(item) {
-    console.log(item);
     if (item.status === false) {
       let alert = this.alertCtrl.create({});
       alert.setTitle(`Thêm món ăn `);
       alert.setSubTitle(item.name);
 
       alert.addButton("Ok");
-      // alert.addButton({
-      //   text: "Ok",
-      //   handler: () => {}
-      // });
 
       alert.present();
     } else {
@@ -94,7 +89,6 @@ export class ListTableComponent {
 
   // Thay đổi trạng thái sau khi lưu bill-detail
   changeStatusTable(bill) {
-    console.log(bill);
     for (var i = 0; i < this.arrTable.length; i++) {
       this.arrTable[i].status =
         this.arrTable[i].name == bill.name

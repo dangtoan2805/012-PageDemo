@@ -1,6 +1,8 @@
+
 import { Component, Input } from "@angular/core";
 import { GetMenuService } from "../../pages/services/getmenu.service";
 import { ListBill } from "../../model/ListBill";
+
 @Component({
   selector: "list-bills",
   templateUrl: "list-bills.html"
