@@ -58,7 +58,7 @@ export class ToGoPage {
   }
 
   goToBill() {
-    this.navCtrl.push(BillPage, {}, { animate: false });
+    this.navCtrl.push(BillPage, {id:this.idFloor}, { animate: false });
   }
 
   // khi click vao 1 tang no se set lai gia tri o day de get data, thay the gia tri nay bang 1 array cua list table

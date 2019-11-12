@@ -41,8 +41,7 @@ export class DetailBillComponent {
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
-      console.log(dataTable);
-      this.idTable = dataTable.id;
+      this.idTable = dataTable.id != null ? dataTable.id:"";
       this.nameArea = dataTable.nameFloor;
       this.idArea = dataTable.id_area;
     });
@@ -57,9 +56,17 @@ export class DetailBillComponent {
     });
 
     this.events.subscribe("updateBill", update => {
-      (this.name = update.name),
-        (this.note = update.note),
-        (this.arrFood = update.arrFood);
+
+      this.name = update.name,
+      this.note = update.note,
+      this.arrFood = update.arrFood;
+    });
+
+    this.events.subscribe("sendDetailBill", data => {
+      for(let i=0;i<data.lenght;i++){
+       // this.arrFood[i] = data.dataFoods[i].;
+      }
+
     });
   }
 
@@ -76,7 +83,8 @@ export class DetailBillComponent {
       this.arrFood[index].description += " +" + item.description;
     } else {
       this.arrFood.push(item);
-      this.arrFood[this.arrFood.length - 1].priceTotal = item.price;
+      this.arrFood[this.arrFood.length - 1].priceTotal = item.price*item.number;
+
     }
     this.updatePrice();
     this.btnHidden = false;

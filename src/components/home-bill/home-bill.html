@@ -1,13 +1,13 @@
 <ion-content padding>
   <ion-row>
-    <ion-col class="containerH" col-3 *ngFor="let item of data">
+    <ion-col class="containerH" col-3 *ngFor="let item of arrBill">
       <div class="boxt">
         <div class="box0">
           <ion-icon name="person"> KH : {{ item.name }} </ion-icon>
         </div>
         <div class="box1">
           <ion-row>
-            <h1>{{ item.price | currency: "VND":"symbol-narrow":"1.0-0" }}</h1>
+            <h1>{{ item.total | currency: "VND":"symbol-narrow":"1.0-0" }}</h1>
           </ion-row>
         </div>
         <div class="box2">

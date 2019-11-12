@@ -74,8 +74,7 @@ export class ListTableComponent {
         nameFloor: this.nameFloor,
         id_area: item.id_area
       };
-
-      console.log(data);
+      
       this.navCtrl.push(
         OrderPage,
         {
