@@ -27,6 +27,20 @@ export class GetMenuService {
         });
     });
   }
+  getListBill(bill) {
+    // name : ten collection
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection(bill)
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
 
   writeDataToFirebase(array, collectionName) {
     return new Promise<any>((resolve, reject) => {
