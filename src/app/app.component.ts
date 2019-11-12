@@ -1,5 +1,5 @@
-import { AreaPage } from './../pages/area/area';
-import { Area } from './../model/Area';
+import { AreaPage } from "./../pages/area/area";
+import { Area } from "./../model/Area";
 import { Component } from "@angular/core";
 import { Platform } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";

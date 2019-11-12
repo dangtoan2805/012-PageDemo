@@ -15,9 +15,7 @@ import { PushMenuService } from "../../pages/services/pushmenu.service";
   selector: "detail-bill",
   templateUrl: "detail-bill.html"
 })
-
 export class DetailBillComponent {
-
   @Input() name: string;
   @Input() note: string;
   idTable: string;
@@ -40,7 +38,6 @@ export class DetailBillComponent {
     private pushmenuservice: PushMenuService
   ) {
     this.getEventData();
-
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
@@ -60,12 +57,9 @@ export class DetailBillComponent {
     });
 
     this.events.subscribe("updateBill", update => {
-
-
-      this.name = update.name,
-      this.note = update.note,
-      this.arrFood = update.arrFood;
-
+      (this.name = update.name),
+        (this.note = update.note),
+        (this.arrFood = update.arrFood);
     });
   }
 
@@ -80,10 +74,9 @@ export class DetailBillComponent {
       this.arrFood[index].number = this.arrFood[index].number + item.number;
       this.arrFood[index].priceTotal += item.number * item.price;
       this.arrFood[index].description += " +" + item.description;
-      
     } else {
       this.arrFood.push(item);
-      this.arrFood[this.arrFood.length - 1].priceTotal = item.price
+      this.arrFood[this.arrFood.length - 1].priceTotal = item.price;
     }
     this.updatePrice();
     this.btnHidden = false;
@@ -151,7 +144,7 @@ export class DetailBillComponent {
       type: "number",
       value: item.priceTotal,
       name: "price"
-    })
+    });
 
     alert.addInput({
       type: "textarea",
@@ -179,21 +172,21 @@ export class DetailBillComponent {
     alert.present();
   }
 
-  editPhuPhi(){
+  editPhuPhi() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(`Phụ phí`);
 
     alert.addInput({
       type: "number",
-      value: ""+ this.phuPhi,
-      name:"phuPhi"
-    })
+      value: "" + this.phuPhi,
+      name: "phuPhi"
+    });
 
     alert.addButton("Hủy");
     alert.addButton({
       text: "Ok",
       handler: data => {
-        this.phuPhi =parseInt(data.phuPhi);
+        this.phuPhi = parseInt(data.phuPhi);
         this.updatePrice();
       }
     });
@@ -201,32 +194,32 @@ export class DetailBillComponent {
     alert.present();
   }
 
-  editVAT(){
+  editVAT() {
     let alert = this.alertCtrl.create({
-      title: 'VAT',
+      title: "VAT",
       inputs: [
         {
-          name: 'vat',
-          type: 'radio',
-          label: '5%',
-          value: '0.05',
+          name: "vat",
+          type: "radio",
+          label: "5%",
+          value: "0.05",
           checked: true
         },
         {
-          name: 'vat',
-          type: 'radio',
-          label: '10%',
-          value: '0.1'
+          name: "vat",
+          type: "radio",
+          label: "10%",
+          value: "0.1"
         }
-       ]
-      });
+      ]
+    });
     alert.setTitle(`Phụ phí`);
 
     alert.addButton("Hủy");
     alert.addButton({
       text: "Ok",
       handler: data => {
-        console.log("data: ",data);
+        console.log("data: ", data);
         this.vat = parseFloat(data);
         console.log(this.vat);
         this.updatePrice();
@@ -237,7 +230,6 @@ export class DetailBillComponent {
   }
 
   saveBill() {
-
     let report: Array<any> = [];
     for (let i = 0; i < this.arrFood.length; i++) {
       let data = {
@@ -261,7 +253,6 @@ export class DetailBillComponent {
       this.pushToBill(res.id);
       this.navCtrl.pop({ animate: false });
     });
-
   }
 
   pushToBill(id_bill_detail) {
@@ -271,12 +262,12 @@ export class DetailBillComponent {
       name: this.name,
       total: this.total,
       id_bill_detail: id_bill_detail,
-      phu_phi:this.phuPhi,
-      vat:this.vat,
+      phu_phi: this.phuPhi,
+      vat: this.vat,
       date: date,
       status: false
     };
     this.events.publish("infoABill", data);
-    this.pushmenuservice.pushListBill(data).then(res => { });
+    this.pushmenuservice.pushListBill(data).then(res => {});
   }
 }

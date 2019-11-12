@@ -1,0 +1,42 @@
+<ion-header class="header">
+  <ion-navbar color="light">
+    <h2 class="title">Mang Về</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="content">
+  <div class="box1">
+    <input
+      type="text"
+      [(ngModel)]="name"
+      class="input"
+      placeholder="Tên Khách Hàng"
+    />
+  </div>
+  <div class="box2">
+    <div class="line"></div>
+    <h3>GHI CHÚ</h3>
+    <div class="line"></div>
+  </div>
+  <div class="box3">
+    <textarea
+      class="input"
+      name="note"
+      rows="6"
+      cols="25"
+      placeholder="Thêm Ghi Chú"
+    ></textarea>
+  </div>
+  <div class="box4">
+    <ion-buttons class="icon">
+      <a (click)="cancel()">
+        Hủy
+      </a>
+    </ion-buttons>
+    <ion-buttons class="icon">
+      <a (click)="goToBaseScreen()">
+        Ok
+      </a>
+    </ion-buttons>
+  </div>
+</ion-content>
