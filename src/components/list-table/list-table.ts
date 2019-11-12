@@ -66,10 +66,6 @@ export class ListTableComponent {
       alert.setSubTitle(item.name);
 
       alert.addButton("Ok");
-      // alert.addButton({
-      //   text: "Ok",
-      //   handler: () => {}
-      // });
 
       alert.present();
     } else {
