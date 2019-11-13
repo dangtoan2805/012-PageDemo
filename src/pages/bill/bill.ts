@@ -28,14 +28,14 @@ export class BillPage {
   ) {
     this.idArea = this.navParams.get("id");
     this.getData();
-    events.subscribe("listbill_infoABill",data => {
+    events.subscribe("listbill_infoABill", data => {
       this.sendInfoBill(data);
     })
   }
 
   getData() {
-     // get list area
-     this.getMenuService.getCollection("area").then(snapshot => {
+    // get list area
+    this.getMenuService.getCollection("area").then(snapshot => {
       let data = snapshot.docs;
       for (let i = 0; i < data.length; i++) {
         this.areaName.push(data[i].data());
@@ -59,12 +59,12 @@ export class BillPage {
     let listTable: Array<Table> = [];
 
     if (id_area == "id_gohome") {
-      let table:Table = {
-        id:"id_gohome",
-        id_area:"id_gohome",
-        name:"",
-        status:false,
-        type:0
+      let table: Table = {
+        id: "id_gohome",
+        id_area: "id_gohome",
+        name: "",
+        status: false,
+        type: 0
       }
       listTable.push(table);
       this.findBillByIdTable(listTable);
@@ -83,7 +83,7 @@ export class BillPage {
         this.findBillByIdTable(listTable);
       });
 
-     
+
     }
   }
 
@@ -103,15 +103,21 @@ export class BillPage {
   }
 
   setDataBillFilter(id_area) {
-    this.header = id_area;
+    this.header = this.idArea = id_area;
     this.getTableByIdArea(id_area);
   }
 
-  sendInfoBill(data){
-    let index =this.areaName.findIndex(areaName => areaName.id = this.idArea)
-    let nameArea:string = this.areaName[index].name;
-    console.log(nameArea);
-    this.events.publish("bill_infoABill",data);
-    this.events.publish("bill_name",nameArea);
+  sendInfoBill(data) {
+    let nameArea: string;
+    if (this.idArea == "id_gohome") {
+      nameArea = "Mang về";
+    }
+    else {
+      let index = this.areaName.findIndex(areaName => areaName.id == this.idArea)
+      nameArea = this.areaName[index].name;
+    }
+
+    this.events.publish("bill_infoABill", data);
+    this.events.publish("bill_name", nameArea);
   }
 }
