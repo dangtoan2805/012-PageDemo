@@ -14,7 +14,7 @@ export class OrderPage {
   name: string; // customer name
   note: string; // ghi chú
   nameFloor: string; // ten tang
-  nameOrder: string; // mang ve
+
   menuNameSegment: string; // NgModelSegment
   data: Array<any>; // luu obj từ firebase
   arrFood: Array<Food> = []; // array info food add to bill
@@ -88,14 +88,13 @@ export class OrderPage {
   // nhận info từ alert gửi sang: tên khách hàng, ghi chú
   getNote() {
     let data = this.navParams.get("data");
-    console.log("data order: ",data);
+    console.log("data order: ", data);
     this.events.publish("data", data);
     let name = this.navParams.get("name");
     console.log(data);
     this.name = data.name;
     this.note = data.note;
     this.nameFloor = data.nameFloor;
-    this.nameOrder = name;
   }
 
   goToBill() {

@@ -1,10 +1,11 @@
-
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+// ionic native
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
+import { Printer } from "@ionic-native/printer";
 
 import { MyApp } from "./app.component";
 /// page=================
@@ -33,6 +34,7 @@ import { PushMenuService } from "./../pages/services/pushmenu.service";
     ScreenOrientation,
     GetMenuService,
     PushMenuService,
+    Printer,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
