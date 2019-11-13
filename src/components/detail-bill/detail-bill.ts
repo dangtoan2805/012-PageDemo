@@ -8,6 +8,7 @@ import {
   AlertController,
   Events
 } from "ionic-angular";
+import { Printer, PrintOptions } from "@ionic-native/printer";
 import { GetMenuService } from "../../pages/services/getmenu.service";
 import { PushMenuService } from "../../pages/services/pushmenu.service";
 
@@ -35,13 +36,15 @@ export class DetailBillComponent {
     public navParams: NavParams,
     public events: Events,
     private getmenuservice: GetMenuService,
-    private pushmenuservice: PushMenuService
+    private pushmenuservice: PushMenuService,
+    private printer: Printer
   ) {
     this.getEventData();
   }
   getEventData() {
     this.events.subscribe("data", dataTable => {
-      this.idTable = dataTable.id != null ? dataTable.id:"";
+      console.log(dataTable);
+      this.idTable = dataTable.id != null ? dataTable.id : "";
       this.nameArea = dataTable.nameFloor;
       this.idArea = dataTable.id_area;
     });
@@ -56,11 +59,11 @@ export class DetailBillComponent {
     });
 
     this.events.subscribe("updateBill", update => {
-
-      this.name = update.name,
-      this.note = update.note,
-      this.arrFood = update.arrFood;
+      (this.name = update.name),
+        (this.note = update.note),
+        (this.arrFood = update.arrFood);
     });
+
 
     this.events.subscribe("sendDetailBill", ref => {
       let temp = ref.dataFoods;
@@ -80,6 +83,7 @@ export class DetailBillComponent {
            }
            this.addToBill(data);
          })
+
       }
     });
   }
@@ -97,8 +101,8 @@ export class DetailBillComponent {
       this.arrFood[index].description += " +" + item.description;
     } else {
       this.arrFood.push(item);
-      this.arrFood[this.arrFood.length - 1].priceTotal = item.price*item.number;
-
+      this.arrFood[this.arrFood.length - 1].priceTotal =
+        item.price * item.number;
     }
     this.updatePrice();
     this.btnHidden = false;
@@ -228,20 +232,20 @@ export class DetailBillComponent {
           type: 'radio',
           label: '0%',
           value: '0'
-        },
-        {
-          name: 'vat',
-          type: 'radio',
-          label: '5%',
-          value: '0.05'
-        },
-        {
-          name: 'vat',
-          type: 'radio',
-          label: '10%',
-          value: '0.1',
-          checked: true
 
+        },
+        {
+          name: "vat",
+          type: "radio",
+          label: "5%",
+          value: "0.05"
+        },
+        {
+          name: "vat",
+          type: "radio",
+          label: "10%",
+          value: "0.1",
+          checked: true
         }
       ]
     });
@@ -285,6 +289,30 @@ export class DetailBillComponent {
       this.pushToBill(res.id);
       this.navCtrl.pop({ animate: false });
     });
+  }
+  printBill() {
+    this.printer.isAvailable().then(
+      function() {
+        let options: PrintOptions = {
+          name: "MyDocument",
+        
+          duplex: true,
+          landscape: true,
+          grayscale: true
+        };
+        this.printer.print("demo", options).then(
+          function() {
+            alert("printing done successfully !");
+          },
+          function() {
+            alert("Error while printing !");
+          }
+        );
+      },
+      function() {
+        alert("Error : printing is unavailable on your device ");
+      }
+    );
   }
 
   pushToBill(id_bill_detail) {

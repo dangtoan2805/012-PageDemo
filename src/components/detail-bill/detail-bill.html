@@ -40,8 +40,7 @@
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
-                  {{
-                    item.priceTotal | currency: "VND":"symbol-narrow":"1.0-0"
+                  {{ item.priceTotal | currency: "VND":"symbol-narrow":"1.0-0"
                   }}
                 </h2>
               </ion-col>
@@ -87,13 +86,13 @@
         <b>Tong Cong:</b>
       </p>
       <p>
-        <b style="color: red;">{{
-          total | currency: "VND":"symbol-narrow":"1.0-0"
-        }}</b>
+        <b style="color: red;"
+          >{{ total | currency: "VND":"symbol-narrow":"1.0-0" }}</b
+        >
       </p>
     </div>
 
-    <div class="print">
+    <div class="print" (click)="printBill()">
       <ion-icon style="color: #408094;" name="print"></ion-icon>
       <p>In xuong bep</p>
     </div>
