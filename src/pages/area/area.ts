@@ -36,7 +36,7 @@ export class AreaPage {
     public alertCtrl: AlertController,
     private getMenuService: GetMenuService,
     public events: Events
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
     this.getData();
@@ -53,10 +53,9 @@ export class AreaPage {
     });
 
     this.getMenuService
-      .getListBillGoHome("bill", "id_gohome")
+      .getBillByIdTable("id_gohome")
       .then(snapshot => {
         let data = snapshot.docs;
-        console.log(data);
         this.arrBill = new Array();
         for (let i = 0; i < data.length; i++) {
           this.arrBill.push(data[i].data());
@@ -91,16 +90,15 @@ export class AreaPage {
       text: "Ok",
       handler: data => {
         let info = {
-          id: "",
+          id_table: "id_gohome",
           name: data.name,
-          nameFloor: this.header,
-          id_area: "id_gohome"
+          nameArea: this.header,
+          note: data.note
         };
         this.navCtrl.push(
           OrderPage,
           {
             data: info,
-            name: this.header
           },
           { animate: false }
         );
@@ -113,6 +111,7 @@ export class AreaPage {
     this.navCtrl.push(BillPage, { id: "id_gohome" }, { animate: false });
   }
 
+  // id_area
   goToGoPage(id) {
     this.navCtrl.push(
       ToGoPage,

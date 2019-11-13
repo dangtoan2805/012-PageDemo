@@ -1,7 +1,7 @@
 <div class="bill-container">
   <div class="bill-header">
     <p>
-      <b> {{ nameArea }} {{ nameHome }}> {{ name }}</b>
+      <b> {{ nameArea }} > {{ name }}</b>
     </p>
     <p>{{ note }}</p>
   </div>
@@ -36,7 +36,7 @@
                 <h2>
                   {{ item.name }}
                 </h2>
-                <p>{{ item.description }}</p>
+                <p>{{ item.note }}</p>
               </ion-col>
               <ion-col col-3 class="center-content">
                 <h2>
@@ -98,10 +98,10 @@
     </div>
 
     <div class="btn-submit">
-      <button class="btn-luu" [disabled]="btnHidden" (click)="saveBill()">
+      <button class="btn-luu" [disabled]="btnSaveHidden" (click)="saveBill()">
         Luu
       </button>
-      <button class="btn-thanhtoan">Thanh Toan</button>
+      <button class="btn-thanhtoan"  [disabled]="btnTTHidden" >Thanh Toan</button>
     </div>
   </div>
 </div>

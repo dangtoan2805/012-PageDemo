@@ -32,7 +32,7 @@ export class ListTableComponent {
   ];
   idTable: any;
   arrTable: Array<Table> = [];
-  nameFloor: any;
+  nameArea: any;
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
@@ -41,17 +41,14 @@ export class ListTableComponent {
     public events: Events
   ) {
     events.subscribe("listTable", (name, ref) => {
-      this.nameFloor = name;
+      this.nameArea = name;
       this.arrTable = ref;
-
-      console.log("revice list table: success!", this.nameFloor, this.arrTable);
     });
     events.subscribe("infoABill", bill => {
       this.changeStatusTable(bill);
     });
   }
 
-  getData() {}
   changeImgSrc(status: boolean, type: number) {
     if (status === true && type === 1) return this.imgUrl[0];
     if (status === false && type === 1) return this.imgUrl[1];
@@ -69,17 +66,16 @@ export class ListTableComponent {
       alert.present();
     } else {
       let data = {
-        id: item.id,
+        id_table: item.id,
         name: item.name,
-        nameFloor: this.nameFloor,
-        id_area: item.id_area
+        nameArea: this.nameArea != null ? this.nameArea : "",
+        note: "Bàn" + name
       };
       
       this.navCtrl.push(
         OrderPage,
         {
           data: data,
-          title: this.arrTable
         },
         { animate: false }
       );

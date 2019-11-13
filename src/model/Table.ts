@@ -5,5 +5,4 @@ export class Table {
   name: string;
   status: boolean;
   type: number;
-  arrFood: Array<Food>;
 }
