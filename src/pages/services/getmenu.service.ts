@@ -43,21 +43,6 @@ export class GetMenuService {
     });
   }
 
-  getListBillGoHome(bill,id) {
-    // name : ten collection
-    return new Promise<any>((resolve, reject) => {
-      this.snapshotChangesSubscription = this._DB
-        .collection(bill).where("id_area","==",id)
-        .get()
-        .then(snapshot => {
-          resolve(snapshot);
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  }
-
   getCollectionById(name,id) {
     // name : ten collection
     return new Promise<any>((resolve, reject) => {
@@ -73,7 +58,34 @@ export class GetMenuService {
     });
   }
 
+  getTableByIdArea(id){
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection("table").where("id_area","==",id)
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
 
+  getBillByIdTable(id) {
+    // name : ten collection
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection("bill").where("id_table","==",id)
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
 
   writeDataToFirebase(array, collectionName) {
     return new Promise<any>((resolve, reject) => {

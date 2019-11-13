@@ -17,12 +17,9 @@ export class PushMenuService {
       this.snapshotChangesSubscription = this._DB
         .collection("bill_detail")
         .add({
-          dataFoods: data.dataFoods,
-          id_table: data.id_table,
-          note: data.note
+          dataFoods: data
         })
         .then((obj: any) => {
-          //resolve(obj.id);
           resolve(obj);
         })
         .catch((error: any) => {
@@ -36,16 +33,15 @@ export class PushMenuService {
       this.snapshotChangesSubscription = this._DB
         .collection("bill")
         .add({
-          id_area: data.id_area,
+          id_table: data.id_table,
           name: data.name,
           total: data.total,
           id_bill_detail: data.id_bill_detail,
-
+          note: data.note,
           status:data.status,
           date: data.date,
           phu_phi:data.phu_phi,
           vat:data.vat
-
         })
         .then((obj: any) => {
           resolve(obj);

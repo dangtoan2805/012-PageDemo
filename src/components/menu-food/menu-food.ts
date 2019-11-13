@@ -26,7 +26,6 @@ export class MenuFoodComponent {
   ) {
     events.subscribe("listFoodAMenu", ref => {
       this.menu = ref;
-
     });
   }
 
@@ -60,14 +59,20 @@ export class MenuFoodComponent {
         if(parseInt(data.number)<1){
           data.number = 1;
         }
-        item.number = parseInt(data.number);
         /*
           - create event, send data(a Food) to bill-detail 
         */
-        this.events.publish("infoAFood", item);
+       let number = parseInt(data.number)
+       let dataFood = {
+         id: item.id,
+         number: number,
+         note: data.note,
+         name: item.name,
+         price: item.price
+       }
+        this.events.publish("menufood_infoAFood", dataFood);
       }
     });
-
     alert.present();
   }
 }
