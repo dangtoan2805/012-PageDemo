@@ -1,4 +1,4 @@
-<ion-content class="Mcontainer">
+<!-- <ion-content class="Mcontainer">
   <ion-grid class="grid-fr">
     <ion-row>
       <ion-col col-4 col-sm-4 col-md-4 col-xl-4 *ngFor="let item of menu">
@@ -15,4 +15,16 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</ion-content> -->
+<ion-content>
+  <ion-row>
+    <ion-col col-4 col-sm-4 col-md-4 col-xl-4 *ngFor="let item of menu">
+      <ion-card (click)="openInfo(item)">
+        <img class="img" (error)="item.img = defaultImage" [src]="item.img" />
+        <div class="card-title">
+          <h2>{{ item.name }}</h2>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

@@ -1,63 +1,108 @@
 menu-food {
-  .Mcontainer {
-    width: 100%;
-    height: 100%;
-    background-color: #def3c9;
-    .grid {
-      align-self: center;
+  ion-card {
+    position: relative;
+
+    max-width: 14vw !important;
+    max-height: 18vh !important;
+    min-width: 14vw !important;
+    min-height: 18vh !important;
+    border: 1px solid;
+    border-color: #313130;
+    border-radius: 3px;
+    .card-title {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      top: 70%;
       width: 100%;
-      height: 100%;
-      ion-col {
-        padding: 2px;
-      }
-
-      ion-card {
-        max-width: 14vw !important;
-        max-height: 18vh !important;
-        min-width: 14vw !important;
-        min-height: 18vh !important;
-      }
-
-      .fr-card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid;
-        border-color: #313130;
-        //box-shadow: 3px 6px #EBEFF1;
-        height: 90%;
-
-        // khối bao phần text
-        .content-name {
-          height: 20%;
-          width: 100%;
-          h2 {
-            justify-content: center;
-            word-break: hyphenate;
-            width: 100%;
-            display: inline-flex;
-            text-align: center;
-            font-weight: 500;
-            font-size: 100%;
-          }
-        }
-
-        // khối chứa ảnh
-        .image {
-          width: 100%;
-          height: 80%;
-          padding: 2px;
-          padding: 3%;
-          img{
-            height: 90%;
-          }
-        }
+      background-color: rgba(53, 190, 27, 0.75);
+      height: 30%;
+      h2 {
+        font-size: 100%;
+        text-align: center;
+        word-break: hyphenate;
+        font-weight: bolder;
+        color: white;
+        margin-top: 2% !important;
       }
     }
-
-    .card-content {
-      padding: 0 !important;
-      height: 100%;
+    .img {
+      width: 100%;
+      height: 18vh;
+      padding: 5px;
     }
   }
+
+  // .Mcontainer {
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: #def3c9;
+  //   .grid {
+  //     align-self: center;
+  //     width: 100%;
+  //     height: 100%;
+  //     ion-col {
+  //       padding: 2px;
+  //     }
+
+  //     ion-card {
+  //       max-width: 14vw !important;
+  //       max-height: 18vh !important;
+  //       min-width: 14vw !important;
+  //       min-height: 18vh !important;
+  //     }
+
+  //     .fr-card {
+  //       display: flex;
+  //       justify-content: center;
+  //       align-items: center;
+  //       border: 1px solid;
+  //       border-color: #313130;
+
+  //       //box-shadow: 3px 6px #EBEFF1;
+  //       height: 100%;
+  //       width: 100%;
+  //       .card-content {
+  //         padding: 0 !important;
+  //         height: 100%;
+
+  //         // khối bao phần text
+  //         .content-name {
+  //           height: 20%;
+  //           width: 100%;
+  //           position: absolute;
+
+  //           background-color: lightgray;
+
+  //           h2 {
+  //             // justify-content: center;
+  //             // word-break: hyphenate;
+  //             position: absolute;
+  //             color: white;
+  //             margin-bottom: 50%;
+  //             //position: absolute;
+  //             // display: inline-flex;
+  //             text-align: center;
+  //             font-weight: 700;
+  //             font-size: 100%;
+  //           }
+  //         }
+  //         // khối chứa ảnh
+  //         .image {
+  //           position: relative;
+  //           width: 100%;
+  //           height: 100%;
+  //           padding: 5px;
+
+  //           // padding: 3%;
+  //           img {
+  //             height: 100%;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
