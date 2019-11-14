@@ -43,11 +43,11 @@ export class GetMenuService {
     });
   }
 
-  getListBillGoHome(bill,id) {
+  getCollectionById(name,id) {
     // name : ten collection
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
-        .collection(bill).where("id_area","==",id)
+        .collection(name).doc(id)
         .get()
         .then(snapshot => {
           resolve(snapshot);
@@ -58,11 +58,25 @@ export class GetMenuService {
     });
   }
 
-  getBillDetailById(name,id) {
+  getTableByIdArea(id){
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection("table").where("id_area","==",id)
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  getBillByIdTable(id) {
     // name : ten collection
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
-        .collection(name).doc(id)
+        .collection("bill").where("id_table","==",id)
         .get()
         .then(snapshot => {
           resolve(snapshot);

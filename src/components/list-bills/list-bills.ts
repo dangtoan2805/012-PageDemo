@@ -14,15 +14,11 @@ export class ListBillsComponent {
   constructor(private events:Events){
     this.events.subscribe("ListBill", data => {
       this.listBill = data;
-      console.log("list bill ",data);
     })
   }
 
-  ViewDetailBill(item) {
-    this.events.publish(
-      'viewDetailBill',
-      item.id_bill_detail,
-      item.name,
-    );
+  // item: info a bill
+  viewDetailBill(item) {
+    this.events.publish('listbill_infoABill',item);
   }
 }

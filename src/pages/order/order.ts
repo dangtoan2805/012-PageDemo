@@ -11,12 +11,11 @@ import { Events } from "ionic-angular";
   templateUrl: "order.html"
 })
 export class OrderPage {
-  name: string; // customer name
+  name: string; // customer name od name table
   note: string; // ghi chú
-  nameFloor: string; // ten tang
-
+  nameArea: string;
+  idTable:string;
   menuNameSegment: string; // NgModelSegment
-  data: Array<any>; // luu obj từ firebase
   arrFood: Array<Food> = []; // array info food add to bill
   menuName: Array<MenuName> = [];
   arrListFood: Array<Food> = []; // mảng lưu các món ăn có trong menu
@@ -29,6 +28,7 @@ export class OrderPage {
     public alertCtrl: AlertController,
     public events: Events
   ) {
+    this.getNote();
     this.getData();
     this.arrListFoodDefault = this.arrListFood.filter(
       arrListFood => arrListFood.id_menu == this.menuName[0].id
@@ -40,10 +40,10 @@ export class OrderPage {
       - get list name menu
     */
     this.getMenuService.getCollection("menu").then(snapshot => {
-      this.data = snapshot.docs;
-      for (let i = 0; i < this.data.length; i++) {
-        this.menuName.push(this.data[i].data());
-        this.menuName[i].id = this.data[i].id;
+      let data = snapshot.docs;
+      for (let i = 0; i < data.length; i++) {
+        this.menuName.push(data[i].data());
+        this.menuName[i].id = data[i].id;
       }
       this.menuNameSegment = this.menuName[0].id;
     });
@@ -51,19 +51,15 @@ export class OrderPage {
       - get list menu
     */
     this.getMenuService.getCollection("food").then(snapshot => {
-      this.data = snapshot.docs;
-      for (let i = 0; i < this.data.length; i++) {
-        this.arrListFood.push(this.data[i].data());
-        this.arrListFood[i].id = this.data[i].id;
+      let data = snapshot.docs;
+      for (let i = 0; i < data.length; i++) {
+        this.arrListFood.push(data[i].data());
+        this.arrListFood[i].id = data[i].id;
       }
       this.arrListFoodDefault = this.arrListFood.filter(
         arrListFood => arrListFood.id_menu == this.menuName[0].id
       );
     });
-  }
-
-  ionViewDidLoad() {
-    this.getNote();
   }
 
   goBack() {
@@ -83,18 +79,15 @@ export class OrderPage {
     alert.present();
   }
 
-  ionViewWillEnter() {}
-
-  // nhận info từ alert gửi sang: tên khách hàng, ghi chú
+  // nhận info từ list-table or go home gửi sang
+  // data: id_table, name, nameArea,note
   getNote() {
     let data = this.navParams.get("data");
-    console.log("data order: ", data);
-    this.events.publish("data", data);
-    let name = this.navParams.get("name");
-    console.log(data);
     this.name = data.name;
     this.note = data.note;
-    this.nameFloor = data.nameFloor;
+    this.nameArea = data.nameArea;
+    this.idTable = data.id_table,
+    this.events.publish("orderpage_order", data);
   }
 
   goToBill() {
@@ -105,11 +98,9 @@ export class OrderPage {
     - Set giá trị menu
   */
   setMenuFood(id) {
-    this.events.publish(
-      "listFoodAMenu",
-      this.arrListFood.filter(arrListFood => arrListFood.id_menu == id)
+    this.events.publish("listFoodAMenu", this.arrListFood.filter(
+      arrListFood => arrListFood.id_menu == id)
     );
     this.menuNameSegment = id;
-    // }
   }
 }

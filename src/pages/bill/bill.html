@@ -5,13 +5,13 @@
         <ion-icon name="close" color="myapp"></ion-icon>
       </a>
     </ion-buttons>
-    <ion-segment-button value="id_gohome">
+    <ion-segment-button value="id_gohome" (click)="setDataBillFilter('id_gohome')">
       Mang Về
     </ion-segment-button>
     <ion-segment-button
       *ngFor="let item of areaName"
       value="{{ item.id }}"
-      (click)="setTangHienTai(item.id)"
+      (click)="setDataBillFilter(item.id)"
     >
       {{ item.name }}
     </ion-segment-button>
@@ -24,7 +24,7 @@
       <list-bills [listBill] = "defaultListBill" ></list-bills>
     </div>
     <div class="bill-details">
-      <detail-bill></detail-bill>
+      <detail-bill [nameArea] = ""></detail-bill>
     </div>
   </ion-row>
 </ion-content>
