@@ -24,7 +24,6 @@ export class ToGoPage {
     private getMenuService: GetMenuService,
     public events: Events
   ) {
-    
     this.areaName = navParams.get("data");
     this.iaArea = navParams.get("item");
     // set Segment header
@@ -43,9 +42,10 @@ export class ToGoPage {
         this.listTable[i].id = data[i].id;
       }
 
-      this.events.publish("listTable", this.header, this.listTable.filter(
-        arrListFood => arrListFood.id_area == this.iaArea
-      )
+      this.events.publish(
+        "listTable",
+        this.header,
+        this.listTable.filter(arrListFood => arrListFood.id_area == this.iaArea)
       );
     });
   }
@@ -61,7 +61,10 @@ export class ToGoPage {
   // khi click vao 1 tang no se set lai gia tri o day de get data, thay the gia tri nay bang 1 array cua list table
   setTangHienTai(value) {
     this.iaArea = value;
-    this.events.publish("listTable",this.header,this.listTable.filter(listTable => listTable.id_area == value)
+    this.events.publish(
+      "listTable",
+      this.header,
+      this.listTable.filter(listTable => listTable.id_area == value)
     );
   }
 }

@@ -101,7 +101,13 @@
       <button class="btn-luu" [disabled]="btnSaveHidden" (click)="saveBill()">
         Luu
       </button>
-      <button class="btn-thanhtoan"  [disabled]="btnTTHidden" >Thanh Toan</button>
+      <button
+        class="btn-thanhtoan"
+        [disabled]="btnTTHidden"
+        (click)="payBill()"
+      >
+        Thanh Toan
+      </button>
     </div>
   </div>
 </div>

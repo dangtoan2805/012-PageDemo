@@ -14,7 +14,7 @@ export class OrderPage {
   name: string; // customer name od name table
   note: string; // ghi chú
   nameArea: string;
-  idTable:string;
+  idTable: string;
   menuNameSegment: string; // NgModelSegment
   arrFood: Array<Food> = []; // array info food add to bill
   menuName: Array<MenuName> = [];
@@ -30,6 +30,8 @@ export class OrderPage {
   ) {
     this.getNote();
     this.getData();
+
+    this.getUpdateData();
     this.arrListFoodDefault = this.arrListFood.filter(
       arrListFood => arrListFood.id_menu == this.menuName[0].id
     );
@@ -86,8 +88,8 @@ export class OrderPage {
     this.name = data.name;
     this.note = data.note;
     this.nameArea = data.nameArea;
-    this.idTable = data.id_table,
-    this.events.publish("orderpage_order", data);
+    (this.idTable = data.id_table),
+      this.events.publish("orderpage_order", data);
   }
 
   goToBill() {
@@ -98,9 +100,15 @@ export class OrderPage {
     - Set giá trị menu
   */
   setMenuFood(id) {
-    this.events.publish("listFoodAMenu", this.arrListFood.filter(
-      arrListFood => arrListFood.id_menu == id)
+    this.events.publish(
+      "listFoodAMenu",
+      this.arrListFood.filter(arrListFood => arrListFood.id_menu == id)
     );
     this.menuNameSegment = id;
+  }
+  /// getUpdateData
+  getUpdateData() {
+    console.log(this.navParams.get("data"));
+    this.events.publish("updateBill", this.navParams.get("data"));
   }
 }

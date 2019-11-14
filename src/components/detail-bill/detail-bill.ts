@@ -11,6 +11,7 @@ import {
 import { Printer, PrintOptions } from "@ionic-native/printer";
 import { GetMenuService } from "../../pages/services/getmenu.service";
 import { PushMenuService } from "../../pages/services/pushmenu.service";
+import { UpdateMenuService } from "../../pages/services/updatemenu.service";
 
 @Component({
   selector: "detail-bill",
@@ -27,8 +28,9 @@ export class DetailBillComponent {
   vat: number = 0;
   total: number = 0;
   btnSaveHidden: boolean = true; // set status button lưu
-  btnTTHidden:boolean = true;
-
+  btnTTHidden: boolean = true;
+  updateData: any;
+  id;
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
@@ -36,21 +38,21 @@ export class DetailBillComponent {
     public events: Events,
     private getmenuservice: GetMenuService,
     private pushmenuservice: PushMenuService,
+    private updatemenuservice: UpdateMenuService,
     private printer: Printer
   ) {
     this.getEventData();
   }
   getEventData() {
+    this.events.subscribe("updateBill", update => {
+      console.log(update);
+      this.name = update.name;
+      this.note = update.note;
+    });
     // get 1 món ăn dc đặt
     // send to: MenuFoodComponent
     this.events.subscribe("menufood_infoAFood", data => {
       this.addToBill(data);
-    });
-
-    this.events.subscribe("updateBill", update => {
-      this.name = update.name,
-        this.note = update.note,
-        this.arrFood = update.arrFood;
     });
 
     // get thông tin 1 bill
@@ -58,30 +60,52 @@ export class DetailBillComponent {
     this.events.subscribe("bill_infoABill", res => {
       this.arrFood = new Array();
       // get detail_bill
-      this.getmenuservice.getCollectionById("bill_detail", res.id_bill_detail).then(snapshot => {
-        let dataFood: Array<any> = [];
-        let data = snapshot.data();
-        dataFood.push(data.dataFoods);  // mang chưa các món ăn
-        for(let i in dataFood[0]){
-          this.showBill(dataFood[0][i]);
-        }
-        this.vat = res.vat;
-        this.phuPhi = res.phu_phi;
-        this.name = res.name;
-        this.note = res.note;
-        if(res.status == true){
-          this.btnSaveHidden = true;
-          this.btnTTHidden = true;
-        }
-        this.updatePrice();
-      })
+      this.getmenuservice
+        .getCollectionById("bill_detail", res.id_bill_detail)
+        .then(snapshot => {
+          console.log(snapshot.id);
+
+          let dataFood: Array<any> = [];
+          let data = snapshot.data();
+          // console.log("detailBill ", data);
+          dataFood.push(data.dataFoods); // mang chưa các món ăn
+          for (let i in dataFood[0]) {
+            this.showBill(dataFood[0][i]);
+          }
+          this.vat = res.vat;
+          this.phuPhi = res.phu_phi;
+          this.name = res.name;
+          this.note = res.note;
+          if (res.status == true) {
+            this.btnSaveHidden = true;
+            this.btnTTHidden = true;
+          }
+          this.updatePrice();
+        });
     });
 
-    this.events.subscribe("bill_name",res => {this.nameArea = res})
+    this.events.subscribe("bill_name", res => {
+      this.nameArea = res;
+    });
+    this.events.subscribe("listbill_infoABill", bill => {
+      this.updateData = {
+        id_table: bill.id_table,
+        name: bill.name,
+        total: bill.total,
+        id_bill_detail: bill.id_bill_detail,
+        phu_phi: bill.phu_phi,
+        vat: bill.vat,
+        date: bill.date,
+        status: true,
+        note: bill.note
+      };
+
+      this.id = bill.id;
+    });
   }
 
-  showBill(data){
-    this.getmenuservice.getCollectionById("food",data.id_food).then(res =>{
+  showBill(data) {
+    this.getmenuservice.getCollectionById("food", data.id_food).then(res => {
       let food = res.data();
       let dataFood = {
         id: data.id_food,
@@ -89,7 +113,7 @@ export class DetailBillComponent {
         note: data.note,
         name: food.name,
         price: data.price
-      }
+      };
       this.addToBill(dataFood);
     });
   }
@@ -106,7 +130,7 @@ export class DetailBillComponent {
     if (index != -1) {
       this.arrFood[index].number = this.arrFood[index].number + item.number;
       this.arrFood[index].priceTotal += item.number * item.price;
-      this.arrFood[index].note += item.note != "" ? " -" + item.note: "";
+      this.arrFood[index].note += item.note != "" ? " -" + item.note : "";
     } else {
       this.arrFood.push(item);
       this.arrFood[this.arrFood.length - 1].priceTotal =
@@ -196,8 +220,7 @@ export class DetailBillComponent {
         }
         if (item.priceTotal == parseInt(data.price)) {
           item.priceTotal = data.number * item.price;
-        }
-        else {
+        } else {
           item.priceTotal = parseInt(data.price);
         }
         item.number = parseInt(data.number);
@@ -236,11 +259,10 @@ export class DetailBillComponent {
       title: "VAT",
       inputs: [
         {
-          name: 'vat',
-          type: 'radio',
-          label: '0%',
-          value: '0'
-
+          name: "vat",
+          type: "radio",
+          label: "0%",
+          value: "0"
         },
         {
           name: "vat",
@@ -293,7 +315,7 @@ export class DetailBillComponent {
       this.pushToBill(idBillDetail);
 
       this.btnSaveHidden = true;
-    })
+    });
   }
 
   pushToBill(id_bill_detail) {
@@ -310,12 +332,14 @@ export class DetailBillComponent {
       note: this.note != null ? this.note : ""
     };
     this.events.publish("infoABill", data);
-    this.pushmenuservice.pushListBill(data).then(res => { this.navCtrl.pop({ animate: false }); });
+    this.pushmenuservice.pushListBill(data).then(res => {
+      this.navCtrl.pop({ animate: false });
+    });
   }
 
   printBill() {
     this.printer.isAvailable().then(
-      function () {
+      function() {
         let options: PrintOptions = {
           name: "MyDocument",
 
@@ -324,17 +348,24 @@ export class DetailBillComponent {
           grayscale: true
         };
         this.printer.print("demo", options).then(
-          function () {
+          function() {
             alert("printing done successfully !");
           },
-          function () {
+          function() {
             alert("Error while printing !");
           }
         );
       },
-      function () {
+      function() {
         alert("Error : printing is unavailable on your device ");
       }
     );
+  }
+  payBill() {
+    console.log(this.updateData);
+
+    this.updatemenuservice.updateMenu(this.id, this.updateData).then(res => {
+      this.navCtrl.pop({ animate: false });
+    });
   }
 }

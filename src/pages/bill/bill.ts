@@ -8,7 +8,6 @@ import { ListBill } from "../../model/ListBill";
 import { BillDetail } from "../../model/BillDetails";
 import { Table } from "../../model/Table";
 
-
 @Component({
   selector: "page-bill",
   templateUrl: "bill.html"
@@ -26,15 +25,18 @@ export class BillPage {
     private getMenuService: GetMenuService,
     private events: Events
   ) {
-    this.idArea = this.navParams.get("id");
+    this.idArea = this.navParams.get("id"); // get id from AreaPage, TogoPage to active Listbill
+
     this.getData();
     events.subscribe("listbill_infoABill", data => {
+      // get data from listbill
+
       this.sendInfoBill(data);
-    })
+    });
   }
 
   getData() {
-    // get list area
+    // get list area to show Area's name on header Segment
     this.getMenuService.getCollection("area").then(snapshot => {
       let data = snapshot.docs;
       for (let i = 0; i < data.length; i++) {
@@ -44,7 +46,7 @@ export class BillPage {
       this.header = this.navParams.get("id");
     });
 
-    // get list bill
+    // get list bill to publish to DetailBill
     this.getMenuService.getListBill("bill").then(snapshot => {
       let data = snapshot.docs;
       for (let i = 0; i < data.length; i++) {
@@ -56,6 +58,7 @@ export class BillPage {
   }
 
   getTableByIdArea(id_area) {
+    // get id_area
     let listTable: Array<Table> = [];
 
     if (id_area == "id_gohome") {
@@ -65,14 +68,12 @@ export class BillPage {
         name: "",
         status: false,
         type: 0
-      }
+      };
+
       listTable.push(table);
-      this.findBillByIdTable(listTable);
-    }
-
-    else {
+      this.findBillByIdTable(listTable); // get listtable
+    } else {
       this.getMenuService.getTableByIdArea(id_area).then(snapshot => {
-
         this.listBillFilter = new Array();
         // get mảng table của khu vực có ia_area
         let data = snapshot.docs;
@@ -82,17 +83,20 @@ export class BillPage {
         }
         this.findBillByIdTable(listTable);
       });
-
-
     }
+
+    console.log("show", listTable);
+    this.events.publish("ListBill", listTable);
   }
 
   findBillByIdTable(listTable) {
     // get các bill có trong khu vực
     for (let index in listTable) {
-      let arr = this.listBill.filter(listBill => listBill.id_table == listTable[index].id);
+      let arr = this.listBill.filter(
+        listBill => listBill.id_table == listTable[index].id
+      );
       for (let i in arr) {
-        this.listBillFilter.push(arr[i])
+        this.listBillFilter.push(arr[i]);
       }
     }
     this.events.publish("ListBill", this.listBillFilter);
@@ -103,7 +107,8 @@ export class BillPage {
   }
 
   setDataBillFilter(id_area) {
-    this.header = this.idArea = id_area;
+    console.log(id_area);
+    this.header = id_area;
     this.getTableByIdArea(id_area);
   }
 
@@ -111,9 +116,10 @@ export class BillPage {
     let nameArea: string;
     if (this.idArea == "id_gohome") {
       nameArea = "Mang về";
-    }
-    else {
-      let index = this.areaName.findIndex(areaName => areaName.id == this.idArea)
+    } else {
+      let index = this.areaName.findIndex(
+        areaName => areaName.id == this.idArea
+      );
       nameArea = this.areaName[index].name;
     }
 

@@ -1,4 +1,4 @@
-import { ListBill } from './../../model/ListBill';
+import { ListBill } from "./../../model/ListBill";
 import { Component } from "@angular/core";
 import {
   Events,
@@ -25,15 +25,15 @@ export class HomeBillComponent {
     this.getDataBill();
   }
 
-  getDataBill(){
-    this.events.subscribe("ListBillGoHome", data =>{
+  getDataBill() {
+    this.events.subscribe("ListBillGoHome", data => {
       this.arrBill = data;
-    })
+    });
   }
 
   updateBill(item) {
     console.log(item);
     this.events.publish("updateBill", item);
-    this.navCtrl.push(OrderPage);
+    this.navCtrl.push(OrderPage, { data: item });
   }
 }
