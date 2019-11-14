@@ -36,7 +36,7 @@ export class AreaPage {
     public alertCtrl: AlertController,
     private getMenuService: GetMenuService,
     public events: Events
-  ) { }
+  ) {}
 
   ionViewWillEnter() {
     this.getData();
@@ -52,17 +52,16 @@ export class AreaPage {
       }
     });
 
-    this.getMenuService
-      .getBillByIdTable("id_gohome")
-      .then(snapshot => {
-        let data = snapshot.docs;
-        this.arrBill = new Array();
-        for (let i = 0; i < data.length; i++) {
-          this.arrBill.push(data[i].data());
-          this.arrBill[i].id = data[i].id;
-        }
-        this.events.publish("ListBillGoHome", this.arrBill);
-      });
+    this.getMenuService.getBillByIdTable("id_gohome").then(snapshot => {
+      let data = snapshot.docs;
+      this.arrBill = new Array();
+      for (let i = 0; i < data.length; i++) {
+        this.arrBill.push(data[i].data());
+        this.arrBill[i].id = data[i].id;
+      }
+      console.log(this.arrBill);
+      this.events.publish("ListBillGoHome", this.arrBill);
+    });
   }
 
   ionViewDidLoad() {
@@ -98,7 +97,7 @@ export class AreaPage {
         this.navCtrl.push(
           OrderPage,
           {
-            data: info,
+            data: info
           },
           { animate: false }
         );

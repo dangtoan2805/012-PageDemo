@@ -27,6 +27,35 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+$alert-min-width: 400px;
+
+$alert-button-font-size: 18px;
+
+////android
+.alert-md .alert-head {
+  color: white;
+  background-color: #35be1b;
+
+  text-align: center;
+  padding: 24px 24px 20px;
+}
+$alert-md-border-radius: 10px;
+$alert-md-head-text-align: center;
+
+$alert-md-button-text-color: #35be1b;
+
+$alert-md-input-border-color-focused: #35be1b;
+/// ios
+.alert-ios .alert-head {
+  color: white;
+  background-color: #35be1b;
+
+  text-align: center;
+}
+$alert-ios-border-radius: 10px;
+
+$alert-ios-button-text-color: #35be1b;
+
 $colors: (
   primary: #488aff,
   secondary: #32db64,

@@ -2,7 +2,12 @@
   <ion-row>
     <ion-col class="containerH" col-3 *ngFor="let item of arrBill">
       <div class="boxt">
-        <div class="box0">
+        <div
+          class="box0"
+          [style.background-color]="
+        item.status == true ? ' green ' : ' orange '
+      "
+        >
           <ion-icon name="person"> KH : {{ item.name }} </ion-icon>
         </div>
         <div class="box1">
@@ -11,15 +16,10 @@
           </ion-row>
         </div>
         <div class="box2">
-          <button ion-button outline color="danger" (click)="gotoBill(item)">
+          <button ion-button outline color="danger" (click)="updateBill(item)">
             Hoa Don
           </button>
-          <button
-            ion-button
-            outline
-            color="secondary"
-            (click)="updateBill(item)"
-          >
+          <button ion-button outline color="secondary">
             Chinh Sua
           </button>
         </div>

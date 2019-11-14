@@ -8,16 +8,17 @@ import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { Printer } from "@ionic-native/printer";
 
 import { MyApp } from "./app.component";
-/// page=================
+/// page =================
 import { OrderPage } from "../pages/order/order";
 import { AreaPage } from "../pages/area/area";
 import { BillPage } from "../pages/bill/bill";
 import { ToGoPage } from "../pages/to-go/to-go";
-/// component===============
+/// component ===============
 import { ComponentsModule } from "../components/components.module";
 /// service
 import { GetMenuService } from "./../pages/services/getmenu.service";
 import { PushMenuService } from "./../pages/services/pushmenu.service";
+import { UpdateMenuService } from "./../pages/services/updatemenu.service";
 
 @NgModule({
   declarations: [MyApp, AreaPage, BillPage, OrderPage, ToGoPage],
@@ -35,6 +36,7 @@ import { PushMenuService } from "./../pages/services/pushmenu.service";
     GetMenuService,
     PushMenuService,
     Printer,
+    UpdateMenuService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
