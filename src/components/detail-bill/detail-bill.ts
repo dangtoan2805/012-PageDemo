@@ -63,7 +63,7 @@ export class DetailBillComponent {
       this.getmenuservice
         .getCollectionById("bill_detail", res.id_bill_detail)
         .then(snapshot => {
-          console.log(snapshot.id);
+          console.log(snapshot.data(), snapshot.id);
 
           let dataFood: Array<any> = [];
           let data = snapshot.data();

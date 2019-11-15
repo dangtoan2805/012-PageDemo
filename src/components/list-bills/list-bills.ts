@@ -10,12 +10,12 @@ import { ListBill } from "../../model/ListBill";
 })
 export class ListBillsComponent {
   @Input() listBill: Array<ListBill> = [];
-
+  //listBill: Array<ListBill> = [];
   constructor(private events: Events) {
     this.events.subscribe("ListBill", data => {
       // get listbill from BillPage to actice
-      this.listBill = data;
-      console.log(this.listBill);
+      // this.listBill = data;
+      // console.log(this.listBill);
     });
   }
 

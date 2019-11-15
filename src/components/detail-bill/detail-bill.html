@@ -13,24 +13,22 @@
           <ion-card-content>
             <ion-row class="card-row">
               <ion-col col-2 id="col-icon-updown">
-                <div>
+                <ion-card>
                   <ion-icon
                     id="btn-up"
-                    ios="ios-arrow-up-outline"
-                    md="md-arrow-dropup"
+                    ios="ios-add-circle"
+                    md="md-add"
                     (click)="up(item)"
                   ></ion-icon>
-                  <p id="amount">
-                    <b>{{ item.number }}</b>
+                  <p>
+                    {{ item.number }}
                   </p>
                   <ion-icon
                     id="btn-down"
-                    ios="ios-arrow-down-outline"
-                    md="md-arrow-dropdown"
                     name="remove"
                     (click)="down(item)"
                   ></ion-icon>
-                </div>
+                </ion-card>
               </ion-col>
               <ion-col col-6 class="center-content" (click)="updateMenu(item)">
                 <h2>
