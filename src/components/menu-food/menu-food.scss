@@ -7,25 +7,27 @@ menu-food {
     min-width: 14vw !important;
     min-height: 18vh !important;
     border: 1px solid;
-    border-color: #313130;
     border-radius: 3px;
+    border-color: #313130;
     .card-title {
       position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      text-align: center;
       top: 70%;
       width: 100%;
-      background-color: rgba(53, 190, 27, 0.75);
+      background-color: rgba(192, 192, 192, 0.75);
       height: 30%;
       h2 {
         font-size: 100%;
         text-align: center;
         word-break: hyphenate;
-        font-weight: bolder;
-        color: white;
+       
+        color: black;
         margin-top: 2% !important;
+        font-style: inherit;
+        font-weight: bolder;
       }
     }
     .img {

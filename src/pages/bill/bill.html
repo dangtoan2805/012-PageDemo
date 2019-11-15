@@ -5,7 +5,10 @@
         <ion-icon name="close" color="myapp"></ion-icon>
       </a>
     </ion-buttons>
-    <ion-segment-button value="id_gohome" (click)="setDataBillFilter('id_gohome')">
+    <ion-segment-button
+      value="id_gohome"
+      (click)="setDataBillFilter('id_gohome')"
+    >
       Mang Về
     </ion-segment-button>
     <ion-segment-button
@@ -21,10 +24,10 @@
 <ion-content padding class="content">
   <ion-row class="bill">
     <div class="bill-area">
-      <list-bills [listBill] = "defaultListBill" ></list-bills>
+      <list-bills [listBill]="listBillFilter"></list-bills>
     </div>
     <div class="bill-details">
-      <detail-bill [nameArea] = ""></detail-bill>
+      <detail-bill [nameArea]=""></detail-bill>
     </div>
   </ion-row>
 </ion-content>
