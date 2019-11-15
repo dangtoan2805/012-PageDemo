@@ -18,6 +18,7 @@ export class BillPage {
   areaName: Array<Area> = [];
   listBill: Array<ListBill> = [];
   listBillFilter: Array<ListBill> = [];
+  dataArea;
 
   constructor(
     public navCtrl: NavController,
@@ -29,7 +30,6 @@ export class BillPage {
     this.getData();
     events.subscribe("listbill_infoABill", data => {
       // get data from listbill
-
       this.sendInfoBill(data);
     });
   }
@@ -44,7 +44,6 @@ export class BillPage {
       }
       this.header = this.navParams.get("id");
     });
-    console.log("checkpoint");
 
     // get list bill to publish to DetailBill
     this.getMenuService.getListBill("bill").then(snapshot => {
@@ -53,13 +52,14 @@ export class BillPage {
         this.listBill.push(data[i].data());
         this.listBill[i].id = data[i].id;
       }
-      console.log("check point");
+
       this.setDataBillFilter(this.idArea);
     });
   }
 
   getTableByIdArea(id_area) {
     // get id_area
+    console.log("id_area" + id_area);
     let listTable: Array<Table> = [];
 
     if (id_area == "id_gohome") {
@@ -86,7 +86,6 @@ export class BillPage {
         this.findBillByIdTable(listTable);
       });
     }
-
     console.log("show", listTable);
     this.events.publish("ListBill", listTable);
   }
@@ -101,7 +100,6 @@ export class BillPage {
         this.listBillFilter.push(arr[i]);
       }
     }
-    console.log("listBillFilter " + this.listBillFilter);
     this.events.publish("ListBill", this.listBillFilter);
   }
 
@@ -110,8 +108,7 @@ export class BillPage {
   }
 
   setDataBillFilter(id_area) {
-    console.log(id_area);
-    this.header = id_area;
+    this.header = this.idArea = id_area;
     this.getTableByIdArea(id_area);
   }
 
@@ -125,6 +122,7 @@ export class BillPage {
       );
       nameArea = this.areaName[index].name;
     }
+    console.log("name area" + nameArea+this.idArea);
     this.events.publish("bill_infoABill", data,nameArea);
   }
 }
