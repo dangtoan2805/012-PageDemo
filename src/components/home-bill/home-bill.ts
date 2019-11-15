@@ -32,8 +32,17 @@ export class HomeBillComponent {
   }
 
   updateBill(item) {
-    console.log(item);
-    this.events.publish("updateBill", item);
-    this.navCtrl.push(OrderPage, { data: item });
+    let info ={
+      id_bill: item.id,
+      nameArea: "Mang về",
+      name:item.name
+    }
+    this.navCtrl.push(
+      OrderPage,
+      {
+        info_id_bill : info
+      },
+      { animate: false }
+    );
   }
 }

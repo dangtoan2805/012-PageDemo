@@ -28,9 +28,7 @@ export class OrderPage {
     public alertCtrl: AlertController,
     public events: Events
   ) {
-    this.getNote();
     this.getData();
-
     this.getUpdateData();
     this.arrListFoodDefault = this.arrListFood.filter(
       arrListFood => arrListFood.id_menu == this.menuName[0].id
@@ -64,6 +62,38 @@ export class OrderPage {
     });
   }
 
+  ionViewDidLoad(){
+    // nhận info từ area gửi sang
+    // data: id_table, name, nameArea,note
+    let data = this.navParams.get("data");
+    if (data != null) {
+      this.name = data.name;
+      this.note = data.note;
+      this.nameArea = data.nameArea;
+      this.idTable = data.id_table;
+      this.events.publish("orderpage_info", data);
+    }
+
+    // nhận info từ list-table gửi sang
+    // data: id_table, name, nameArea,note
+    let data2 = this.navParams.get("data_from_list_table");
+    if (data2 != null) {
+      this.name = data2.name;
+      this.note = data2.note;
+      this.nameArea = data2.nameArea;
+      this.idTable = data2.id_table;
+      this.events.publish("orderpage_info_from_list_table", data2);
+    }
+
+    // nhận id_bill,nameArea từ list-table
+    let info = this.navParams.get("info_id_bill");
+    if(info != null){
+      this.events.publish("orderpage_id_bill_from_list_table", info);
+      this.nameArea = info.nameArea;
+      this.name = info.name;
+    }
+  }
+
   goBack() {
     let alert = this.alertCtrl.create({});
     alert.setTitle(`Hủy Thực Đơn !!!`);
@@ -81,17 +111,6 @@ export class OrderPage {
     alert.present();
   }
 
-  // nhận info từ list-table or go home gửi sang
-  // data: id_table, name, nameArea,note
-  getNote() {
-    let data = this.navParams.get("data");
-    this.name = data.name;
-    this.note = data.note;
-    this.nameArea = data.nameArea;
-    (this.idTable = data.id_table),
-      this.events.publish("orderpage_order", data);
-  }
-
   goToBill() {
     this.navCtrl.push(BillPage, {}, { animate: false });
   }
@@ -100,10 +119,7 @@ export class OrderPage {
     - Set giá trị menu
   */
   setMenuFood(id) {
-    this.events.publish(
-      "listFoodAMenu",
-      this.arrListFood.filter(arrListFood => arrListFood.id_menu == id)
-    );
+    this.arrListFoodDefault = this.arrListFood.filter(arrListFood => arrListFood.id_menu == id)
     this.menuNameSegment = id;
   }
   /// getUpdateData

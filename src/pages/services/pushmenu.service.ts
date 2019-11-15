@@ -12,6 +12,7 @@ export class PushMenuService {
   constructor() {
     this._DB = firebase.firestore();
   }
+  
   pushDetailBill(data) {
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB

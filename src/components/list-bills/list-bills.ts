@@ -21,7 +21,6 @@ export class ListBillsComponent {
 
   // item: info a bill
   viewDetailBill(item) {
-    console.log(item);
     this.events.publish("listbill_infoABill", item);
   }
 }

@@ -30,7 +30,9 @@ export class DetailBillComponent {
   btnSaveHidden: boolean = true; // set status button lưu
   btnTTHidden: boolean = true;
   updateData: any;
-  id;
+  id; infoTable;
+  idBill: string;
+  idBillDetail: string;
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
@@ -43,12 +45,8 @@ export class DetailBillComponent {
   ) {
     this.getEventData();
   }
+
   getEventData() {
-    this.events.subscribe("updateBill", update => {
-      console.log(update);
-      this.name = update.name;
-      this.note = update.note;
-    });
     // get 1 món ăn dc đặt
     // send to: MenuFoodComponent
     this.events.subscribe("menufood_infoAFood", data => {
@@ -57,7 +55,7 @@ export class DetailBillComponent {
 
     // get thông tin 1 bill
     // send to: ListBillsComponent
-    this.events.subscribe("bill_infoABill", res => {
+    this.events.subscribe("bill_infoABill", (res, nameArea) => {
       this.arrFood = new Array();
       // get detail_bill
       this.getmenuservice
@@ -82,11 +80,9 @@ export class DetailBillComponent {
           }
           this.updatePrice();
         });
+      this.nameArea = nameArea;
     });
 
-    this.events.subscribe("bill_name", res => {
-      this.nameArea = res;
-    });
     this.events.subscribe("listbill_infoABill", bill => {
       this.updateData = {
         id_table: bill.id_table,
@@ -102,6 +98,33 @@ export class DetailBillComponent {
 
       this.id = bill.id;
     });
+
+    // get info table
+    this.events.subscribe("orderpage_info", ref => {
+      this.infoTable = ref;
+    })
+
+    // get info table
+    this.events.subscribe("orderpage_info_from_list_table", ref => {
+      this.infoTable = ref;
+    })
+
+    // get id bill
+    this.events.subscribe("orderpage_id_bill_from_list_table", ref => {
+      this.getBill(ref.id_bill);
+      this.idBill = ref.id_bill;
+      this.nameArea = ref.nameArea;
+      this.btnSaveHidden = true;
+    })
+  }
+
+  ngOnDestroy() {
+    this.events.unsubscribe("orderpage_info");
+    this.events.unsubscribe("updateBill");
+    this.events.unsubscribe("menufood_infoAFood");
+    this.events.unsubscribe("bill_infoABill");
+    this.events.unsubscribe("listbill_infoABill");
+    this.events.unsubscribe("orderpage_info_from_list_table");
   }
 
   showBill(data) {
@@ -137,7 +160,9 @@ export class DetailBillComponent {
         item.price * item.number;
     }
     this.updatePrice();
-    this.btnSaveHidden = false;
+    if (this.idBill == null)
+      this.btnSaveHidden = false;
+
     this.btnTTHidden = false;
   }
 
@@ -308,14 +333,23 @@ export class DetailBillComponent {
       };
       arrFoodOrder.push(data);
     }
-
-    this.pushmenuservice.pushDetailBill(arrFoodOrder).then(res => {
-      let idBillDetail = res.id;
-      // save to bill
-      this.pushToBill(idBillDetail);
-
-      this.btnSaveHidden = true;
-    });
+    if (this.idBill == null) {
+      console.log("new detail bill");
+      this.pushmenuservice.pushDetailBill(arrFoodOrder).then(res => {
+        let idBillDetail = res.id;
+        // save to bill
+        this.pushToBill(idBillDetail);
+      });
+    }
+    // bill đã tồn tại
+    else {
+      this.updatemenuservice.updateBillDetailById("bill_detail", this.idBillDetail, arrFoodOrder).then(res => {
+        // save to bill
+        console.log("idBillDetail" + this.idBillDetail);
+        this.pushToBill(this.idBillDetail);
+      });
+    }
+    this.btnSaveHidden = true;
   }
 
   pushToBill(id_bill_detail) {
@@ -331,15 +365,26 @@ export class DetailBillComponent {
       status: false,
       note: this.note != null ? this.note : ""
     };
+
     this.events.publish("infoABill", data);
-    this.pushmenuservice.pushListBill(data).then(res => {
-      this.navCtrl.pop({ animate: false });
-    });
+
+    if (this.idBill == null) {
+      console.log("new bill");
+      this.pushmenuservice.pushListBill(data).then(res => {
+        this.navCtrl.pop({ animate: false });
+        this.updateTableStatus(res.id);
+      });
+    }
+    else {
+      this.updatemenuservice.updateCollectionById("bill", this.idBill, data).then(res => {
+        this.navCtrl.pop({ animate: false });
+      });
+    }
   }
 
   printBill() {
     this.printer.isAvailable().then(
-      function() {
+      function () {
         let options: PrintOptions = {
           name: "MyDocument",
 
@@ -348,24 +393,68 @@ export class DetailBillComponent {
           grayscale: true
         };
         this.printer.print("demo", options).then(
-          function() {
+          function () {
             alert("printing done successfully !");
           },
-          function() {
+          function () {
             alert("Error while printing !");
           }
         );
       },
-      function() {
+      function () {
         alert("Error : printing is unavailable on your device ");
       }
     );
   }
+
   payBill() {
     console.log(this.updateData);
 
     this.updatemenuservice.updateMenu(this.id, this.updateData).then(res => {
       this.navCtrl.pop({ animate: false });
     });
+  }
+
+  // set trang thai ban => false
+  updateTableStatus(id_bill) {
+    if (this.infoTable == null) return;
+    if (this.infoTable.id_area != "id_gohome") {
+      console.log(this.infoTable.id_area);
+      let data = {
+        id_area: this.infoTable.id_area,
+        name: this.infoTable.name,
+        status: false,
+        type: this.infoTable.type,
+        id_bill: id_bill
+      }
+      // set status table
+      this.updatemenuservice.updateCollectionById("table", this.idTable, data);
+    }
+  }
+
+  // get data bill by id from firebase
+  // input : id bill
+  getBill(id) {
+    console.log("id " + id);
+    this.getmenuservice.getCollectionById("bill", id).then(res => {
+      console.log(res.data());
+      let data = res.data();
+      this.getBillDetail(data.id_bill_detail);
+      this.name = data.name;
+      this.note = data.note;
+      this.idTable = data.id_table;
+    })
+  }
+
+  // get data bill detail by id from firebase
+  // input : id bill detail
+  getBillDetail(id) {
+    this.getmenuservice.getCollectionById('bill_detail', id).then(res => {
+      let infoBillDetail = res.data().dataFoods;
+      this.idBillDetail = res.id;
+      for (let i in infoBillDetail) {
+        this.showBill(infoBillDetail[i]);
+      }
+    })
   }
 }

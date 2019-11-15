@@ -45,6 +45,7 @@ export class BillPage {
       }
       this.header = this.navParams.get("id");
     });
+    console.log("checkpoint");
 
     // get list bill to publish to DetailBill
     this.getMenuService.getListBill("bill").then(snapshot => {
@@ -53,6 +54,7 @@ export class BillPage {
         this.listBill.push(data[i].data());
         this.listBill[i].id = data[i].id;
       }
+      console.log("check point");
       this.setDataBillFilter(this.idArea);
     });
   }
@@ -69,7 +71,7 @@ export class BillPage {
         status: false,
         type: 0
       };
-
+      this.listBillFilter = new Array();
       listTable.push(table);
       this.findBillByIdTable(listTable); // get listtable
     } else {
@@ -81,6 +83,7 @@ export class BillPage {
           listTable.push(data[i].data());
           listTable[i].id = data[i].id;
         }
+        console.log(listTable);
         this.findBillByIdTable(listTable);
       });
     }
@@ -99,6 +102,7 @@ export class BillPage {
         this.listBillFilter.push(arr[i]);
       }
     }
+    console.log("listBillFilter " + this.listBillFilter);
     this.events.publish("ListBill", this.listBillFilter);
   }
 
@@ -122,8 +126,6 @@ export class BillPage {
       );
       nameArea = this.areaName[index].name;
     }
-
-    this.events.publish("bill_infoABill", data);
-    this.events.publish("bill_name", nameArea);
+    this.events.publish("bill_infoABill", data,nameArea);
   }
 }

@@ -28,6 +28,22 @@ export class GetMenuService {
     });
   }
 
+  getCollectionTable(name) {
+    // name : ten collection
+    return new Promise<any>((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB
+        .collection(name)
+        .orderBy("name")
+        .get()
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
   getListBill(bill) {
     // name : ten collection
     return new Promise<any>((resolve, reject) => {
@@ -61,7 +77,8 @@ export class GetMenuService {
   getTableByIdArea(id){
     return new Promise<any>((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB
-        .collection("table").where("id_area","==",id)
+        .collection("table")
+        .where("id_area","==",id)
         .get()
         .then(snapshot => {
           resolve(snapshot);

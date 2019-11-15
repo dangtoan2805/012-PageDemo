@@ -36,7 +36,10 @@ export class AreaPage {
     public alertCtrl: AlertController,
     private getMenuService: GetMenuService,
     public events: Events
-  ) {}
+  ) {
+    //this.addData(this.arrListTable,"table");
+   
+  }
 
   ionViewWillEnter() {
     this.getData();
@@ -92,7 +95,8 @@ export class AreaPage {
           id_table: "id_gohome",
           name: data.name,
           nameArea: this.header,
-          note: data.note
+          note: data.note,
+          id_area: "id_gohome"
         };
         this.navCtrl.push(
           OrderPage,
@@ -119,7 +123,6 @@ export class AreaPage {
     );
     console.log(id);
   }
-
   /*
     - array test firebase add to firebase
   */

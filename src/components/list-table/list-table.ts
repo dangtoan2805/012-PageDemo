@@ -1,3 +1,4 @@
+import { GetMenuService } from './../../pages/services/getmenu.service';
 import { OrderPage } from "./../../pages/order/order";
 import { Table } from "./../../model/Table";
 import { Component, Input } from "@angular/core";
@@ -33,12 +34,14 @@ export class ListTableComponent {
   idTable: any;
   arrTable: Array<Table> = [];
   nameArea: any;
+
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
     private modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public events: Events
+    public events: Events,
+    public getMenuService: GetMenuService
   ) {
     events.subscribe("listTable", (name, ref) => {
       this.nameArea = name;
@@ -49,6 +52,11 @@ export class ListTableComponent {
     });
   }
 
+  ngOnDestroy(){
+    this.events.unsubscribe("listTable");
+    this.events.unsubscribe("infoABill");
+  }
+
   changeImgSrc(status: boolean, type: number) {
     if (status === true && type === 1) return this.imgUrl[0];
     if (status === false && type === 1) return this.imgUrl[1];
@@ -56,26 +64,36 @@ export class ListTableComponent {
     if (status === false && type === 2) return this.imgUrl[3];
   }
   gotoOrder(item) {
-    if (item.status === false) {
-      let alert = this.alertCtrl.create({});
-      alert.setTitle(`Thêm món ăn `);
-      alert.setSubTitle(item.name);
-
-      alert.addButton("Ok");
-
-      alert.present();
+    if (item.status == false) {
+      this.getMenuService.getCollectionById('table',item.id).then(res => {
+        let data = res.data();
+        let info ={
+          id_bill: data.id_bill,
+          nameArea: this.nameArea,
+          name:item.name
+        }
+        this.navCtrl.push(
+          OrderPage,
+          {
+            info_id_bill : info
+          },
+          { animate: false }
+        );
+      })
     } else {
       let data = {
         id_table: item.id,
         name: item.name,
         nameArea: this.nameArea != null ? this.nameArea : "",
-        note: "Bàn" + name
+        note: "Bàn" + name,
+        type: item.type,
+        id_area:item.id_area
       };
       
       this.navCtrl.push(
         OrderPage,
         {
-          data: data,
+          data_from_list_table: data,
         },
         { animate: false }
       );
@@ -86,7 +104,7 @@ export class ListTableComponent {
   changeStatusTable(bill) {
     for (var i = 0; i < this.arrTable.length; i++) {
       this.arrTable[i].status =
-        this.arrTable[i].name == bill.name
+        this.arrTable[i].name == bill.name &&  this.arrTable[i].status != false
           ? !this.arrTable[i].status
           : this.arrTable[i].status;
     }

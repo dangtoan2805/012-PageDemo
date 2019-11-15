@@ -26,4 +26,49 @@ export class UpdateMenuService {
         });
     });
   }
+
+  updateTableStatus(id,data){
+    return new Promise((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB.
+      collection('table')
+        .doc(id)
+        .set(data)
+        .then((obj: any) => {
+          resolve(obj);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  updateCollectionById(name,id,data){
+    return new Promise((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB.
+      collection(name)
+        .doc(id)
+        .set(data)
+        .then((obj: any) => {
+          resolve(obj);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  updateBillDetailById(name,id,data){
+    return new Promise((resolve, reject) => {
+      this.snapshotChangesSubscription = this._DB.
+      collection(name)
+        .doc(id)
+        .set({dataFoods:data})
+        .then((obj: any) => {
+          resolve(obj);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
 }

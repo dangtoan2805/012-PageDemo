@@ -24,9 +24,6 @@ export class MenuFoodComponent {
     public navParams: NavParams,
     public events: Events
   ) {
-    events.subscribe("listFoodAMenu", ref => {
-      this.menu = ref;
-    });
   }
 
   ionViewWillEnter() {}

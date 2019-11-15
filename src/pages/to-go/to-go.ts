@@ -35,7 +35,7 @@ export class ToGoPage {
   }
 
   getData() {
-    this.getMenuService.getCollection("table").then(snapshot => {
+    this.getMenuService.getCollectionTable("table").then(snapshot => {
       let data = snapshot.docs;
       for (let i = 0; i < data.length; i++) {
         this.listTable.push(data[i].data());
