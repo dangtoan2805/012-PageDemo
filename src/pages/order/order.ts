@@ -20,7 +20,7 @@ export class OrderPage {
   menuName: Array<MenuName> = [];
   arrListFood: Array<Food> = []; // mảng lưu các món ăn có trong menu
   arrListFoodDefault: Array<Food> = [];
-
+  idArea:string;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -71,6 +71,7 @@ export class OrderPage {
       this.note = data.note;
       this.nameArea = data.nameArea;
       this.idTable = data.id_table;
+      this.idArea = data.id_area;
       this.events.publish("orderpage_info", data);
     }
 
@@ -82,6 +83,7 @@ export class OrderPage {
       this.note = data2.note;
       this.nameArea = data2.nameArea;
       this.idTable = data2.id_table;
+      this.idArea = data2.id_area;
       this.events.publish("orderpage_info_from_list_table", data2);
     }
 
@@ -91,6 +93,7 @@ export class OrderPage {
       this.events.publish("orderpage_id_bill_from_list_table", info);
       this.nameArea = info.nameArea;
       this.name = info.name;
+      this.idArea = info.id_area;
     }
   }
 
@@ -112,7 +115,7 @@ export class OrderPage {
   }
 
   goToBill() {
-    this.navCtrl.push(BillPage, {}, { animate: false });
+    this.navCtrl.push(BillPage, {id:this.idArea}, { animate: false });
   }
 
   /* 

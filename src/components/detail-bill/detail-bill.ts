@@ -51,6 +51,7 @@ export class DetailBillComponent {
     // send to: MenuFoodComponent
     this.events.subscribe("menufood_infoAFood", data => {
       this.addToBill(data);
+      this.btnSaveHidden = false;
     });
 
     // get thông tin 1 bill
@@ -125,6 +126,7 @@ export class DetailBillComponent {
     this.events.unsubscribe("bill_infoABill");
     this.events.unsubscribe("listbill_infoABill");
     this.events.unsubscribe("orderpage_info_from_list_table");
+    this.events.unsubscribe("orderpage_id_bill_from_list_table");
   }
 
   showBill(data) {
@@ -135,17 +137,17 @@ export class DetailBillComponent {
         number: data.number,
         note: data.note,
         name: food.name,
-        price: data.price
+        price: food.price
       };
       this.addToBill(dataFood);
     });
   }
 
   addToBill(data) {
+    console.log("! mon" + data.price);
     // Tạo 1 bản sao để khi thay đổi giá trị food không thay đổi
     // item = {id,number,name,price,note}
     let item = Object.assign({}, data);
-
     // xét xem món này đã có trong bill hay chưa
     // có tăng số lượng món, không add mới(index = -1)
     let index = this.arrFood.findIndex(arrFood => arrFood.id == item.id);
@@ -160,9 +162,6 @@ export class DetailBillComponent {
         item.price * item.number;
     }
     this.updatePrice();
-    if (this.idBill == null)
-      this.btnSaveHidden = false;
-
     this.btnTTHidden = false;
   }
 
@@ -191,16 +190,19 @@ export class DetailBillComponent {
         if (this.arrFood.length < 1) {
           this.btnSaveHidden = true;
         }
+        this.btnSaveHidden = false;
       }
     });
-
+   
     alert.present();
   }
 
   up(item) {
+    console.log("price item", item.price);
     item.number++;
     item.priceTotal += item.price;
     this.updatePrice();
+    this.btnSaveHidden = false;
   }
 
   down(item) {
@@ -209,6 +211,7 @@ export class DetailBillComponent {
       item.priceTotal -= item.price;
       this.updatePrice();
     }
+    this.btnSaveHidden = false;
   }
 
   updateMenu(item) {
@@ -231,15 +234,15 @@ export class DetailBillComponent {
 
     alert.addInput({
       type: "textarea",
-      value: item.description,
-      name: "description"
+      value: item.note,
+      name: "note"
     });
 
     alert.addButton("Hủy");
     alert.addButton({
       text: "Ok",
       handler: data => {
-        item.description = data.description;
+        item.note = data.note;
         if (parseInt(data.number) < 1) {
           data.number = 1;
         }
@@ -252,6 +255,7 @@ export class DetailBillComponent {
         this.arrFood.push(item);
         this.arrFood = Array.from(new Set(this.arrFood));
         this.updatePrice();
+        this.btnSaveHidden = false;
       }
     });
     alert.present();
@@ -274,8 +278,9 @@ export class DetailBillComponent {
         this.phuPhi = parseInt(data.phuPhi);
         this.updatePrice();
       }
-    });
 
+    });
+    this.btnSaveHidden = false;
     alert.present();
   }
 
@@ -316,7 +321,7 @@ export class DetailBillComponent {
         this.updatePrice();
       }
     });
-
+    this.btnSaveHidden = false;
     alert.present();
   }
 
@@ -369,7 +374,6 @@ export class DetailBillComponent {
     this.events.publish("infoABill", data);
 
     if (this.idBill == null) {
-      console.log("new bill");
       this.pushmenuservice.pushListBill(data).then(res => {
         this.navCtrl.pop({ animate: false });
         this.updateTableStatus(res.id);
@@ -443,6 +447,9 @@ export class DetailBillComponent {
       this.name = data.name;
       this.note = data.note;
       this.idTable = data.id_table;
+      this.phuPhi = data.phu_phi;
+      this.vat = data.vat;
+      console.log(this.vat);
     })
   }
 

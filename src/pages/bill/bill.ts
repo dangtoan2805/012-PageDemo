@@ -26,7 +26,6 @@ export class BillPage {
     private events: Events
   ) {
     this.idArea = this.navParams.get("id"); // get id from AreaPage, TogoPage to active Listbill
-
     this.getData();
     events.subscribe("listbill_infoABill", data => {
       // get data from listbill

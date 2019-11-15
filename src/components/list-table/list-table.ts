@@ -70,7 +70,8 @@ export class ListTableComponent {
         let info ={
           id_bill: data.id_bill,
           nameArea: this.nameArea,
-          name:item.name
+          name:item.name,
+          id_area:item.id_area
         }
         this.navCtrl.push(
           OrderPage,
