@@ -29,7 +29,7 @@ export class DetailBillComponent {
   vat: number = 0;
   total: number = 0;
   btnSaveHidden: boolean = true; // set status button lưu
-  btnTTHidden: boolean = true;
+  btnTTHidden: boolean = false;
   updateData: any;
   id; infoTable = null;
   idBill: string;
@@ -163,7 +163,6 @@ export class DetailBillComponent {
         item.price * item.number;
     }
     this.updatePrice();
-    this.btnTTHidden = false;
   }
 
   updatePrice() {
@@ -457,6 +456,8 @@ export class DetailBillComponent {
       this.idTable = data.id_table;
       this.phuPhi = data.phu_phi;
       this.vat = data.vat;
+      this.btnTTHidden = data.status;
+      this.btnSaveHidden = data.status;
     })
   }
 
