@@ -99,7 +99,7 @@ export class OrderPage {
 
   goBack() {
     let alert = this.alertCtrl.create({});
-    alert.setTitle(`Hủy Thực Đơn !!!`);
+    alert.setTitle(`Thoát !!!`);
 
     alert.setSubTitle(this.name);
 

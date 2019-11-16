@@ -35,7 +35,8 @@ export class HomeBillComponent {
     let info ={
       id_bill: item.id,
       nameArea: "Mang về",
-      name:item.name
+      name:item.name,
+      id_table: item.id_table
     }
     this.navCtrl.push(
       OrderPage,

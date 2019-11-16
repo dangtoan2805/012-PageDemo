@@ -12,6 +12,7 @@ export class UpdateMenuService {
   constructor() {
     this._DB = firebase.firestore();
   }
+  
   updateMenu(id, value) {
     return new Promise((resolve, reject) => {
       this.snapshotChangesSubscription = this._DB

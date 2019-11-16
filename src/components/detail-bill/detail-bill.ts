@@ -12,6 +12,7 @@ import { Printer, PrintOptions } from "@ionic-native/printer";
 import { GetMenuService } from "../../pages/services/getmenu.service";
 import { PushMenuService } from "../../pages/services/pushmenu.service";
 import { UpdateMenuService } from "../../pages/services/updatemenu.service";
+import undefined from "firebase/empty-import";
 
 @Component({
   selector: "detail-bill",
@@ -30,7 +31,7 @@ export class DetailBillComponent {
   btnSaveHidden: boolean = true; // set status button lưu
   btnTTHidden: boolean = true;
   updateData: any;
-  id; infoTable;
+  id; infoTable = null;
   idBill: string;
   idBillDetail: string;
   constructor(
@@ -116,6 +117,7 @@ export class DetailBillComponent {
       this.idBill = ref.id_bill;
       this.nameArea = ref.nameArea;
       this.btnSaveHidden = true;
+      this.infoTable = ref;
     })
   }
 
@@ -144,7 +146,6 @@ export class DetailBillComponent {
   }
 
   addToBill(data) {
-    console.log("! mon" + data.price);
     // Tạo 1 bản sao để khi thay đổi giá trị food không thay đổi
     // item = {id,number,name,price,note}
     let item = Object.assign({}, data);
@@ -193,12 +194,11 @@ export class DetailBillComponent {
         this.btnSaveHidden = false;
       }
     });
-   
+
     alert.present();
   }
 
   up(item) {
-    console.log("price item", item.price);
     item.number++;
     item.priceTotal += item.price;
     this.updatePrice();
@@ -326,7 +326,7 @@ export class DetailBillComponent {
   }
 
   // Lưu thông tin bill
-  saveBill() {
+  saveBill(status_bill) {
     // save to bill_detail
     let arrFoodOrder: Array<any> = [];
     for (let i = 0; i < this.arrFood.length; i++) {
@@ -339,25 +339,23 @@ export class DetailBillComponent {
       arrFoodOrder.push(data);
     }
     if (this.idBill == null) {
-      console.log("new detail bill");
       this.pushmenuservice.pushDetailBill(arrFoodOrder).then(res => {
         let idBillDetail = res.id;
         // save to bill
-        this.pushToBill(idBillDetail);
+        this.pushToBill(idBillDetail, status_bill);
       });
     }
     // bill đã tồn tại
     else {
       this.updatemenuservice.updateBillDetailById("bill_detail", this.idBillDetail, arrFoodOrder).then(res => {
         // save to bill
-        console.log("idBillDetail" + this.idBillDetail);
-        this.pushToBill(this.idBillDetail);
+        this.pushToBill(this.idBillDetail, status_bill);
       });
     }
     this.btnSaveHidden = true;
   }
 
-  pushToBill(id_bill_detail) {
+  pushToBill(id_bill_detail, status) {
     let date = new Date();
     let data = {
       id_table: this.idTable,
@@ -367,20 +365,23 @@ export class DetailBillComponent {
       phu_phi: this.phuPhi,
       vat: this.vat,
       date: date,
-      status: false,
+      status: status,
       note: this.note != null ? this.note : ""
     };
 
-    this.events.publish("infoABill", data);
+    if (data.id_table != "id_gohome")
+      this.events.publish("infoABill", data);
 
     if (this.idBill == null) {
       this.pushmenuservice.pushListBill(data).then(res => {
         this.navCtrl.pop({ animate: false });
-        this.updateTableStatus(res.id);
+        this.updateTableStatus(res.id, status);
+        this.idBill = res.id;
       });
     }
     else {
       this.updatemenuservice.updateCollectionById("bill", this.idBill, data).then(res => {
+        this.updateTableStatus(this.idBill, status);
         this.navCtrl.pop({ animate: false });
       });
     }
@@ -412,25 +413,33 @@ export class DetailBillComponent {
   }
 
   payBill() {
-    console.log(this.updateData);
-
-    this.updatemenuservice.updateMenu(this.id, this.updateData).then(res => {
-      this.navCtrl.pop({ animate: false });
-    });
+    this.saveBill(true);
   }
 
-  // set trang thai ban => false
-  updateTableStatus(id_bill) {
-    if (this.infoTable == null) return;
-    if (this.infoTable.id_area != "id_gohome") {
-      console.log(this.infoTable.id_area);
-      let data = {
-        id_area: this.infoTable.id_area,
-        name: this.infoTable.name,
-        status: false,
-        type: this.infoTable.type,
-        id_bill: id_bill
+  // set trang thai ban khi order or update
+  updateTableStatus(id_bill, status) {
+    console.log("check point", this.infoTable);
+    if (this.infoTable.id_table == "id_gohome") return;
+    else if (this.infoTable.id_area != "id_gohome") {
+      let data;
+      if (status == false) {
+        data = {
+          id_area: this.infoTable.id_area,
+          name: this.infoTable.name,
+          status: status,
+          type: this.infoTable.type,
+          id_bill: id_bill
+        }
       }
+      else {
+        data = {
+          id_area: this.infoTable.id_area,
+          name: this.infoTable.name,
+          status: status,
+          type: this.infoTable.type,
+        }
+      }
+
       // set status table
       this.updatemenuservice.updateCollectionById("table", this.idTable, data);
     }
@@ -441,7 +450,6 @@ export class DetailBillComponent {
   getBill(id) {
     console.log("id " + id);
     this.getmenuservice.getCollectionById("bill", id).then(res => {
-      console.log(res.data());
       let data = res.data();
       this.getBillDetail(data.id_bill_detail);
       this.name = data.name;
@@ -449,7 +457,6 @@ export class DetailBillComponent {
       this.idTable = data.id_table;
       this.phuPhi = data.phu_phi;
       this.vat = data.vat;
-      console.log(this.vat);
     })
   }
 

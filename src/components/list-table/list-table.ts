@@ -71,7 +71,10 @@ export class ListTableComponent {
           id_bill: data.id_bill,
           nameArea: this.nameArea,
           name:item.name,
-          id_area:item.id_area
+          id_area:item.id_area,
+          type: item.type,
+          id_table: item.id,
+          note: "Bàn" + name
         }
         this.navCtrl.push(
           OrderPage,
@@ -103,11 +106,7 @@ export class ListTableComponent {
 
   // Thay đổi trạng thái sau khi lưu bill-detail
   changeStatusTable(bill) {
-    for (var i = 0; i < this.arrTable.length; i++) {
-      this.arrTable[i].status =
-        this.arrTable[i].name == bill.name &&  this.arrTable[i].status != false
-          ? !this.arrTable[i].status
-          : this.arrTable[i].status;
+      let index = this.arrTable.findIndex(arrTable => arrTable.name == bill.name);
+      this.arrTable[index].status = bill.status; 
     }
-  }
 }
